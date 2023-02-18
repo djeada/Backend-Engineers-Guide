@@ -24,9 +24,7 @@ Here are some recommended resources for learning more about backend engineering:
 * [The Twelve-Factor App](https://12factor.net/)
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+We welcome contributions to this guide! If you would like to contribute, please create a pull request. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
