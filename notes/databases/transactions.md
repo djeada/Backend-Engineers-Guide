@@ -1,19 +1,19 @@
-# Transactions in Databases
+## Transactions in Databases
 
-Transactions are a powerful abstraction used by databases to manage writes and ensure data consistency. Transactions allow writes to be committed or rolled back based on the success or failure of the operation. While transactions can be challenging to implement in distributed systems, they are relatively simple to use in a single database.
+Transactions help manage writes and ensure data consistency in databases. They allow writes to be committed or rolled back based on the operation's success or failure.
 
 ## ACID Properties
 
-Transactions in databases aim to provide the guarantees outlined by the ACID properties:
+Transactions in databases follow the ACID properties:
 
-- **Atomicity**: All writes within a transaction are treated as a single, atomic operation. If a fault occurs during the transaction, any completed writes will be rolled back.
-
-- **Consistency**: The database ensures that the data remains in a consistent state, even in the face of faults.
-
-- **Isolation**: Concurrently executing transactions are isolated from one another, meaning each transaction can pretend that it is the only one running on the database. However, most databases do not implement strict isolation due to performance penalties and instead use weak isolation levels.
-
-- **Durability**: Once a transaction is completed, the data will never be forgotten, even in the face of faults.
+- **Atomicity**: All writes within a transaction are a single, atomic operation. If a fault occurs, any completed writes are rolled back.
+- **Consistency**: The database ensures data remains consistent, even with faults.
+- **Isolation**: Concurrent transactions are isolated from one another. Most databases use weak isolation levels for better performance.
+- **Durability**: Once a transaction is completed, the data is permanent, even with faults.
 
 ## Single Object Writes
 
-In the case of single object writes, almost all database engines provide guarantees about atomicity and isolation to ensure that the data for an individual key does not become corrupted or mixed with previous values. Atomicity can be achieved by using a log for crash recovery and isolation can be implemented using a lock on each object.
+For single object writes, most database engines provide atomicity and isolation:
+
+- Atomicity can be achieved using a log for crash recovery.
+- Isolation can be implemented using a lock on each object.
