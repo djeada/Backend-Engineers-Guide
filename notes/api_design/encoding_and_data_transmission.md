@@ -1,23 +1,21 @@
-## Encoding and Data Transmission
+## Data Conversion and Sharing
 
-Encoding is the process of converting data objects into a format that can be transmitted over a network or stored in a file. It is important because it allows different machines and systems to communicate with each other by converting data into a common format.
+Encoding means changing data into a format that can be sent over a network or saved in a file. It's important because it lets different machines and systems talk to each other by changing data into a shared format.
 
-### Common Encodings
+### Popular Encodings
 
-* JSON (JavaScript Object Notation) and XML are the most widely used encodings for data transmission. They are popular because they are human-readable, easy to parse, and supported by many programming languages.
-* However, in some cases, using a custom binary encoding can be more efficient. Binary encodings can greatly reduce the amount of space used by encoding and speed up the transfer of data.
+* JSON (JavaScript Object Notation) and XML are common encodings for sending data. They're popular because they're easy to read, simple to understand, and work with many programming languages.
+* Sometimes, custom binary encoding is better. Binary encodings can save space and make data transfer faster.
 
 ### Custom Binary Encoding
 
-* Custom binary encodings are particularly useful when dealing with large amounts of proprietary data.
-* One of the main advantages of custom binary encodings is that they can be highly efficient in terms of space usage.
-* To achieve this efficiency, custom binary encodings often require a predefined schema for the data. This schema defines the structure of the data and the types of the fields.
-* Having a database of schemas can help keep track of forward and backward compatibility, and also allow for compile-time type checking in statically typed languages.
+* Custom binary encodings are helpful when you have lots of unique data.
+* One big advantage of custom binary encodings is they can use less space.
+* To get this efficiency, custom binary encodings often need a preset schema for the data. The schema explains the data structure and the types of fields.
+* Having a collection of schemas can help track compatibility and allow for checking data types during the programming process.
 
 ### Compatibility
 
-* When defining a schema, it is important to ensure that the applications using the schema are both forwards and backwards compatible.
-* To maintain backwards compatibility, if a new field is added to a schema, it cannot be made required (or it must have a default value).
-* This is important to ensure that older versions of the application can still parse and understand the data transmitted with the new schema.
-
-Encoding plays a crucial role in data transmission and storage. Choosing the right encoding and schema can greatly improve the efficiency and compatibility of your applications. JSON and XML are popular choices for encoding, but custom binary encodings can be more efficient in certain situations. When designing a schema, it is important to consider compatibility and ensure that your applications can handle both forwards and backwards compatibility.
+* When making a schema, make sure the applications using it can work with old and new versions.
+* To keep working with older versions, if you add a new field to a schema, it can't be required (or it needs a default value).
+* This is important so older versions of the application can still understand the data sent with the new schema.
