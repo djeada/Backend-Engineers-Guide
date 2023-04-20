@@ -1,43 +1,43 @@
-# Stateful vs Stateless
+## Stateful vs Stateless
 
-When building applications, it's important to consider whether they should be stateful or stateless. These terms refer to how an application manages its data.
+When making applications, think about if they should be stateful or stateless. These words are about how an application handles data.
 
 ## Stateful Applications
 
-Stateful applications are those that rely on the retention of previous interactions or events to determine how they respond to subsequent interactions. This means that these applications have a memory of past events and are able to use that information to make decisions.
+Stateful applications remember past events to respond to new interactions.
 
-### Advantages of Stateful Applications
+### Pros of Stateful Applications
 
-- Easy to program since they do not require extra information to understand the context of a request.
-- Able to retain complex states.
-- Capable of handling complex workflows.
+- Easier to program since they don't need extra info to understand a request.
+- Can hold onto complex states.
+- Good at handling complex workflows.
 
-### Disadvantages of Stateful Applications
+### Cons of Stateful Applications
 
-- Scaling can be difficult since a stateful application requires that all instances have the same information.
-- In the event of an error, stateful applications can be prone to crashes since the system is unable to recover the previous state.
+- Harder to scale since all instances need the same info.
+- Prone to crashes if there's an error because it can't recover the past state.
 
 ## Stateless Applications
 
-Stateless applications are those that do not rely on any memory of previous interactions or events to determine how they respond to subsequent interactions. This means that each request is treated as an independent transaction.
+Stateless applications don't remember past events when responding to new interactions. Each request is separate.
 
-### Advantages of Stateless Applications
+### Pros of Stateless Applications
 
-- Able to handle high traffic since each request is independent and does not require any previous context.
-- Easier to scale since each instance does not rely on the same information.
-- In the event of an error, stateless applications can recover more easily since there is no previous state to maintain.
+- Good at handling lots of traffic since each request is separate and doesn't need past context.
+- Easier to scale since instances don't rely on the same info.
+- Can recover from errors more easily since there's no past state to keep.
 
-### Disadvantages of Stateless Applications
+### Cons of Stateless Applications
 
-- Unable to retain complex states, which can be problematic for some workflows.
-- More difficult to program since each request must contain enough information to understand the context of a request.
+- Can't hold onto complex states, causing problems for some workflows.
+- Harder to program since each request needs enough info to understand its context.
 
-## Common Side Effects
+## Common Issues
 
-Regardless of whether an application is stateful or stateless, there are common side effects that should be considered. These include:
+Whether an app is stateful or stateless, watch out for these issues:
 
-- Network connections, which are required for most modern applications.
-- Filesystem manipulation, which is often required to store or retrieve data.
-- Database operations, which are essential for most applications.
+- Network connections, needed for most modern applications.
+- Changing the filesystem, often needed to save or get data.
+- Database tasks, important for most applications.
 
-When deciding whether an application should be stateful or stateless, it's important to consider the use case and the expected load. Stateless applications are generally better suited for high-traffic scenarios, while stateful applications are better suited for complex workflows that require the retention of previous context.
+When choosing between stateful or stateless, think about the use case and expected traffic. Stateless applications are better for high-traffic situations, while stateful applications are better for complex workflows that need to remember past context.
