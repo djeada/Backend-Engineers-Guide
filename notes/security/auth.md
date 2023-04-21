@@ -1,73 +1,59 @@
-# Making Sense of Auth
+## Understanding Auth
 
-Authentication and authorization, commonly known as "auth", are two critical security components in any web application. Authentication is the process of verifying that the user is who they claim to be, while authorization determines if the user is allowed to access the requested resources.
+Authentication and authorization, or "auth", are key security features in web applications. Authentication verifies user identity, while authorization controls access to resources.
 
-## Where Does Auth Happen?
+## Auth Process
 
-Authentication and authorization occur on the server-side, but the client-side also plays a vital role in making requests, which are authenticated and authorized.
+Auth occurs server-side, but client-side requests play a role in authentication and authorization.
 
-## How to Know What to Render in Frontend
+## Rendering in Frontend
 
-When a client makes a request, the server responds with the requested data. The response can include the user's authorization level or data that indicates whether the user is authenticated. The client then renders the appropriate view based on the data received.
+The server responds to client requests with data that includes user authentication and authorization information. The client renders views based on this data.
 
-## Auth Flow on the Frontend
+## Auth Flow on Frontend
 
-1. The user opens the page for the first time.
-2. The user signs in, and the server returns a secure cookie.
-3. The client stores the secure cookie.
-4. All future requests to the server will include the secure cookie.
+1. User opens page for the first time.
+2. User signs in, server sends secure cookie.
+3. Client stores secure cookie.
+4. Future requests include secure cookie.
 
-## Authorizing User Flow on the Server-side
+## Server-side User Authorization Flow
 
-1. The user makes a request for data.
-2. The server receives the request and parses the cookie from it.
-3. The server checks the user cookie to determine their identity.
-4. The server checks if the user is authorized to perform the requested action.
-5. The server returns the requested data if authorized, otherwise, it throws an error.
+1. User requests data.
+2. Server receives request, parses cookie.
+3. Server checks user cookie for identity.
+4. Server checks user's authorization for action.
+5. If authorized, server sends data; otherwise, returns error.
 
-## Best Practices for Authentication
+## Authentication Best Practices
 
-Here are some best practices for implementing authentication:
+* Use JWT or OAuth instead of Basic Auth.
+* Implement maximum retry and jail features to prevent brute-force attacks.
+* Encrypt sensitive data.
+* Use standard libraries and frameworks for token generation and password storage.
 
-* Use standard authentication, such as JWT or OAuth, instead of Basic Auth.
-* Use maximum retry and jail features to protect against brute-force attacks.
-* Use encryption on all sensitive data.
-* Do not reinvent the wheel when it comes to token generation and password storage. Use industry-standard libraries and frameworks.
+## JWT Best Practices
 
-## Best Practices for JWT
+* Use a random, complex JWT secret key.
+* Don't extract the algorithm from the header; enforce backend algorithm (HS256 or RS256).
+* Set short token expiration.
+* Avoid sensitive data in JWT payload.
+* Limit data in JWT to avoid exceeding header size limits.
 
-Here are some best practices for implementing JWT:
+## OAuth Best Practices
 
-* Use a random, complex key (JWT secret) to make brute-forcing the token more difficult.
-* Do not extract the algorithm from the header. Force the algorithm on the backend (HS256 or RS256).
-* Keep the token expiration as short as possible.
-* Do not store sensitive data in the JWT payload; it can be easily decoded.
-* Avoid storing too much data in the JWT as it is usually shared in headers, which have size limits.
+* Validate redirect URI server-side, allowing only whitelisted URLs.
+* Exchange for code, not tokens (avoid response_type=token).
+* Use a random hash state parameter to prevent CSRF attacks during OAuth authentication.
+* Define default scope and validate scope parameters for each application.
 
-## Best Practices for OAuth
+## Auth Story Example
 
-Here are some best practices for implementing OAuth:
+* Alice finds a task management website.
+* She logs in with OAuth authentication.
+* The website uses security measures like server-side redirect URI validation and random hash state parameters.
+* Once authenticated and authorized, Alice can manage her tasks.
+* The browser sends a secure JWT cookie to the server with each request.
+* The server uses a random, complex JWT secret key and enforces backend algorithms for added security.
+* Alice uses the website confidently, knowing her information is protected.
 
-* Always validate the redirect URI server-side to allow only whitelisted URLs.
-* Always try to exchange for code and not tokens (do not allow response_type=token).
-* Use a state parameter with a random hash to prevent CSRF attacks during the OAuth authentication process.
-* Define the default scope and validate the scope parameters for each application.
-
-## Story to Understand How It Works
-
-To help you better understand how auth works, here's a little story:
-
-* Alice stumbled upon a new website designed to help her manage her tasks.
-* As she navigated the site, she was asked to log in with her credentials to access her tasks.
-* Alice wondered what the "auth" thing was and why she needed it.
-* The website's server explained that they needed to verify her identity using a standard authentication method called OAuth.
-* Alice asked what would happen if someone else tried to log in with her information.
-* The server explained that they had implemented various security measures, like validating the redirect-uri server-side and using a state parameter with a random hash, to prevent unauthorized access to her account.
-* Alice felt relieved and proceeded to log in.
-* Once authenticated and authorized, Alice was able to see her tasks and manage them efficiently.
-* Alice noticed that her browser was sending a secure cookie to the server with each request and asked what it was for.
-* The server explained that they used a technique called JWT, which is a secure way to encode information in a token format.
-* The token was stored in a cookie, sent with each request to the server to verify that it was really Alice making the request and not someone else.
-* Alice was fascinated by this technology but worried that JWTs could be easily hacked.
-* The server explained that they used a random and complicated key called the JWT Secret to make it nearly impossible to hack, and verified the algorithm in the backend to prevent header extraction.
-* Alice continued to use the website with confidence, knowing that her information was safe and secure.
