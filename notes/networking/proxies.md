@@ -14,6 +14,40 @@ Proxy servers come in different types, each with its own unique attributes and a
 
 - **Reverse Proxies**: These proxies accept client requests, obtain the requested resources from one or more application servers, and return the results to the client as though they are their own. They also help offload tasks such as SSL encryption/decryption from backend servers, boosting application performance.
 
+A forward proxy serves clients and retrieves information from any number of sources (the internet). It acts on behalf of clients to request resources from servers on the internet:
+
+```
+    Clients        Forward Proxy         Internet
+--------       --------------       -----------------------
+|      |       |            |       | W1 | W2 | ... | Wn |
+|  C1  |<----->|            |<----->|----|----|     |----|
+|      |       |    FP      |       |    |    |     |    |
+|  C2  |<----->|            |       -----------------------
+|      |       |            |
+|  C3  |<----->|            |
+|      |       --------------
+-------- 
+```
+
+In the diagram, clients (C1, C2, C3) make requests to access resources (W1, W2, ..., Wn) on the internet. The forward proxy (FP) retrieves the resources on behalf of the clients and returns them.
+
+On the other hand, a reverse proxy does the opposite. It accepts requests from clients on behalf of servers in a private network:
+
+```
+    Clients        Reverse Proxy          Backend Servers
+--------       --------------       -----------------------
+|      |       |            |       | S1 | S2 | ... | Sn |
+|  C1  |<----->|            |<----->|----|----|     |----|
+|      |       |    RP      |       |    |    |     |    |
+|  C2  |<----->|            |       -----------------------
+|      |       |            |
+|  C3  |<----->|            |
+|      |       --------------
+-------- 
+```
+
+In this diagram, clients (C1, C2, C3) make requests to the reverse proxy (RP). The reverse proxy then forwards the requests to one of the backend servers (S1, S2, ..., Sn) in the private network. When the backend servers return responses, the reverse proxy forwards them back to the appropriate client.
+
 ### Additional Advantages of Proxies
 
 The employment of proxies within a network architecture provides various benefits beyond mere intermediary services:
