@@ -1,8 +1,8 @@
 # Backend Engineer's Guide
 
-This repository offers a comprehensive resource on backend engineering topics. Learn about API design, databases, deployment, distributed computing, networking, performance optimization, security, and more specialized subjects. Each topic has a Markdown file in the notes directory, providing detailed notes, explanations, and examples.
+This repository is a collection I've put together, focusing on various backend engineering topics. It's a place where you can find information on API design, databases, deployment, distributed computing, networking, performance optimization, security, and even more specialized areas. Each topic is broken down into a Markdown file, found in the notes directory. Here, I've tried my best to provide detailed notes, explanations, and examples.
 
-We continually update and expand our notes to ensure up-to-date, relevant information. Contributions are welcome!
+I try to keep these notes updated and expanded regularly, aiming to provide up-to-date, relevant information. Of course, if you have any contributions or suggestions, they're more than welcome. We're all learning together, after all.
 
 ## Getting Started
 
