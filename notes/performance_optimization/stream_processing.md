@@ -1,57 +1,54 @@
 ## Stream Processing
 
-Stream processing handles continuous data flow in real-time. Message brokers help manage message streams, providing fault tolerance and preventing message loss.
+Stream processing enables real-time computations on data moving through the system, ideal for applications that require prompt responses to constantly changing data.
 
 ### Message Brokers
-- Message brokers are databases designed for message streams.
-- They support clients connecting and disconnecting.
-- Provide durability and queue up messages when overloaded.
-- Messages are deleted from the queue once delivered.
 
-Two main messaging patterns:
-* Load balancing: each message goes to one consumer, sharing work.
-* Fan out: messages are sent to all consumers.
+Message brokers facilitate asynchronous communication between systems, working as intermediaries to store, route, and transmit messages:
 
-### Log Based Message Brokers
-- Messages are added to a log.
-- Consumers read logs sequentially, waiting for new messages.
-- Logs can be divided into queues or topics for specific message types.
-- Topics can be partitioned for fault tolerance and load balancing.
-- Messages get sequence numbers for ordering.
+- **Load balancing**: Distributes messages evenly among multiple consumers, maximizing throughput.
+- **Fan out**: Broadcasts each message to all consumers, useful for publish-subscribe models.
 
-### Change Data Capture
-- Treats a database as the leader to keep other data systems in sync.
-- Puts database changes into a log-based message broker.
-- Other data sources get updates from the broker.
+### Log-Based Message Brokers
+
+Log-based message brokers append incoming messages to a log:
+
+- Consumers process messages sequentially, maintaining order.
+- Topics (distinct message categories) can be partitioned across multiple logs for better scalability and fault tolerance.
+
+### Change Data Capture (CDC)
+
+CDC transforms changes in databases into a series of events, which can then be processed in a message broker:
+
+- Useful for keeping multiple data systems synchronized.
 
 ### Event Sourcing
-- Uses an append-only log of user events instead of a database.
-- Makes maintaining and debugging other schemas easier.
-- Requires asynchronous writes.
+
+Event sourcing captures changes to application state as a sequence of events:
+
+- Events are stored in an append-only log and replayed to derive the current state.
+- This approach offers excellent traceability and auditing capabilities.
 
 ### Streams and Time
-- Late events can be tricky to manage in a time window.
-- User and server clocks can be compared for accuracy.
-- Hopping windows, tumbling windows, and sliding windows handle event windows differently.
+
+In a distributed system, handling time is nontrivial due to factors like network latency and clock drift:
+
+- **Hopping windows**: Non-overlapping, fixed-size time windows.
+- **Sliding windows**: Overlapping time windows, capturing all events within a certain time range.
+- **Tumbling windows**: Non-overlapping, fixed-size time windows, similar to hopping windows, but without overlap.
 
 ### Stream Joins
-- Joining streams with other datasets is necessary.
 
-#### Stream-Stream Join
-- Both streams maintain state (usually within a time window).
-- Indexes on join keys help join related events.
-- Streams check indexes when events arrive.
+Joins correlate data from different streams or between streams and static data:
 
-#### Stream-Table Join
-- Requires a local copy of the database table.
-- Stream processor subscribes to database changes, updating the local copy.
-
-#### Table-Table Join
-- Change data capture keeps tables updated for each stream.
-- Joins may be nondeterministic; unique IDs can help but need more storage.
+- **Stream-Stream Join**: Requires maintaining state in both streams and joining events as they arrive.
+- **Stream-Table Join**: Involves joining a stream with a static table, requiring a local copy of the table.
+- **Table-Table Join**: Involves joining two tables, often using CDC to keep the tables up to date.
 
 ### Fault Tolerance
-- Micro batching and checkpointing help ensure each message is processed exactly once.
-- Checkpointing tracks consumer offset for each partition in case of crashes.
-- Atomic transactions and idempotence prevent external actions from occurring multiple times.
 
+Fault tolerance techniques ensure the system continues to operate correctly despite failures:
+
+- **Micro batching**: Breaks the stream into small, manageable batches to process.
+- **Checkpointing**: Records the progress at regular intervals to recover from a failure.
+- **Atomic transactions and idempotence**: Ensure operations are completed exactly once, preventing duplication of side effects.
