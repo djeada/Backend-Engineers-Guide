@@ -1,43 +1,88 @@
-## Stateful vs Stateless
+## Stateful vs Stateless Applications
 
-When making applications, think about if they should be stateful or stateless. These words are about how an application handles data.
+The terms stateful and stateless pertain to the architecture of an application, specifically regarding how it handles and stores data over time or across interactions.
 
 ## Stateful Applications
 
-Stateful applications remember past events to respond to new interactions.
+Stateful applications maintain a record of previous interactions or events that can affect the behaviour of future requests. This stored data, or "state", can be used to keep track of user interactions, transactions, configurations, etc.
 
 ### Pros of Stateful Applications
 
-- Easier to program since they don't need extra info to understand a request.
-- Can hold onto complex states.
-- Good at handling complex workflows.
+- They are often more intuitive to program, as stateful applications can leverage stored data to provide context to an incoming request.
+- Capable of managing complex states across various interactions, making them suitable for complex workflows.
+- The user experience is generally more cohesive, as the application can maintain context across multiple requests.
 
 ### Cons of Stateful Applications
 
-- Harder to scale since all instances need the same info.
-- Prone to crashes if there's an error because it can't recover the past state.
+- Scaling is challenging as every instance of the application needs to share and maintain the same state information.
+- If a crash occurs, the recovery can be difficult or impossible without the saved state, leading to potential data loss and inconsistent behaviour.
 
 ## Stateless Applications
 
-Stateless applications don't remember past events when responding to new interactions. Each request is separate.
+Stateless applications, in contrast, do not retain information from one request to another. Each request is processed independently of others.
 
 ### Pros of Stateless Applications
 
-- Good at handling lots of traffic since each request is separate and doesn't need past context.
-- Easier to scale since instances don't rely on the same info.
-- Can recover from errors more easily since there's no past state to keep.
+- Highly scalable as each request is handled independently. This makes it easy to distribute the load across multiple servers.
+- They can recover from failures more gracefully, as there's no dependency on previous states or sessions. If a server fails, a request can simply be redirected to another server.
+- Stateless applications are idempotent, meaning that making the same request multiple times will yield the same result.
 
 ### Cons of Stateless Applications
 
-- Can't hold onto complex states, causing problems for some workflows.
-- Harder to program since each request needs enough info to understand its context.
+- Managing complex workflows can be difficult as stateless applications cannot inherently maintain context across requests.
+- Coding can be more challenging since each request must carry all the information needed for its processing.
 
-## Common Issues
+## Common Issues and Considerations
 
-Whether an app is stateful or stateless, watch out for these issues:
+Regardless of whether an application is stateful or stateless, there are a few universal considerations:
 
-- Network connections, needed for most modern applications.
-- Changing the filesystem, often needed to save or get data.
-- Database tasks, important for most applications.
+- **Network connections**: Both stateful and stateless applications often rely on network connections for communication and data transfer.
+- **Filesystem changes**: Modifications to the filesystem are common in many applications for storing or retrieving data.
+- **Database tasks**: Most applications interact with databases to persist and fetch data.
 
-When choosing between stateful or stateless, think about the use case and expected traffic. Stateless applications are better for high-traffic situations, while stateful applications are better for complex workflows that need to remember past context.
+## Identifying Stateful vs Stateless Applications
+
+Consider the example of a simple web-based counter application with a button. Each time the button is clicked, a counter value increases by one, and the updated count is displayed on the webpage.
+
+### Stateless Application
+
+In a stateless application, the server doesn't keep track of the counter's state (its current value). Every time the button is clicked, the client (browser) sends the current count along with the request to increment it. The server increments the received value and sends it back. This process represents a stateless approach as the server doesn't retain any information about previous interactions.
+
+Here is a pseudo-code example for a stateless application:
+
+```javascript
+// Client-side
+let counter = 0;
+button.addEventListener("click", function() {
+    counter++;
+    sendToServer(counter);
+});
+
+// Server-side
+server.on("request", function(request) {
+    let newCount = request.counter + 1;
+    response.send(newCount);
+});
+```
+
+### Stateful Application
+
+In a stateful application, the server remembers the counter's state. Each time the button is clicked, the server, already aware of the current count, increments it and sends back the new value. This process represents a stateful approach as the server retains information about the current state of the counter between requests.
+
+Here is a pseudo-code example for a stateful application:
+
+```javascript
+// Client-side
+button.addEventListener("click", function() {
+    sendToServer();
+});
+
+// Server-side
+let counter = 0;
+server.on("request", function(request) {
+    counter++;
+    response.send(counter);
+});
+```
+
+In the first scenario, the server does not hold any data between requests and treats each request as an isolated transaction, making it a stateless application. In contrast, in the second scenario, the server maintains the counter's state across requests, making it a stateful application.
