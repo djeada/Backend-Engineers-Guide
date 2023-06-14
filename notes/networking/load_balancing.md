@@ -2,6 +2,17 @@
 
 Load balancing, a cornerstone in the architecture of distributed systems, ensures an equitable distribution of workloads across multiple servers or nodes. It aims to prevent single server overload and avert traffic routing to malfunctioning servers.
 
+```
+Client       Load         Servers
+--------    Balancer   ---------------
+|      |    |     |   | S1 | S2 | S3 |
+|  C   |<-->| LB  |<->|----|----|----|
+|      |    |     |   |    |    |    |
+--------    -------   ---------------
+```
+
+In a load-balanced setup, the client (C) sends requests to the Load Balancer (LB). The Load Balancer, using its specific algorithm, distributes the requests across multiple servers (S1, S2, S3) to balance the load and ensure that no single server is overwhelmed with traffic. It then collects the responses from the servers and returns them to the client.
+
 ### Significance of Load Balancing
 
 Deploying a load balancing mechanism is advantageous as it:
