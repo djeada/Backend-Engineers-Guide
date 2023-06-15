@@ -21,6 +21,7 @@ cd Backend-Engineers-Guide/notes
 | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
 | Encoding and Data Transmission | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/api_design/encoding_and_data_transmission.md) |
 | REST                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/api_design/rest.md)                   |
+| Stateful vs Stateless Applications | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/api_design/stateful_vs_stateless.md)                   |
 
 ### Databases
 
