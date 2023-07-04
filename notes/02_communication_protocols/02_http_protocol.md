@@ -1,14 +1,3 @@
-## REST
-REST APIs work with a basic request/response system. Clients use HTTP methods to ask for things, and servers reply with HTTP status codes.
-
-### REST API Rules
-
-RESTful APIs follow these rules:
-
-1. Client-server setup without third parties
-2. Responses can be stored in cache
-3. No state (client and server are separate)
-4. Consistent interface
 
 ### HTTP Headers
 
@@ -48,21 +37,3 @@ HTTP methods tell what action to take on a resource. Common methods:
 - `PATCH` - changes only needed parts of the response
 - `DELETE` - removes specified resources
 
-### API Call Caching
-
-Caching makes API calls faster. When clients ask for something, servers check if the response is cached. If so, the server sends the cached response, reducing data sent and speeding up the response.
-
-```
-   Client              Server
-      |                   |
- GET  | --------------->  |  Resource
-      |  <--------------- |  Representation
-      |                   |
-      |  Cache response   |
-      |  for some time    |
-      |                   |
-      |  Use cached       |
- GET  |  response         |
-      |  if allowed       |
-      |                   |
-```
