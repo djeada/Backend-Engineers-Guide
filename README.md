@@ -33,6 +33,23 @@ cd Backend-Engineers-Guide/notes
 | WebSockets | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/03_web_sockets.md)                   |
 | Real-time Communication Methods | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/04_real_time_communication_methods.md) |
 
+
+### Web Servers
+
+| Topic                         | Notes                                                                                                     |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Static and Dynamic Content                       | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_web_servers/01_static_dynamic_content.md)                   |
+| Apache Tomcat                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_web_servers/02_tomcat.md)                   |
+| Apache HTTP Server | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_web_servers/03_apache.md)                   |
+| Nginx | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_web_servers/04_nginx.md) |
+
+### Proxies and Load Balancing
+
+| Topic                         | Notes                                                                                                     |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Proxies in Network Architecture      | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_proxies_and_load_balancing/01_forward_reverse_proxies.md)                   |
+| Load Balancing in Distributed Systems                         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_proxies_and_load_balancing/02_load_balancing.md)                   |
+
 ### Databases
 
 | Topic                    | Notes                                                                                                 |
@@ -51,27 +68,6 @@ cd Backend-Engineers-Guide/notes
 | CentOS Digital Ocean     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/deployment/centos_digital_ocean.md) |
 | Static Python Website    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/deployment/static_python_website_netlify.md) |
 
-### Distributed Systems
-
-| Topic                    | Notes                                                                                     |
-| ------------------------ | ----------------------------------------------------------------------------------------- |
-| Concurrent Writes        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/concurrent_writes.md) |
-| Coordination Services    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/coordination_services.md) |
-| Gossip Protocol          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/gossip_protocol.md) |
-| Linearizability          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/linearizability.md) |
-| Message Brokers          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/message_brokers.md) |
-| Operational Transform    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/operational_transform.md) |
-
-### Networking
-
-| Topic                    | Notes                                                                                        |
-| ------------------------ | -------------------------------------------------------------------------------------------- |
-| Load and Performance Metrics | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/load_and_performance_metrics.md) |
-| Load Balancing           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/load_balancing.md) |
-| Proxies                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/proxies.md) |
-| Real-time Communication Methods | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/real_time_communication_methods.md) |
-| TCP and UDP              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/tcp_and_udp.md) |
-
 ### Performance Optimization
 
 | Topic                    | Notes                                                                                       |
@@ -85,6 +81,27 @@ cd Backend-Engineers-Guide/notes
 | Topic                    | Notes                                                                                   |
 | ------------------------ | --------------------------------------------------------------------------------------- |
 | Authentication           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/security/auth.md) |
+
+### Networking
+
+| Topic                    | Notes                                                                                        |
+| ------------------------ | -------------------------------------------------------------------------------------------- |
+| Load and Performance Metrics | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/load_and_performance_metrics.md) |
+| Load Balancing           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/load_balancing.md) |
+| Proxies                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/proxies.md) |
+| Real-time Communication Methods | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/real_time_communication_methods.md) |
+| TCP and UDP              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/tcp_and_udp.md) |
+
+### Distributed Systems
+
+| Topic                    | Notes                                                                                     |
+| ------------------------ | ----------------------------------------------------------------------------------------- |
+| Concurrent Writes        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/concurrent_writes.md) |
+| Coordination Services    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/coordination_services.md) |
+| Gossip Protocol          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/gossip_protocol.md) |
+| Linearizability          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/linearizability.md) |
+| Message Brokers          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/message_brokers.md) |
+| Operational Transform    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/operational_transform.md) |
 
 ## Refrences
 
