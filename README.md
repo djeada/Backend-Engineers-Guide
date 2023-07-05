@@ -19,9 +19,19 @@ cd Backend-Engineers-Guide/notes
 
 | Topic                         | Notes                                                                                                     |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Encoding and Data Transmission | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/api_design/encoding_and_data_transmission.md) |
-| REST                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/api_design/rest.md)                   |
-| Stateful vs Stateless Applications | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/api_design/stateful_vs_stateless.md)                   |
+| REST                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/01_rest_framework.md)                   |
+| GraphQL                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/02_graphql_framework.md)                   |
+| Stateful vs Stateless Applications | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/03_stateful_vs_stateless.md)                   |
+| Encoding and Data Transmission | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/04_encoding_and_data_transmission.md) |
+
+### Communication Protocols
+
+| Topic                         | Notes                                                                                                     |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| TCP vs UDP                        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/01_tcp_and_udp.md)                   |
+| HTTP Protocol                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/02_http_protocol.md)                   |
+| WebSockets | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/03_web_sockets.md)                   |
+| Real-time Communication Methods | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/04_real_time_communication_methods.md) |
 
 ### Databases
 
