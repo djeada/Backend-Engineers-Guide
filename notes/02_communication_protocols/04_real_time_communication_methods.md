@@ -16,6 +16,18 @@ Long Polling is a technique where the client sends a request to the server, and 
   - **Management of Timed-Out Requests**: Requests that time out have to be managed and retried manually, adding to the overhead.
   - **Latency Issues**: Network latency can impact the real-time nature of updates, leading to slight delays.
 
+```
+Client  ----Request--->  Server
+                |
+                |   (Server waits until there's data to send)
+                |
+Client  <---Response---  Server
+                |
+Client  ----Request--->  Server
+                |
+                . . .
+```
+
 ## WebSockets
 
 WebSockets enable a full-duplex communication channel between the client and server. Once the connection is established, data can be sent independently in either direction, paving the way for more interactive and responsive communication.
@@ -30,6 +42,16 @@ WebSockets enable a full-duplex communication channel between the client and ser
   - **Compatibility Issues**: WebSockets may not be fully supported across all web browsers or network infrastructures.
   - **Security Concerns**: As it bypasses the traditional HTTP request-response model, additional security considerations may be necessary to prevent data breaches.
 
+```
+Client  ----Establish Connection--->  Server
+                |
+Client  <---->  Server
+                |
+Client  <---->  Server
+                |
+                . . .
+```
+
 ## Server-Sent Events
 
 Server-Sent Events (SSE) are a standard that enables a server to push updates to a client whenever there's new data to be shared. The client maintains an open connection to the server to receive these updates continuously.
@@ -43,3 +65,13 @@ Server-Sent Events (SSE) are a standard that enables a server to push updates to
   - **One-Way Communication**: SSE only supports communication from server to client, limiting its use in applications that require bi-directional data flow.
   - **Browser Connection Limit**: SSE is limited by the number of open connections a browser can maintain, potentially restricting the number of concurrent client connections.
   - **Reconnection Logic Required**: Depending on network conditions, the TCP connection used by SSE might get closed, requiring a logic to handle automatic reconnections.
+    
+```
+Client  ----Establish Connection--->  Server
+                |
+Client  <---Data---  Server
+                |
+Client  <---Data---  Server
+                |
+                . . .
+```
