@@ -26,11 +26,11 @@ Apache Tomcat, often referred to as Tomcat, is a highly-regarded open-source web
 
 ## Tomcat vs Other Servers
 
-| Server     | Performance | Scalability | Ease of Use | Community Support |
-|------------|-------------|-------------|-------------|-------------------|
-| Tomcat     | High        | High        | Medium      | High              |
-| Jetty      | Medium      | High        | High        | Medium            |
-| Glassfish  | High        | High        | Low         | High              |
+| Server | Performance | Scalability | Ease of Use | Community Support |
+|--------|-------------|-------------|-------------|-------------------|
+| Apache | High, but may struggle with high concurrent connections | High, can be scaled horizontally and vertically | High, due to its comprehensive documentation and .htaccess file | Extensive, due to its long history and wide usage |
+| Nginx | Very high, especially under high loads and concurrent connections | Very high, built with high concurrency in mind | Moderate, configuration can be complex for beginners | Extensive, increasingly growing due to its rising popularity |
+| Tomcat | Moderate, excels in Java environment | High, when used for serving Java applications | Moderate, requires more specific knowledge (Java-based) | Moderate, mainly among Java developers |
 
 ## Best Practices for Tomcat Deployment
 - Ensuring regular updates and patches are applied to keep the server secure and efficient.
