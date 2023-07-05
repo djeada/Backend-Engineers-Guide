@@ -33,7 +33,6 @@ cd Backend-Engineers-Guide/notes
 | WebSockets | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/03_web_sockets.md)                   |
 | Real-time Communication Methods | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/04_real_time_communication_methods.md) |
 
-
 ### Web Servers
 
 | Topic                         | Notes                                                                                                     |
@@ -54,12 +53,32 @@ cd Backend-Engineers-Guide/notes
 
 | Topic                    | Notes                                                                                                 |
 | ------------------------ | ----------------------------------------------------------------------------------------------------- |
-| Data Warehousing         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/databases/data_warehousing.md) |
-| Indexes                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/databases/indexes.md) |
-| Isolation Levels         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/databases/isolation_levels.md) |
-| Replication              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/databases/replication.md) |
-| Transactions             | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/databases/transactions.md) |
-| Types of Databases       | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/databases/types_of_databases.md) |
+| Types of Databases       | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_databases/01_types_of_databases.md) |
+| Transactions             | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_databases/02_transactions.md) |
+| Indexes                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_databases/03_indexes.md) |
+| Isolation Levels         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_databases/04_isolation_levels.md) |
+| Data Warehousing         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_databases/05_data_warehousing.md) |
+| Replication              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_databases/06_replication.md) |
+
+### Caching
+
+| Topic                    | Notes                                                                                       |
+| ------------------------ | ------------------------------------------------------------------------------------------- |
+| Caching Strategies and Techniques         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_caching/01_caching_strategies_and_techniques.md) |
+
+### Data Processing
+
+| Topic                    | Notes                                                                                       |
+| ------------------------ | ------------------------------------------------------------------------------------------- |
+| Batch Processing         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />]() |
+| Caching                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />]() |
+| Stream Processing        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />]() |
+
+### Security
+
+| Topic                    | Notes                                                                                   |
+| ------------------------ | --------------------------------------------------------------------------------------- |
+| Authentication           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/security/auth.md) |
 
 ### Deployment
 
@@ -67,20 +86,6 @@ cd Backend-Engineers-Guide/notes
 | ------------------------ | ---------------------------------------------------------------------------------------------- |
 | CentOS Digital Ocean     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/deployment/centos_digital_ocean.md) |
 | Static Python Website    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/deployment/static_python_website_netlify.md) |
-
-### Performance Optimization
-
-| Topic                    | Notes                                                                                       |
-| ------------------------ | ------------------------------------------------------------------------------------------- |
-| Batch Processing         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/performance_optimization/batch_processing.md) |
-| Caching                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/performance_optimization/caching.md) |
-| Stream Processing        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/performance_optimization/stream_processing.md) |
-
-### Security
-
-| Topic                    | Notes                                                                                   |
-| ------------------------ | --------------------------------------------------------------------------------------- |
-| Authentication           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/security/auth.md) |
 
 ### Networking
 
