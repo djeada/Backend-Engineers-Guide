@@ -70,43 +70,49 @@ cd Backend-Engineers-Guide/notes
 
 | Topic                    | Notes                                                                                       |
 | ------------------------ | ------------------------------------------------------------------------------------------- |
-| Batch Processing         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />]() |
-| Caching                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />]() |
-| Stream Processing        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />]() |
+| Messaging System Integration         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_processing/01_messaging_system_integration.md) |
+| Message Brokers                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_processing/02_message_brokers.md) |
+| Batch Processing        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_processing/03_batch_processing.md) |
+| Stream Processing                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_processing/04_stream_processing.md) |
 
 ### Security
 
 | Topic                    | Notes                                                                                   |
 | ------------------------ | --------------------------------------------------------------------------------------- |
-| Authentication           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/security/auth.md) |
+| Xml           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_message_formats/01_xml.md) |
+| Protocol Buffer           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_message_formats/02_protocol_buffers.md) |
+| Json           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_message_formats/03_json.md) |
+
+### Security
+
+| Topic                    | Notes                                                                                   |
+| ------------------------ | --------------------------------------------------------------------------------------- |
+| Auth      | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_security/01_auth.md) |
+| Security Vulnerabilities in Backend           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_security/02_security_vulnerabilities.md) |
+| Security Best Practices and Measures           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_security/03_security_best_practices_and_measures.md) |
 
 ### Deployment
 
 | Topic                    | Notes                                                                                          |
 | ------------------------ | ---------------------------------------------------------------------------------------------- |
-| CentOS Digital Ocean     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/deployment/centos_digital_ocean.md) |
-| Static Python Website    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/deployment/static_python_website_netlify.md) |
+| CentOS Digital Ocean     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_deployment/01_centos_digital_ocean.md) |
+| Static Python Website    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_deployment/02_static_python_website_netlify.md) |
 
 ### Networking
 
 | Topic                    | Notes                                                                                        |
 | ------------------------ | -------------------------------------------------------------------------------------------- |
-| Load and Performance Metrics | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/load_and_performance_metrics.md) |
-| Load Balancing           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/load_balancing.md) |
-| Proxies                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/proxies.md) |
-| Real-time Communication Methods | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/real_time_communication_methods.md) |
-| TCP and UDP              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/networking/tcp_and_udp.md) |
+| Performance Metrics in System Design | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/11_networking/01_load_and_performance_metrics.md) |
 
 ### Distributed Systems
 
 | Topic                    | Notes                                                                                     |
 | ------------------------ | ----------------------------------------------------------------------------------------- |
-| Concurrent Writes        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/concurrent_writes.md) |
-| Coordination Services    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/coordination_services.md) |
-| Gossip Protocol          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/gossip_protocol.md) |
-| Linearizability          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/linearizability.md) |
-| Message Brokers          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/message_brokers.md) |
-| Operational Transform    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/distributed_systems/operational_transform.md) |
+| Coordination Services    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/12_distributed_systems/01_coordination_services.md) |
+| Gossip Protocol          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/12_distributed_systems/02_gossip_protocol.md) |
+| Linearizability          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/12_distributed_systems/03_linearizability.md) |
+| Concurrent Writes        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/12_distributed_systems/04_concurrent_writes.md) |
+| Operational Transform    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/12_distributed_systems/05_operational_transform.md) |
 
 ## Refrences
 
