@@ -25,8 +25,29 @@ Messaging system integration refers to the process of connecting disparate syste
 ## Types of Messaging Patterns
 
 1. **Point-to-Point**: A message is sent from a producer to a specific consumer.
+
+```
+Producer ---> Consumer
+```
+
 2. **Publish/Subscribe**: A message is sent to multiple consumers who are interested in (subscribed to) the message topic.
+
+```
+        --> Consumer 1
+       |
+Producer --> Consumer 2
+       |
+        --> Consumer 3
+```
+
 3. **Request/Reply**: The producer sends a request message and the consumer responds with a reply message.
+
+```
+Producer ---> Consumer
+    ^           |
+    |           v
+    <--- Reply ---
+```
 
 ## Popular Messaging Systems
 
