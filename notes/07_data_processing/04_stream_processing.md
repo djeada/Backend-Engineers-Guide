@@ -2,6 +2,29 @@
 
 Stream processing enables real-time computations on data moving through the system, ideal for applications that require prompt responses to constantly changing data.
 
+```
+         DATA STREAM
+          /  |  \
+         v   v   v
+---------------------------
+|   STREAM PROCESSING     |
+|                         |
+|  +---+   +---+   +---+  |
+|  |P1 |-->|P2 |-->|P3 |  |
+|  |   |   |   |   |   |  |
+|  +---+   +---+   +---+  |
+|                         |
+---------------------------
+          /  |  \
+         v   v   v
+       PROCESSED DATA
+```
+
+- Data Stream represents real-time data feeding into the system.
+- Stream Processing is the system or application that processes these data streams.
+- P1, P2, and P3 represent individual processing stages within the stream processing system. They process incoming data simultaneously or as it arrives, without waiting for the entire batch to be ready.
+- Processed Data represents the output data after the stream processing. It's generally available almost instantly after the data has been processed.
+
 ### Message Brokers
 
 Message brokers facilitate asynchronous communication between systems, working as intermediaries to store, route, and transmit messages:
