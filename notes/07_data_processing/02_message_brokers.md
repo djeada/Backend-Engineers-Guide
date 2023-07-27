@@ -1,6 +1,6 @@
 ## Message Brokers
 
-Message brokers are middleware that facilitate communication between distributed systems by handling message exchange, routing, and queuing.
+A message broker is a key component within a messaging system. It acts as an intermediary that translates a message from the sender's protocol to the receiver's protocol. This means that the sender and receiver can use different protocols and still communicate effectively.
 
 ## Why Use Message Brokers
 
