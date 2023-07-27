@@ -15,7 +15,8 @@ Note: while all message brokers are a part of messaging systems, not all messagi
 
 - Point-to-Point: Messages are sent from a single producer to a single consumer. The consumer acknowledges receipt of the message.
 - Publish-Subscribe: Producers publish messages to a topic, and multiple consumers can subscribe to receive messages from that topic.
-
+  
+```
       P1      P2      P3
        |       |       |
        v       v       v
@@ -27,7 +28,7 @@ Note: while all message brokers are a part of messaging systems, not all messagi
 |    v   v    |    v      v   |
 |   C1   C2   |    C3     C4  |
 -------------------------------
-
+```
 
 In this diagram:
 
