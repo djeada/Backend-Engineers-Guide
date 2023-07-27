@@ -44,6 +44,10 @@ Regardless of whether an application is stateful or stateless, there are a few u
 
 Consider the example of a simple web-based counter application with a button. Each time the button is clicked, a counter value increases by one, and the updated count is displayed on the webpage.
 
+## Identifying Stateful vs Stateless Applications
+
+Consider the example of a simple web-based counter application with a button. Each time the button is clicked, a counter value increases by one, and the updated count is displayed on the webpage.
+
 ### Stateless Application
 
 In a stateless application, the server doesn't keep track of the counter's state (its current value). Every time the button is clicked, the client (browser) sends the current count along with the request to increment it. The server increments the received value and sends it back. This process represents a stateless approach as the server doesn't retain any information about previous interactions.
@@ -52,22 +56,20 @@ Here is a pseudo-code example for a stateless application:
 
 ```javascript
 // Client-side
-let counter = 0;
 button.addEventListener("click", function() {
-    counter++;
     sendToServer(counter);
 });
 
 // Server-side
 server.on("request", function(request) {
-    let newCount = request.counter + 1;
-    response.send(newCount);
+    let newCount = request.body.counter + 1;
+    response.send({counter: newCount});
 });
 ```
 
 ### Stateful Application
 
-In a stateful application, the server remembers the counter's state. Each time the button is clicked, the server, already aware of the current count, increments it and sends back the new value. This process represents a stateful approach as the server retains information about the current state of the counter between requests.
+In a stateful application, the server remembers the counter's state. Each time the button is clicked, the client does not need to send the current count because the server, already aware of the current count, increments it and sends back the new value. This process represents a stateful approach as the server retains information about the current state of the counter between requests.
 
 Here is a pseudo-code example for a stateful application:
 
@@ -81,8 +83,8 @@ button.addEventListener("click", function() {
 let counter = 0;
 server.on("request", function(request) {
     counter++;
-    response.send(counter);
+    response.send({counter: counter});
 });
 ```
 
-In the first scenario, the server does not hold any data between requests and treats each request as an isolated transaction, making it a stateless application. In contrast, in the second scenario, the server maintains the counter's state across requests, making it a stateful application.
+In the first scenario, the server does not hold any data between requests and treats each request as an isolated transaction, making it a stateless application. In contrast, in the second scenario, the server maintains the counter's state across requests, making it a stateful application
