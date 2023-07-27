@@ -36,7 +36,6 @@ In this diagram:
 - C1, C2, C3, C4 are the consumers or subscribers.
 - Broker B is the message broker.
 - Inside the broker, Queue1 and Topic2 represent two different kinds of destinations for messages. A queue supports point-to-point messaging, while a topic supports publish-subscribe messaging.
-- The lines (| and v) represent the direction of message flow.
 
 ## Popular Message Brokers
 
