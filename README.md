@@ -21,8 +21,9 @@ cd Backend-Engineers-Guide/notes
 | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
 | REST                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/01_rest_framework.md)                   |
 | GraphQL                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/02_graphql_framework.md)                   |
-| Stateful vs Stateless Applications | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/03_stateful_vs_stateless.md)                   |
-| Encoding and Data Transmission | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/04_encoding_and_data_transmission.md) |
+| gRPC                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/03_grpc.md)                   |
+| Stateful vs Stateless Applications | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/04_stateful_vs_stateless.md)                   |
+| Encoding and Data Transmission | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/05_encoding_and_data_transmission.md) |
 
 ### Communication Protocols
 
@@ -79,17 +80,18 @@ cd Backend-Engineers-Guide/notes
 
 | Topic                    | Notes                                                                                   |
 | ------------------------ | --------------------------------------------------------------------------------------- |
-| Xml           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_message_formats/01_xml.md) |
+| XML          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_message_formats/01_xml.md) |
 | Protocol Buffer           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_message_formats/02_protocol_buffers.md) |
-| Json           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_message_formats/03_json.md) |
+| JSON           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_message_formats/03_json.md) |
 
 ### Security
 
 | Topic                    | Notes                                                                                   |
 | ------------------------ | --------------------------------------------------------------------------------------- |
 | Auth      | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_security/01_auth.md) |
-| Security Vulnerabilities in Backend           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_security/02_security_vulnerabilities.md) |
-| Security Best Practices and Measures           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_security/03_security_best_practices_and_measures.md) |
+| TLS      | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_security/02_tls.md) |
+| Security Vulnerabilities in Backend           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_security/03_security_vulnerabilities.md) |
+| Security Best Practices and Measures           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_security/04_security_best_practices_and_measures.md) |
 
 ### Deployment
 
