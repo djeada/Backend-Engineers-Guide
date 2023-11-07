@@ -2,6 +2,10 @@
 
 GraphQL is a query language for APIs and a runtime for executing those queries with your existing data. Unlike REST, which uses a predefined structure for responses, GraphQL allows the client to define the structure of the response data. 
 
+- Developed by Facebook for rapidly evolving frontends requiring various data views.
+- GraphQL offers a solution to the inefficiencies of creating new REST endpoints for each data retrieval requirement.
+- Designed to allow clients to request exactly what they need, potentially reducing overhead and optimizing performance.
+
 ## Basics of GraphQL
 
 - **Schema Definition Language (SDL)**: GraphQL has its own type system that’s used to define the schema of an API.
@@ -59,6 +63,11 @@ GraphQL is a query language for APIs and a runtime for executing those queries w
 - Fetching many resources in a single request.
 - Tailoring requests to your needs: Ask for what you need, get exactly that.
 - Powerful developer tools: Insightful and interactive exploratory interfaces.
+
+## Concerns and Considerations
+- GraphQL may abstract away some of the complexities and optimizations needed for backend data fetching, potentially leading to performance issues.
+- Simplification of queries and additional abstraction layers can make understanding and maintaining the system more complex.
+
 
 ## Comparison: GraphQL vs REST
 
