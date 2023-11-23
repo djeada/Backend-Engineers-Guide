@@ -6,6 +6,49 @@ GraphQL is a query language for APIs and a runtime for executing those queries w
 - GraphQL offers a solution to the inefficiencies of creating new REST endpoints for each data retrieval requirement.
 - Designed to allow clients to request exactly what they need, potentially reducing overhead and optimizing performance.
 
+```
++---------------------+                   +----------------------+
+|                     |                   |                      |
+|    GraphQL Client   |                   |    GraphQL Server    |
+|                     |                   |                      |
++---------------------+                   +----------------------+
+         ||                                        ||
+         || 1. Client sends a GraphQL              ||
+         ||    query/mutation request              ||
+         \/                                        \/
++---------------------+                   +----------------------+
+|                     |                   |                      |
+|  Prepare GraphQL    |                   |  Parse & Validate    |
+|  Query/Mutation     |-----------------> |  Query/Mutation      |
+|  (e.g., Fetch User  |                   |  Against Schema      |
+|   Details)          |                   |                      |
+|                     |                   |                      |
++---------------------+                   +----------------------+
+                                               ||
+                                               || 2. Server resolves
+                                               ||    request & retrieves
+                                               \/    data
++---------------------+                   +------------------------+
+|                     |                   |                        |
+|  Receive & Process  |                   |  Execute Resolvers to  |
+|  Response Data      | <-----------------|  Fetch Data            |
+|  (e.g., User Details|                   |  (Database, APIs, etc) |
+|   JSON)             |                   |                        |
+|                     |                   |                        |
++---------------------+                   +------------------------+
+         ||                                       
+         || 3. Client uses the                     
+         ||    received data                     
+         \/                                     
++---------------------+                   
+|                     |                   
+|  Display/Use Data   |                   
+|  (e.g., Render User |                   
+|   Profile)          |                   
+|                     |                   
++---------------------+                   
+```
+
 ## Basics of GraphQL
 
 - **Schema Definition Language (SDL)**: GraphQL has its own type system that’s used to define the schema of an API.
