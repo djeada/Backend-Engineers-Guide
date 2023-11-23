@@ -1,4 +1,4 @@
-# Understanding Authentication and Authorization (Auth) in Web Applications
+# Authentication and Authorization (Auth)
 Authentication is the process of verifying a user's identity, while authorization is the management of access rights to resources.
 
 ## Auth Process
