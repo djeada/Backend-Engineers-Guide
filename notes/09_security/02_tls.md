@@ -24,21 +24,29 @@ A TLS handshake happens whenever a user navigates to a website via HTTPS. This p
 7. **Secure Communication**: Secure communication begins, with data being encrypted and decrypted using the session keys.
 
 ```
-   Client                                 Server
-      |                                       |
-      | ----- ClientHello (with cipher)-----> |
-      | <--- ServerHello (chosen cipher) ---- |
-      | <---------- Server Certificate ------ |
-      | ---(optional) CertificateVerify ----> |
-      | -------- ClientKeyExchange ---------> |
-      | ---(optional) CertificateVerify ----> |
-      | ------- ChangeCipherSpec -----------> |
-      | -------- Finished ------------------> |
-      | <------ ChangeCipherSpec ------------ |
-      | <--------- Finished ----------------- |
-      | ----- Application Data Begins ------> |
-      | <---- Application Data Begins ------- |
-      |                                       |
+Client (Browser)                        Server (Website)
+    |                                       |
+    | ------- 1. ClientHello ----------->   |
+    |        (Initiate Connection)          |
+    |                                       |
+    | <------ 2. ServerHello ------------   |
+    |        (Server Certificate)           |
+    |                                       |
+    | ------- 3. Certificate Validation --  |
+    |        (Check Certificate Authority)  |
+    |                                       |
+    | ------- 4. Key Exchange ------------  |
+    |        (Generate Session Keys)        |
+    |                                       |
+    | <------ 5. Server Key Exchange -----  |
+    |        (Confirm Key Exchange)         |
+    |                                       |
+    | ------- 6. Encrypted Communication -- |
+    |        (Secure Data Transfer)         |
+    |                                       |
+    | <------ 7. Encrypted Data ----------  |
+    |        (Response from Server)         |
+    |                                       |
 ```
 
 ## TLS Certificates
