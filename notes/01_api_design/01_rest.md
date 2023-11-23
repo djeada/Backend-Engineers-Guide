@@ -2,6 +2,50 @@
 
 REST APIs adopt a request-response model where clients utilize HTTP methods to solicit information, and servers respond using HTTP status codes.
 
+```
++---------------------+                   +----------------------+
+|                     |                   |                      |
+|    REST Client      |                   |    RESTful API       |
+|  (e.g., Web Browser,|                   |    Server            |
+|   Mobile App)       |                   |                      |
++---------------------+                   +----------------------+
+         ||                                        ||
+         || 1. Client sends a HTTP                 ||
+         ||    request (GET, POST,                 ||
+         ||    PUT, DELETE)                        ||
+         \/                                        \/
++---------------------+                   +-----------------------+
+|                     |                   |                       |
+|  Prepare HTTP       |                   |  Process HTTP Request |
+|  Request with URL,  |-----------------> |  & Determine Response |
+|  Headers, and Body  |                   |  (Fetch, Create,      |
+|  (if applicable)    |                   |  Update, Delete Data) |
+|                     |                   |                       |
++---------------------+                   +-----------------------+
+                                               ||
+                                               || 2. Server processes
+                                               ||    the request and 
+                                               \/    prepares a response
++----------------------+                 +----------------------+
+|                      |                 |                      |
+|  Receive & Process   |                 |  Send HTTP Response  |
+|  HTTP Response       | <---------------|  with Status Code,   |
+|  (Data, Status Code) |                 |  Headers, and Body   |
+|                      |                 |  (if applicable)     |
++----------------------+                 +----------------------+
+         ||                                        
+         || 3. Client uses the                    
+         ||    received data                       
+         \/                                       
++----------------------+                   
+|                      |                   
+|  Display/Use Data    |                   
+|  (e.g., Render in UI |                   
+|   or Trigger Action) |                   
+|                      |                   
++----------------------+                   
+```
+
 ## Core Principles of REST
 
 REST operates on a set of guiding principles:
