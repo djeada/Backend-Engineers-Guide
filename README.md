@@ -19,8 +19,8 @@ cd Backend-Engineers-Guide/notes
 
 | Topic                         | Notes                                                                                                     |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| REST                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/01_rest_framework.md)                   |
-| GraphQL                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/02_graphql_framework.md)                   |
+| REST                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/01_rest.md)                   |
+| GraphQL                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/02_graphql.md)                   |
 | gRPC                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/03_grpc.md)                   |
 | Stateful vs Stateless Applications | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/04_stateful_vs_stateless.md)                   |
 | Encoding and Data Transmission | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/05_encoding_and_data_transmission.md) |
