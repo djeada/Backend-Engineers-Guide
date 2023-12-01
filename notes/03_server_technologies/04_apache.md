@@ -46,9 +46,8 @@ Apache, Nginx, and Tomcat each have their own strengths and weaknesses. For inst
 | Tomcat | Moderate, excels in Java environment | High, when used for serving Java applications | Moderate, requires more specific knowledge (Java-based) | Moderate, mainly among Java developers |
 
 ## Project
-# Project Notes: Integrating Flask App with Apache Server using Docker
 
-## Overview
+Integrating Flask App with Apache Server using Docker
 
 This project involves setting up an Apache server in a Docker container and integrating it with a Flask application. Apache serves as the primary web server, while the Flask app provides the application logic.
 
