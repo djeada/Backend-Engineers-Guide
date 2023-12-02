@@ -2,6 +2,27 @@
 
 Caching accelerates application execution by keeping frequently accessed or computationally expensive data closer to where it's needed. This involves trade-offs between memory use, stale data, and system complexity.
 
+```
+  +-------------+           +-------------+
+  |   Client    |           |   Server    |
+  |             |           |             |
+  |             |  Request  |             |
+  |             +---------->+             |
+  |             |           |             |
+  |             |<----------+             |
+  +------+------|           +------+------+ 
+         |Cache |           |  Data  |
+         |Miss  |           | Storage|
+         |      |           |        |
+         |      |           |        |
+  +------v------+           +------+------+ 
+  |   Cache     |           |             |
+  |(Fast Access)|<----------+             |
+  +-------------+  Cached   |             |
+                            |             |
+                            +-------------+
+```
+
 ### Types of Cache
 
 Caches appear at various levels in modern systems, serving different roles:
