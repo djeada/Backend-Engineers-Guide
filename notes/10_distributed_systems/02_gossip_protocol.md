@@ -2,6 +2,25 @@
 
 The Gossip Protocol is a technique in distributed systems for sharing information across a network of nodes, especially useful when nodes frequently join or leave the network.
 
+```
+   [Node 1]
+     /  \
+    /    \
+   /      \
+[Node 2] [Node 3]
+   \     /  |  \
+    \   /   |   \
+     \ /    |    \ 
+   [Node 4] |  [Node 5]
+            |
+         [Node 6]
+
+Legend:
+- Each [Node] represents a network participant.
+- The lines depict potential paths for gossip propagation.
+- The network structure is irregular, symbolizing the random nature of gossip communication.
+```
+
 ## How the Gossip Protocol Works
 
 - Each node periodically selects a random node and shares its state with it.
