@@ -2,6 +2,13 @@
 
 Coordination services help nodes in distributed systems synchronize their actions and maintain consistency.
 
+```
+[Node 1]----[Coordination Service]----[Node 2]
+            /         |        \
+           /          |         \
+      [Node 3]    [Node 4]    [Node 5]
+```
+
 ## Challenges in Distributed Systems
 
 Distributed systems are more complex than centralized systems due to:
