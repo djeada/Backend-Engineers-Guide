@@ -8,6 +8,38 @@ XML, or Extensible Markup Language, is a markup language used to encode document
 2. **Attributes**: Contain additional information about elements but are not considered part of the data contained in the elements.
 3. **Syntax**: XML syntax refers to the rules that govern the way an XML document is coded.
 
+## XML Syntax Rules
+
+1. **XML Declaration**: An XML document starts with an XML declaration which specifies the XML version.
+2. **Root Element**: Each XML document should have a root element that contains all other elements.
+3. **Tag Names**: XML tags are case sensitive and must start with a letter or underscore.
+4. **Closing Tags**: Every start tag in XML should have a matching end tag.
+5. **Attribute Values**: Attribute values must be surrounded by quotation marks.
+
+## Example
+
+Here's an example of an XML (eXtensible Markup Language) file:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<employee>
+  <name>John Doe</name>
+  <age>30</age>
+  <department>Engineering</department>
+  <address>
+    <street>1234 Main St</street>
+    <city>Anytown</city>
+    <state>CA</state>
+    <zipCode>12345</zipCode>
+  </address>
+  <skills>
+    <skill>Java</skill>
+    <skill>C#</skill>
+    <skill>Python</skill>
+  </skills>
+</employee>
+```
+
 ## Benefits of XML
 
 1. **Self-descriptive**: XML uses text strings rather than binary code, which makes it easy for humans to read and write.
@@ -20,18 +52,6 @@ XML, or Extensible Markup Language, is a markup language used to encode document
 - **Data Transport**: XML provides a hardware- and software-independent way of sharing data.
 - **Configuration Files**: Many software use XML files for configuration.
 - **RSS Feeds**: RSS feeds, which are used to syndicate content on the web, are typically written in XML.
-
-## XML Syntax Rules
-
-1. **XML Declaration**: An XML document starts with an XML declaration which specifies the XML version.
-2. **Root Element**: Each XML document should have a root element that contains all other elements.
-3. **Tag Names**: XML tags are case sensitive and must start with a letter or underscore.
-4. **Closing Tags**: Every start tag in XML should have a matching end tag.
-5. **Attribute Values**: Attribute values must be surrounded by quotation marks.
-
-## XML vs JSON
-
-While both XML and JSON are used for storing and exchanging data, JSON is often preferred for its simplicity and speed, particularly with web APIs. However, XML is still widely used in many legacy systems and for specific applications where its features are needed.
 
 ## Best Practices for XML
 
