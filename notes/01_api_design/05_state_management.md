@@ -2,6 +2,32 @@
 
 The terms stateful and stateless pertain to the architecture of an application, specifically regarding how it handles and stores data over time or across interactions.
 
+```
++-----------+            +-----------+
+|  Client A |            |  Client B |
++-----+-----+            +-----+-----+
+    |                        |
+    |   Request with         |   Request with
+    |   Session Info         |   Session Info
+    v                        v
++-----------------------------------------+
+|                API Server               |
+|-----------------------------------------|
+|  State Management (Session Tracking)    |
+|  - User Data                            |
+|  - Preferences                          |
+|  - Interaction History                  |
++-----------------------------------------+
+    ^                        ^
+    |    Response with       |   Response with
+    |    Updated State       |   Updated State
++-----+-----+            +-----+-----+
+|  Client C |            |  Client D |
++-----------+            +-----------+
+```
+
+This diagram emphasizes that the state is not just a single request-response interaction but a series of interactions where the API server tracks and updates the state across multiple requests.
+
 ## Stateful Applications
 
 Stateful applications maintain a record of previous interactions or events that can affect the behaviour of future requests. This stored data, or "state", can be used to keep track of user interactions, transactions, configurations, etc.
