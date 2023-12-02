@@ -3,21 +3,15 @@
 Stream processing enables real-time computations on data moving through the system, ideal for applications that require prompt responses to constantly changing data.
 
 ```
-         DATA STREAM
-          /  |  \
-         v   v   v
----------------------------
-|   STREAM PROCESSING     |
-|                         |
-|  +---+   +---+   +---+  |
-|  |P1 |-->|P2 |-->|P3 |  |
-|  |   |   |   |   |   |  |
-|  +---+   +---+   +---+  |
-|                         |
----------------------------
-          /  |  \
-         v   v   v
-       PROCESSED DATA
++---------------+    +----------------------------+    +--------------+
+|               |    |                            |    |              |
+| Data Sources  +--->+ Stream Processing          +--->+ Final Output |
+|               |    | (Real-time/Near-real-time) |    |              |
++---------------+    +----------------------------+    +--------------+
+      |                             |                          |
+      |                             |                          |
+      |_____________________________|__________________________|
+             Continuous Stream of Data
 ```
 
 - Data Stream represents real-time data feeding into the system.
