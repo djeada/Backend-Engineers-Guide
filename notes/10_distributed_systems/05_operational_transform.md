@@ -2,6 +2,23 @@
 
 Operational Transform is a technique in distributed systems for real-time collaborative editing of shared documents.
 
+```
+    [User 1]      [User 2]       [User 3]
+      | Edit       | Edit         | Edit
+      |            |              |
+      v            v              v
+    [OT Engine]--[OT Engine]--[OT Engine]
+      \            |            /
+       \           |           /
+        \          |          /
+         \         |         /
+          \        |        /
+       +----------------------------+
+       |      Shared Document       |
+       |  (Real-time Collaboration) |
+       +----------------------------+
+```
+
 ## Collaborative Editing Challenges
 
 Collaborative editing can be difficult in distributed systems because:
