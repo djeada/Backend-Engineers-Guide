@@ -2,6 +2,17 @@
 
 Messaging system integration refers to the process of connecting disparate systems through messaging protocols to allow them to communicate and exchange data with each other.
 
+```
++--------------+      +------------------+      +-----------------+
+|  Producer(s) | ---> |  Message Broker  | ---> |  Consumer(s)    |
++--------------+      | (Queue/Topic)    |      +-----------------+
+      ^               +------------------+               |
+      |                    ^        ^                    |
+      |                    |        |                    |
+      +--------------------+        +--------------------+
+           Feedback/Reply       Routing/Filtering
+```
+
 ## Basics of Messaging System Integration
 
 1. **Messaging System**: This is a system that enables communication between different applications by sending and receiving data. It uses messaging protocols like AMQP, MQTT, etc.
@@ -27,26 +38,38 @@ Messaging system integration refers to the process of connecting disparate syste
 1. **Point-to-Point**: A message is sent from a producer to a specific consumer.
 
 ```
-Producer ---> Consumer
++--------------+          message          +----------------+
+|   Producer   | ------------------------> |    Consumer    |
++--------------+                           +----------------+
 ```
 
 2. **Publish/Subscribe**: A message is sent to multiple consumers who are interested in (subscribed to) the message topic.
 
 ```
-        --> Consumer 1
-       |
-Producer --> Consumer 2
-       |
-        --> Consumer 3
+                              +----------------+
+                              |   Consumer 1   |
+                              +----------------+
+                                      ^
+                                      |
++--------------+    message           |    +----------------+
+|   Producer   | -------------------->|--> |   Consumer 2   |
++--------------+                      |    +----------------+
+                                      |
+                                      v
+                              +----------------+
+                              |   Consumer 3   |
+                              +----------------+
 ```
 
 3. **Request/Reply**: The producer sends a request message and the consumer responds with a reply message.
 
 ```
-Producer ---> Consumer
-    ^           |
-    |           v
-    <--- Reply ---
++--------------+    request    +----------------+
+|   Producer   | ------------> |    Consumer    |
++--------------+               +----------------+
+        ^                             |
+        |          reply              |
+        +-----------------------------+
 ```
 
 ## Popular Messaging Systems
@@ -56,7 +79,7 @@ Producer ---> Consumer
 - **ActiveMQ**: Robust and flexible open-source multi-protocol message broker.
 - **Amazon SQS**: Scalable and fully managed message queuing service by AWS.
 
-## Best Practices for Messaging System Integration
+## Best Practices 
 
 1. **Guarantee Message Delivery**: Ensure that your messaging system can handle situations where the receiver application is temporarily unavailable.
 2. **Ordering**: In situations where the order of messages matters, design your system to handle message ordering.
