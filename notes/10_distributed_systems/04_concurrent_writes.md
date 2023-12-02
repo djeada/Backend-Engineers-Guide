@@ -2,6 +2,18 @@
 
 Concurrent writes happen when two clients write to a database at the same time, unaware of each other's write. This can cause inconsistencies in the replicas.
 
+```
+[Write 1]   [Write 2]   [Write 3]
+   \            |            /
+    \           |           /
+     \          |          /
+      \         |         /
+       \        |        /
+       +------------------+
+       |     Database     |
+       +------------------+
+```
+
 ## Detecting Concurrent Writes
 
 - Both multi-leader and leaderless replication systems must detect and resolve concurrent writes.
