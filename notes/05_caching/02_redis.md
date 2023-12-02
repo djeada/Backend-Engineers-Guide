@@ -1,6 +1,28 @@
 # Redis 
 Redis is an open-source, in-memory data store that can be used as a high-performance cache system. It's often referred to as a "data structure server" because it can store and manipulate various data structures like strings, lists, sets, and more. As a backend developer, understanding how to use Redis as a cache can significantly improve the performance and scalability of your applications.
 
+```
+    +-----------+
+    |  Client 1 |
+    +-----------+
+          |
+          | SET/GET
+          |
++---------------------+
+|     Redis Server    |
+|---------------------|
+| - Key-Value Store   |
+| - Pub/Sub           |
+| - Data Structures   |
++---------------------+
+          |
+          | SET/GET
+          |
+    +-----------+
+    |  Client 2 |
+    +-----------+
+```
+
 ## Key Concepts
 
 ### In-Memory Data Store
