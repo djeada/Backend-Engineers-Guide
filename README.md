@@ -81,9 +81,10 @@ cd Backend-Engineers-Guide/notes
 
 | Topic                    | Notes                                                                                   |
 | ------------------------ | --------------------------------------------------------------------------------------- |
-| Protocol Buffer           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_message_formats/01_protocol_buffers.md) |
+| Protobuf          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_message_formats/01_protocol_buffers.md) |
 | XML          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_message_formats/02_xml.md) |
 | JSON           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_message_formats/03_json.md) |
+| YAML           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_message_formats/04_yaml.md) |
 
 ### Security
 
