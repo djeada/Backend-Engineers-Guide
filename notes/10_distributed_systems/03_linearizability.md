@@ -5,6 +5,19 @@ Linearizability is a consistency model used to make it seem like there's only on
 - All reads reflect the latest written value.
 - The system appears consistent and up-to-date.
 - Availability and speed may be impacted.
+  
+```
+Write Request       Read Request       Read Request
+     |                  |                  |
+     V                  V                  V
++----------+       +----------+       +----------+
+|          |       |          |       |          |
+| Database | ----> | Database | ----> | Database |
+| (Latest  |       | (Latest  |       | (Latest  |
+|  Value)  |       |  Value)  |       |  Value)  |
+|          |       |          |       |          |
++----------+       +----------+       +----------+
+```
 
 ## Ordering
 
