@@ -1,6 +1,6 @@
 ## Batch Processing
 
-Batch processing involves executing tasks on large sets of data without user intervention. This approach is particularly effective in distributed file systems such as Hadoop. MapReduce is a well-known model for batch processing, and it allows for distributed and parallel processing of large datasets.
+Batch processing is a method of processing large volumes of data in a single, consolidated operation, or "batch," without requiring user interaction. It is especially effective in distributed computing environments, such as Hadoop, and is well-suited for tasks that can be processed independently and do not require immediate results. The MapReduce programming model is a prominent example of batch processing, known for its capability to handle massive datasets through distributed and parallel processing.
 
 ```
 +---------------+    +--------------+    +------------------+    +--------------+
@@ -14,12 +14,17 @@ Batch processing involves executing tasks on large sets of data without user int
                           (Accumulation over time)
 ```
 
-In this diagram:
+Key components of this diagram:
 
-- Batch Input represents the input data or jobs that are batched together.
-- Batch Processing is the system or application that processes these batched jobs.
-- Job 1, Job 2, Job 3, Job 4 represent individual jobs within the batch. These are processed in sequence (e.g., Job 1 is completed before Job 2 starts).
-- Batch Output represents the output data after all jobs have been processed.
+- **Batch Input**: This represents the accumulated data or jobs that are grouped together for processing. Data sources can include databases, file systems, or other data streams.
+
+- **Data Storage**: Before processing, data is stored in a repository, like a distributed file system (e.g., HDFS in Hadoop). This storage acts as a holding area for the data to be processed.
+
+- **Batch Processing System**: Here, the batched data is processed. This involves executing a series of jobs or tasks on the data. In the context of Hadoop, this is typically where MapReduce jobs run.
+
+  - **Job Sequence (Job 1, Job 2, etc.)**: Represents the individual tasks or jobs within the batch. These jobs are often processed in a sequential order, where each job is dependent on the completion of the previous one.
+
+- **Batch Output**: The final outcome of the batch processing. This is the processed data, which could be used for analysis, reporting, or as input for further processing stages.
 
 ### MapReduce
 
