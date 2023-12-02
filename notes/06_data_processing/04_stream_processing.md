@@ -18,7 +18,7 @@ Here's a diagram to illustrate the concept:
 
 - **Data Stream**: Represents the live, real-time data being fed into the system. This could be from various sources like sensors, online transactions, social media feeds, etc.
 - **Stream Processing System**: This is the core component that processes the incoming data streams. It consists of one or more processing stages (P1, P2, P3, etc.), each designed to perform specific computations or transformations on the data.
-- **Processing Stages (P1, P2, P3, etc.)**: These represent individual steps within the stream processing system. They handle incoming data in a concurrent manner - processing it as soon as it arrives, rather than waiting for a complete batch. This allows for real-time or near-real-time data processing.
+  - **Processing Stages (P1, P2, P3, etc.)**: These represent individual steps within the stream processing system. They handle incoming data in a concurrent manner - processing it as soon as it arrives, rather than waiting for a complete batch. This allows for real-time or near-real-time data processing.
 - **Processed Data**: This is the output after stream processing. The output is typically available almost instantaneously, or with minimal delay, after the data has been processed. It can be used for immediate decision-making, alerts, or further analytics.
 
 ### Message Brokers
