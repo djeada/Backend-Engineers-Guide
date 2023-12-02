@@ -3,26 +3,15 @@
 Batch processing involves executing tasks on large sets of data without user intervention. This approach is particularly effective in distributed file systems such as Hadoop. MapReduce is a well-known model for batch processing, and it allows for distributed and parallel processing of large datasets.
 
 ```
-               BATCH INPUT
-                    |
-                    v
-+----------------------------------+
-|         BATCH PROCESSING         |
-|                                  |
-|   +-----------+   +-----------+  |
-|   | Job 1     |-->| Job 2     |  |
-|   |           |   |           |  |
-|   +-----------+   +-----------+  |
-|                                  |
-|   +-----------+   +-----------+  |
-|   | Job 3     |-->| Job 4     |  |
-|   |           |   |           |  |
-|   +-----------+   +-----------+  |
-|                                  |
-+----------------------------------+
-                    |
-                    v
-               BATCH OUTPUT
++---------------+    +--------------+    +------------------+    +--------------+
+|               |    |              |    |                  |    |              |
+| Data Sources  +--->+ Data Storage +--->+ Batch Processing +--->+ Final Output |
+|               |    |              |    |                  |    |              |
++---------------+    +--------------+    +------------------+    +--------------+
+      |                      |                   |                    |
+      |                      |                   |                    |
+      |______________________|___________________|____________________|
+                          (Accumulation over time)
 ```
 
 In this diagram:
