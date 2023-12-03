@@ -2,6 +2,22 @@
 
 Real-time communication methods enable the swift transmission of data updates from application servers to clients. Each method has unique advantages and drawbacks that should be weighed according to the specific needs and use cases of the application.
 
+```
+Long Polling:
+  Client --> Server --> Client
+  Client --> Server --> Client
+  [Repeated one-way requests, server holds request open]
+
+WebSockets:
+  Client <----> Server
+  [Two-way communication, continuous connection]
+
+Server-Sent Events:
+  Client <-- Server
+  Client <-- Server
+  [One-way communication from server to client, continuous connection]
+```
+
 ## Long Polling
 
 Long Polling is a technique where the client sends a request to the server, and the server keeps the request open until it has new data to send. Once the client receives this new data, it immediately sends another request, establishing a continuous cycle.
@@ -17,15 +33,23 @@ Long Polling is a technique where the client sends a request to the server, and 
   - **Latency Issues**: Network latency can impact the real-time nature of updates, leading to slight delays.
 
 ```
-Client  ----Request--->  Server
-                |
-                |   (Server waits until there's data to send)
-                |
-Client  <---Response---  Server
-                |
-Client  ----Request--->  Server
-                |
-                . . .
+Client                         Server
+  |                               |
+  |--- Request for Data --------->|
+  |                               |
+  |<---- Data (if available) -----|
+  |                               |
+  |--- Request for Data --------->|
+  |       [waits for data]        |
+  |                               |
+  |<---- Data (when available) ---|
+  |                               |
+  |--- Request for Data --------->|
+  |       [waits for data]        |
+  |                               |
+  |<---- Data (when available) ---|
+  |                               |
+  [.......... continues ..........]
 ```
 
 ## WebSockets
@@ -43,13 +67,16 @@ WebSockets enable a full-duplex communication channel between the client and ser
   - **Security Concerns**: As it bypasses the traditional HTTP request-response model, additional security considerations may be necessary to prevent data breaches.
 
 ```
-Client  ----Establish Connection--->  Server
-                |
-Client  <---->  Server
-                |
-Client  <---->  Server
-                |
-                . . .
+User Browser                 WebSocket Server
+     |                                |
+     |------- WebSocket Request ----->|
+     |<----- Connection Opened -------|
+     |                                |
+     |---- Data Frame (text/binary) ->|
+     |<--- Data Frame (text/binary) --|
+     |                                |
+     |--- Close Request ------------->|
+     |<---- Confirmation Close -------|
 ```
 
 ## Server-Sent Events
@@ -67,11 +94,20 @@ Server-Sent Events (SSE) are a standard that enables a server to push updates to
   - **Reconnection Logic Required**: Depending on network conditions, the TCP connection used by SSE might get closed, requiring a logic to handle automatic reconnections.
     
 ```
-Client  ----Establish Connection--->  Server
-                |
-Client  <---Data---  Server
-                |
-Client  <---Data---  Server
-                |
-                . . .
+Client                         Server
+  |                               |
+  |--- Establish SSE Connection ->|
+  |<----- Connection Opened ------|
+  |                               |
+  |<------ Event: Data 1 ---------|
+  |                               |
+  |<------ Event: Data 2 ---------|
+  |                               |
+  |<------ Event: Data 3 ---------|
+  |                               |
+  |       [connection open]       |
+  |                               |
+  |<------ Event: Data N ---------|
+  |                               |
+  [...... continuous stream ......]
 ```
