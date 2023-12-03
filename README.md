@@ -30,11 +30,11 @@ cd Backend-Engineers-Guide/notes
 
 | Topic                         | Notes                                                                                                     |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Real-time Communication Methods                    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/01_overview.md)                   |
-| TCP vs UDP                        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/02_tcp_and_udp.md)                   |
-| HTTP Protocol                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/03_http_protocol.md)                   |
+| Real-time Communication Methods                    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/01_overview.md)                   |
+| TCP vs UDP                        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/02_tcp_and_udp.md)                   |
+| HTTP Protocol                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/03_http_protocol.md)                   |
 | WebSockets | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/04_web_sockets.md)                   |
-| Performance Metrics | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/05_metrics_and_analysis.md) |
+| Performance Metrics | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/05_metrics_and_analysis.md) |
 
 ### Web Servers
 
