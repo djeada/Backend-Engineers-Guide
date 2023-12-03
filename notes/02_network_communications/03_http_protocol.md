@@ -1,3 +1,49 @@
+## HTTP Protocol
+
+HTTP (Hypertext Transfer Protocol) is the foundational protocol used for transferring data over the web. It is a request-response protocol between a client and a server.
+
+```
+[Client]          [Internet]          [Server]
+  |                   |                   |
+  |--- HTTP Request ->|                   |
+  | GET / HTTP/1.1    |                   |
+  | Host: example.com |                   |
+  | User-Agent: ...   |                   |
+  |                   |                   |
+  |                   |--- HTTP Request ->|
+  |                   | GET / HTTP/1.1    |
+  |                   | Host: example.com |
+  |                   | User-Agent: ...   |
+  |                   |                   |
+  |                   |<-- HTTP Response -|
+  |                   | HTTP/1.1 200 OK   |
+  |                   | Content-Type: ... |
+  |                   | ...               |
+  |<-- HTTP Response -|                   |
+  | HTTP/1.1 200 OK   |                   |
+  | Content-Type: ... |                   |
+  | ...               |                   |
+```
+
+### Key Concepts
+
+- **Request and Response**: Every interaction in HTTP is made up of a request made by the client and a response from the server.
+- **Stateless Protocol**: HTTP is stateless, meaning each request-response pair is independent, and the server does not retain any state between different requests.
+- **Methods**: HTTP defines a set of request methods to indicate the desired action to be performed. Common methods include GET, POST, PUT, DELETE.
+
+### HTTP Request
+
+- *Method*: Indicates the action (e.g., GET, POST).
+- *URL*: The location of the resource on the server.
+- *Headers*: Provide additional information (e.g., User-Agent, Content-Type).
+- *Body*: Optional data sent to the server (mostly in POST requests).
+
+### HTTP Response
+
+- *Status Code*: Indicates the result of the request (e.g., 200 OK, 404 Not Found).
+- *Headers*: Server information and further details about the response.
+- *Body*: The actual content being delivered (e.g., HTML, JSON).
+
 ## HTTP Headers
 
 HTTP headers let clients and servers share extra info. Common headers include:
@@ -46,6 +92,18 @@ HTTP/1.1 was defined in 1997 and has been the standard for web traffic for a lon
 
 3. **No Push Mechanism**: There is no built-in server push mechanism in HTTP/1.1, meaning the server can't proactively send resources to the client without a specific request from the client.
 
+```
+Client       Server
+  |            |
+  |---Req1---> |
+  |<--Resp1--- |
+  |            |
+  |---Req2---> |
+  |<--Resp2--- |
+  |            |
+  [Sequential Requests]
+```
+
 ## HTTP/2
 
 HTTP/2, ratified as a standard in 2015, was designed to overcome the limitations of HTTP/1.1 and improve performance.
@@ -59,3 +117,26 @@ HTTP/2, ratified as a standard in 2015, was designed to overcome the limitations
 4. **Header Compression**: HTTP/2 uses HPACK compression to reduce overhead, which can significantly reduce the amount of data needed for HTTP headers.
 
 5. **Stream Prioritization**: HTTP/2 allows requests to be prioritized, which can provide more resources to higher priority streams.
+
+```
+Client                 Server
+  |                        |
+  |---Req1---|             |
+  |---Req2---|             |
+  |---Req3---|             |
+  |<---------Multiplexed---|
+  |-----Data Flow----------|
+  |                        |
+  [Concurrent Streams]
+```
+
+## HTTP/1 vs HTTP/2
+
+| Feature           | HTTP/1                        | HTTP/2                          |
+|-------------------|-------------------------------|---------------------------------|
+| **Protocol Type** | Text-based                    | Binary, making it more efficient|
+| **Connections**   | One request per TCP connection| Multiplexed requests over a single TCP connection |
+| **Performance**   | Slower due to TCP connection limits and head-of-line blocking | Faster, efficient use of a single connection reduces latency |
+| **Compression**   | Headers are not compressed    | Header compression with HPACK   |
+| **Server Push**   | Not available                 | Server can push resources proactively |
+| **Prioritization**| No native prioritization      | Stream prioritization allows more important resources to be sent first |
