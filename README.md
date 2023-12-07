@@ -40,13 +40,13 @@ cd Backend-Engineers-Guide/notes
 
 | Topic                         | Notes                                                                                                     |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Web Server Overview                 | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_web_servers/01_web_server_overview.md)                   |
-| Static and Dynamic Content                       | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_web_servers/02_static_dynamic_content.md)                   |
+| Web Server Overview                 | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/01_web_server_overview.md)                   |
+| Static and Dynamic Content                       | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/02_static_dynamic_content.md)                   |
 | Tomcat                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_web_servers/03_tomcat.md)                   |
-| Apache | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_web_servers/04_apache.md)                   |
-| Nginx | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_web_servers/05_nginx.md) |
-| Forward Proxies     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_proxies_and_load_balancing/06_forward_proxies.md)                   |
-| Reverse Proxies | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_proxies_and_load_balancing/07_reverse_proxies.md)                   |
+| Apache | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/04_apache.md)                   |
+| Nginx | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/05_nginx.md) |
+| Forward Proxies     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/06_forward_proxies.md)                   |
+| Reverse Proxies | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/07_reverse_proxies.md)                   |
 | Load Balancing                 | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_proxies_and_load_balancing/08_load_balancing.md)                   |
 
 
