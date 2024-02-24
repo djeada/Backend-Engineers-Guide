@@ -1,6 +1,6 @@
 ## Proxies in Network Architecture
 
-Proxies serve as intermediaries in the communication between clients and application servers, undertaking tasks such as transforming requests, caching responses, and encrypting or decrypting data.
+Proxies act as middlemen in the network communication process between clients and application servers. Their role involves several key functions: modifying and managing requests from clients, storing (caching) responses for quicker retrieval, and handling the encryption or decryption of data to ensure secure transmission. This arrangement means that when a client connects to a server, the server does not directly see the client's IP address. Instead, it sees the IP address of the proxy. This adds a layer of anonymity for the client, as their actual IP address is masked by the proxy's IP, enhancing privacy and security in online interactions.
 
 ### Varieties of Proxy Servers
 
