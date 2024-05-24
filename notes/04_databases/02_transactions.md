@@ -1,5 +1,6 @@
 ## Database Transactions
-In the early days of database systems, we quickly recognized the need for a systematic way to manage changes to data. This led to the concept of 'database transactions'. Like a transaction in a financial system, a database transaction is a logical unit of work that may encompass multiple operations. It ensures that the database transitions from one consistent state to another, even in the face of concurrent accesses and system failures.
+
+In the early days of database systems, the need for a systematic way to manage changes to data quickly became apparent. This led to the concept of "database transactions." Like a transaction in a financial system, a database transaction is a logical unit of work that may encompass multiple operations. It ensures that the database transitions from one consistent state to another, even in the face of concurrent accesses and system failures.
 
 ### ACID: The Cornerstones of Transaction Management
 
@@ -17,6 +18,13 @@ The principles that govern database transactions are summed up in the ACID acron
 
 Single object writes form the most basic type of transaction. For such transactions:
 
-- **Atomicity** can be achieved using a write-ahead log (WAL). Before any changes are made to the database, they are logged in the WAL, enabling a recovery mechanism in case of a crash during the transaction.
+- **Atomicity**: Atomicity can be achieved using a write-ahead log (WAL). Before any changes are made to the database, they are logged in the WAL, enabling a recovery mechanism in case of a crash during the transaction.
 
-- **Isolation** can be provided using locks or MVCC (Multi-version Concurrency Control). A lock-based protocol restricts access to a data object once a transaction has locked it for use. In contrast, MVCC allows multiple transactions to read the same object without locks by creating a new version of an object for each transaction, thereby increasing concurrency.
+- **Isolation**: Isolation can be provided using locks or MVCC (Multi-Version Concurrency Control). A lock-based protocol restricts access to a data object once a transaction has locked it for use. In contrast, MVCC allows multiple transactions to read the same object without locks by creating a new version of an object for each transaction, thereby increasing concurrency.
+
+### Advanced Transaction Management
+
+Beyond single object writes, transactions can become more complex, involving multiple objects and operations. Managing these requires sophisticated techniques:
+
+- **Two-Phase Commit (2PC)**: Used in distributed systems to ensure all parties in a transaction agree to commit or rollback, maintaining atomicity across systems.
+- **Deadlock Detection and Prevention**: Techniques to handle situations where transactions are waiting indefinitely for resources locked by each other.
