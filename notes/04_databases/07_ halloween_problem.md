@@ -1,4 +1,4 @@
-# Halloween Problem in Databases
+# Halloween Problem
 
 The Halloween Problem is a significant issue in database operations, particularly during update operations. It can lead to rows being updated multiple times unintentionally.
 
