@@ -3,15 +3,18 @@
 Batch processing is a method of processing large volumes of data in a single, consolidated operation, or "batch," without requiring user interaction. It is especially effective in distributed computing environments, such as Hadoop, and is well-suited for tasks that can be processed independently and do not require immediate results. The MapReduce programming model is a prominent example of batch processing, known for its capability to handle massive datasets through distributed and parallel processing.
 
 ```
-+---------------+    +--------------+    +------------------+    +--------------+
-|               |    |              |    |                  |    |              |
-| Data Sources  +--->+ Data Storage +--->+ Batch Processing +--->+ Final Output |
-|               |    |              |    |                  |    |              |
-+---------------+    +--------------+    +------------------+    +--------------+
-      |                      |                   |                    |
-      |                      |                   |                    |
-      |______________________|___________________|____________________|
++---------------+    +--------------+    +----------------------------+    +--------------+
+|               |    |              |    |                            |    |              |
+| Data Sources  +--->+ Data Storage +--->+ Batch Processing System    +--->+ Final Output |
+|               |    |              |    |   +-----+  +-----+  +-----+|    |              |
++---------------+    +--------------+    |   | J1  |  | J2  |  | J3  ||    +--------------+
+      |                      |           |   +-----+  +-----+  +-----+|           |
+      |                      |           +----------------------------+           |
+      |                      |                           |                        |
+      |                      |                           |                        |
+      |______________________|___________________________|________________________|
                           (Accumulation over time)
+
 ```
 
 Key components of this diagram:
@@ -35,6 +38,51 @@ MapReduce works by breaking down a large data processing task into smaller tasks
 - **Shuffling**: After the mapping phase, the MapReduce framework shuffles the intermediate key-value pairs, grouping them by key.
 
 - **Reducing**: During the Reduce phase, each group of values associated with the same key is processed by a reducer, which produces a set of output key-value pairs.
+
+
+```
+                   +-----------------+
+                   |    Input Data   |
+                   +-----------------+
+                           |
+                           v
++-------------------------+-------------------------+
+|       Split into Chunks / Distribute to Mappers   |
++-------------------------+-------------------------+
+          |                                 |
+          v                                 v
++---------------------+             +---------------------+
+|  Map Function       |             |  Map Function       |
+|  (Process Chunks)   |             |  (Process Chunks)   |
++---------+-----------+             +---------+-----------+
+          |                                 |
+          v                                 v
++---------------------+             +---------------------+
+|  Intermediate Data  |             |  Intermediate Data  |
+|  (Key-Value Pairs)  |             |  (Key-Value Pairs)  |
++---------+-----------+             +---------+-----------+
+          |                                 |
+          v                                 v
++---------------------+             +---------------------+
+|     Shuffle &       |             |     Shuffle &       |
+|     Sort Phase      |             |     Sort Phase      |
+| (Group by Key)      |             | (Group by Key)      |
++---------+-----------+             +---------+-----------+
+          |                                 |
+          v                                 v
++---------------------+             +---------------------+
+| Reduce Function     |             | Reduce Function     |
+| (Aggregate Results) |             | (Aggregate Results) |
++---------+-----------+             +---------+-----------+
+          |                                 |
+          +----------------+----------------+
+                           |
+                           v
+                   +-----------------+
+                   |  Final Output   |
+                   | (Combined Data) |
+                   +-----------------+
+```
 
 MapReduce provides automatic parallelization and distribution of data, and it has built-in failure handling. However, writing MapReduce programs requires some expertise, and it is necessary to optimize the data distribution to avoid problems like data skew.
 
