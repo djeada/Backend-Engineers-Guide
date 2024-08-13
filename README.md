@@ -13,6 +13,13 @@ git clone https://github.com/your_username/Backend-Engineers-Guide.git
 cd Backend-Engineers-Guide/notes
 ```
 
+
+what are:
+
+- cookies
+- sessions
+
+
 ## Notes
 
 ### API Design
