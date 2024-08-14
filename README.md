@@ -20,6 +20,9 @@ what are:
 - sessions
 
 
+https://youtube.com/playlist?list=PLP0UwHI8wt0wNDYZcHmMhxGZkYWU0fhcM&si=63bEfrN7Hi5Cp-eb
+
+
 ## Notes
 
 ### API Design
