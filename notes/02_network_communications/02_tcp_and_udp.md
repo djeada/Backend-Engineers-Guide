@@ -1,18 +1,8 @@
 ## TCP vs UDP
 
-The Transmission Control Protocol (TCP) and the User Datagram Protocol (UDP) are cornerstone transport protocols, enabling diverse applications to communicate over networks. Understanding their characteristics is key for network software development.
-
-In essence, TCP is like sending a registered letter that requires a signature upon receipt, whereas UDP is akin to sending a regular letter that could potentially get lost in the mail. TCP ensures the message gets through without error, and UDP gets the message out quickly.
+Transmission Control Protocol (TCP) and User Datagram Protocol (UDP) are fundamental transport protocols that enable different types of applications to communicate over networks. They each address data delivery in different ways, making it helpful to understand their characteristics before deciding which one to use in a given scenario. In essence, TCP acts like a registered letter that requires proof of delivery, while UDP behaves more like a simple letter that may not be guaranteed to arrive.
 
 ### TCP (Transmission Control Protocol)
-
-TCP is a connection-oriented protocol that ensures the reliable, ordered delivery of data between sender and receiver.
-
-- **Three-way Handshake**: To establish a TCP connection, a procedure known as a "three-way handshake" is used. This ensures both parties are ready for data transmission and allows them to acknowledge the connection setup.
-- **Data Transfer and Acknowledgments**: Once the connection is established, the data transfer process begins. For each packet sent, an acknowledgment is expected. If an acknowledgment isn't received within a specified time, the sender retransmits the packet.
-- **Flow Control**: TCP uses a sliding window mechanism to avoid overwhelming the receiver with data. The window size can be adjusted dynamically depending on network conditions and receiver capabilities.
-- **Congestion Control**: TCP uses several algorithms to detect network congestion and adjust the data transmission rate accordingly to maintain optimal network performance.
-- **Connection Termination**: A connection is terminated when the session is complete, and it follows a four-way handshake method to ensure both parties agree to the termination.
 
 ```
 Client                                      Server
@@ -26,15 +16,13 @@ Client                                      Server
   |                                           |
 ```
 
+- It uses a **three-way** handshake to establish a connection, ensuring both sides are synchronized for data exchange.  
+- It includes **acknowledgments** for every data segment sent, leading to reliable and ordered delivery.  
+- It applies a **sliding** window mechanism to control data flow, preventing receivers from being overwhelmed.  
+- It relies on **congestion** control algorithms to adapt its sending rate based on network conditions.  
+- It implements a **four-way** handshake procedure for closing a connection once data transfer is complete.  
+
 ### UDP (User Datagram Protocol)
-
-UDP is a connectionless protocol that offers a fast but less reliable service compared to TCP.
-
-- **No Connection Setup and Teardown**: As a connectionless protocol, UDP doesn't need to establish or terminate a connection before data transfer. It simply sends the data without any setup.
-- **Datagram-Based**: UDP sends data in discrete units called datagrams, each of which is independently sent and may arrive out of order.
-- **No Acknowledgments**: Unlike TCP, UDP doesn't wait for acknowledgments from the receiver. As a result, there's no mechanism to detect lost packets, and any error detection and correction has to be implemented at the application level.
-- **Checksums**: Although UDP is a lightweight protocol, it includes a checksum for data integrity, but this is optional and can be disabled.
-- **Applications of UDP**: Due to its lightweight nature, UDP is suitable for applications like video and audio streaming where real-time data delivery is more important than guaranteeing every packet is successfully delivered.
 
 ```
 Client                                      Server
@@ -47,18 +35,25 @@ Client                                      Server
   |                                           |
 ```
 
-## Comparison
+- It does not require a **connection** to be established before sending data, making it lightweight.  
+- It sends **datagrams** without waiting for acknowledgments, which can be faster but less reliable.  
+- It can deliver packets **out-of-order** or lose them entirely if network conditions deteriorate.  
+- It offers an optional **checksum** for basic data integrity, allowing the application layer to handle errors.  
+- It is frequently **useful** for real-time applications like streaming media and online gaming.  
 
-| Feature                | TCP (Transmission Control Protocol)          | UDP (User Datagram Protocol)           |
-|------------------------|----------------------------------------------|---------------------------------------|
-| Connection             | Connection-oriented (requires a handshake)  | Connectionless (no handshake)         |
-| Reliability            | Reliable (guarantees delivery of data)       | Unreliable (no guarantee of delivery) |
-| Ordering               | Maintains data order                        | Does not maintain data order          |
-| Speed                  | Slower due to overhead                      | Faster due to lack of overhead        |
-| Data Flow Control      | Yes (uses flow control mechanisms)          | No                                    |
-| Error Checking         | Yes (with acknowledgments and retransmissions) | Yes (basic error checking)              |
-| Use Cases              | Web browsing, email, file transfers         | Streaming media, online gaming, DNS   |
-| Header Size            | 20 bytes minimum                            | 8 bytes                               |
-| Congestion Control     | Yes (manages network congestion)            | No                                    |
-| Example Protocols/Uses | HTTP, HTTPS, FTP, SMTP                      | VoIP, DHCP, DNS, IPTV                 |
+### Comparison
+
+TCP and UDP each serve different needs. TCP is helpful for scenarios where data integrity and reliable delivery matter more than speed. UDP is often used when low latency is desired and occasional packet loss is acceptable. Some applications even combine both protocols by leveraging TCP for configuration data and UDP for time-sensitive transmissions.
+
+| Feature                  | TCP                                     | UDP                                        |
+|--------------------------|-----------------------------------------|--------------------------------------------|
+| Connection               | Connection-oriented (uses handshake)    | Connectionless (no handshake)              |
+| Reliability              | Guarantees delivery of data             | Does not guarantee delivery of data        |
+| Data Ordering            | Maintains sequence of data              | May arrive out of sequence                 |
+| Speed                    | Slower due to additional overhead       | Faster in many cases due to low overhead   |
+| Flow Control             | Uses a sliding window mechanism         | No native mechanism for flow control       |
+| Error Checking           | Uses acknowledgments and retransmission | Uses basic checksums without retransmission |
+| Congestion Control       | Adapts sending rate based on network    | Leaves congestion handling to the application |
+| Header Size (Minimum)    | 20 bytes                                | 8 bytes                                    |
+| Typical Use Cases        | Web browsing, file transfers, email     | Video/audio streaming, VoIP, DNS, gaming   |
 
