@@ -1,6 +1,21 @@
-## Stateful vs Stateless Applications
+## State Managment  
+Stateful and stateless designs are common terms in software architecture. They describe how an application handles data over multiple interactions. This set of notes explains the differences between applications that remember information between requests and those that treat every request as a fresh transaction. Various diagrams and code snippets illustrate how each approach operates in practice. Brief formulas appear to show how state management can affect concurrency and scaling.
 
-The terms stateful and stateless pertain to the architecture of an application, specifically regarding how it handles and stores data over time or across interactions.
+### The Concept of State  
+Software can store information about user interactions, sessions, preferences, or transactions. That information, known as state, may influence future application behavior. In a stateful design, the application keeps that data in memory or persistent storage, while in a stateless design, it processes requests without retaining previous context.  
+
+A quick concurrency formula for a system that stores user sessions in memory could look like this:
+
+```
+M_total = N_sessions * S_session
+```
+
+M_total indicates total memory required, N_sessions is the number of simultaneous sessions, and S_session is the memory required per session. A large number of sessions might strain the system if each session state is stored server-side.
+
+### Stateful Applications  
+A stateful application tracks user or session data across requests. This means the server knows who you are and what you were doing even if you pause and resume your activity. That knowledge can make complex features easier to implement, though it complicates scaling, since each server instance must share or replicate the session data.
+
+Here is a high-level ASCII diagram illustrating how a stateful server might maintain and update the state as multiple clients interact:
 
 ```
 +-----------+            +-----------+
@@ -26,89 +41,102 @@ The terms stateful and stateless pertain to the architecture of an application, 
 +-----------+            +-----------+
 ```
 
-This diagram emphasizes that the state is not just a single request-response interaction but a series of interactions where the API server tracks and updates the state across multiple requests.
+The server updates this shared state and returns new information to each client, enabling more cohesive workflows.
 
-## Stateful Applications
+#### Advantages of Stateful Applications  
+1) They can maintain logical continuity, which often leads to more intuitive code when designing multi-step processes.  
+2) Users enjoy smoother experiences since the server remembers data like login sessions or shopping cart contents.  
+3) Complex, multi-stage workflows can be handled more easily because the server has all necessary context.
 
-Stateful applications maintain a record of previous interactions or events that can affect the behaviour of future requests. This stored data, or "state", can be used to keep track of user interactions, transactions, configurations, etc.
+#### Disadvantages of Stateful Applications  
+1) Scaling can be difficult because each instance of the application needs consistent access to session data.  
+2) A single server crash may cause data loss if session state is stored in memory without proper failover mechanisms.  
+3) Load balancing may require session affinity or other strategies to ensure that consecutive requests from the same user go to the correct server instance.
 
-### Pros of Stateful Applications
-
-- They are often more intuitive to program, as stateful applications can leverage stored data to provide context to an incoming request.
-- Capable of managing complex states across various interactions, making them suitable for complex workflows.
-- The user experience is generally more cohesive, as the application can maintain context across multiple requests.
-
-### Cons of Stateful Applications
-
-- Scaling is challenging as every instance of the application needs to share and maintain the same state information.
-- If a crash occurs, the recovery can be difficult or impossible without the saved state, leading to potential data loss and inconsistent behaviour.
-
-### Example
-In a stateful application, the server remembers the counter's state. Each time the button is clicked, the client does not need to send the current count because the server, already aware of the current count, increments it and sends back the new value. This process represents a stateful approach as the server retains information about the current state of the counter between requests.
-
-Here is a pseudo-code example for a stateful application:
+#### Example: Stateful Counter  
+In a stateful counter, the server remembers the current count. Each button click updates the server’s stored value, and the new total is returned to the client:
 
 ```javascript
 // Client-side
 button.addEventListener("click", function() {
-    sendToServer();
+    // Just notify the server that the button was clicked
+    fetch('/increment', { method: 'POST' })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.counter); // e.g., 5
+      });
 });
 
 // Server-side
 let counter = 0;
-server.on("request", function(request) {
+
+app.post("/increment", (req, res) => {
     counter++;
-    response.send({counter: counter});
+    res.json({ counter: counter });
 });
 ```
 
-In the first scenario, the server does not hold any data between requests and treats each request as an isolated transaction, making it a stateless application. In contrast, in the second scenario, the server maintains the counter's state across requests, making it a stateful application
+This approach keeps the counter variable in the server’s memory. If more than one server handles requests, they must share or synchronize this count.
 
-## Stateless Applications
+### Stateless Applications  
+Stateless applications process each request independently, with no knowledge of what happened before. This design can ease scaling, because any instance can handle any request without needing special session information. The downside is that each request or client must provide all data needed to complete a transaction, which sometimes makes the application logic more complex.
 
-Stateless applications, in contrast, do not retain information from one request to another. Each request is processed independently of others.
+#### Advantages of Stateless Applications  
+1) They can easily scale horizontally by simply adding more server instances.  
+2) Failure handling is simplified because the server does not need to recover prior user sessions.  
+3) Requests are idempotent more often, since each request includes everything required for processing.
 
-### Pros of Stateless Applications
+#### Disadvantages of Stateless Applications  
+1) Complex multi-step flows can be harder to implement because no session context is stored on the server.  
+2) Code may become verbose when the client must repeatedly send data to re-establish context.  
+3) Client overhead increases, as the client must remember and provide relevant information each time.
 
-- Highly scalable as each request is handled independently. This makes it easy to distribute the load across multiple servers.
-- They can recover from failures more gracefully, as there's no dependency on previous states or sessions. If a server fails, a request can simply be redirected to another server.
-- Stateless applications are idempotent, meaning that making the same request multiple times will yield the same result.
-
-### Cons of Stateless Applications
-
-- Managing complex workflows can be difficult as stateless applications cannot inherently maintain context across requests.
-- Coding can be more challenging since each request must carry all the information needed for its processing.
-
-## Common Issues and Considerations
-
-Regardless of whether an application is stateful or stateless, there are a few universal considerations:
-
-- **Network connections**: Both stateful and stateless applications often rely on network connections for communication and data transfer.
-- **Filesystem changes**: Modifications to the filesystem are common in many applications for storing or retrieving data.
-- **Database tasks**: Most applications interact with databases to persist and fetch data.
-
-### Example
-
-In a stateless application, the server doesn't keep track of the counter's state (its current value). Every time the button is clicked, the client (browser) sends the current count along with the request to increment it. The server increments the received value and sends it back. This process represents a stateless approach as the server doesn't retain any information about previous interactions.
-
-Here is a pseudo-code example for a stateless application:
+#### Example: Stateless Counter  
+In a stateless version of a counter, the server expects the current count from the client. It increments that number and sends it back, without storing the updated value in its own memory:
 
 ```javascript
 // Client-side
+let counter = 0;
+
 button.addEventListener("click", function() {
-    sendToServer(counter);
+    fetch('/increment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentCount: counter })
+    })
+    .then(response => response.json())
+    .then(data => {
+        counter = data.counter;
+        console.log(counter); // e.g., 5
+    });
 });
 
 // Server-side
-server.on("request", function(request) {
-    let newCount = request.body.counter + 1;
-    response.send({counter: newCount});
+app.post("/increment", (req, res) => {
+    let newCount = req.body.currentCount + 1;
+    // No server storage of newCount
+    res.json({ counter: newCount });
 });
 ```
 
-## Identifying Stateful vs Stateless Applications
+This design does not keep track of the count internally on the server, so scaling out to multiple server instances is simple. Each request contains the necessary input from the client.
 
-To understand the concept of stateful and stateless applications, let's consider a straightforward example: a web-based counter application with a button. Each time a user clicks this button, a counter increases by one, and the webpage displays the updated count.
+### Common Considerations  
+There are several universal factors that affect both stateful and stateless applications. Networking plays a huge role, because any distributed application must handle potential timeouts or disconnections. Storage and filesystem modifications need consistent practices to avoid data corruption. Database interactions must be robust, whether or not the server itself is holding session data.
+
+A short formula might illustrate overhead differences. Let T_stateful be the average time per request in a stateful application and T_stateless in a stateless application. If requests require loading and saving session data from a shared store, T_stateful could exceed T_stateless by the session overhead:
+
+```
+T_stateful = T_processing + T_sessionOverhead
+T_stateless = T_processing
+```
+
+In simpler workflows, the session overhead might not be large, but in high-traffic scenarios, it can become significant.
+
+### Identifying Stateful vs Stateless Designs  
+A good way to identify whether a system is stateful or stateless is to see if the server stores user-specific data over time. A stateful server might keep a session object or memory of user interactions, while a stateless server often expects clients to include necessary data in every request.  
+
+Below is an illustration of a web application that implements a simple counter, with the server either remembering or forgetting the current count between requests:
 
 ```
 +-----------------------------+
@@ -154,20 +182,4 @@ To understand the concept of stateful and stateless applications, let's consider
 +-----------------------------+
 ```
 
-### Stateful Application Scenario
-In a stateful version of this counter application, the server remembers the count between different requests from the same user. Here's how it works:
-1. **User Interaction**: The user clicks the button on the webpage.
-2. **Server Processing**: The server receives the click request, increments the counter specific to that user, and stores this updated count in a session or database.
-3. **Response**: The server then sends the updated count back to the user's webpage, where it's displayed.
-4. **State Management**: The next time the same user clicks the button, the server retrieves the previously stored count, increments it, and continues the cycle.
-
-In this scenario, the application is stateful because the server keeps track of the state (the count) between different interactions with the same user.
-
-### Stateless Application Scenario
-Contrast this with a stateless version of the same application:
-1. **User Interaction**: The user clicks the button on the webpage.
-2. **Server Processing**: The server receives the click request but does not store any state between requests. Instead, it relies on the client to send the current count with each request.
-3. **Response**: The server increments the received count and sends it back, but doesn’t store it.
-4. **No State Management**: Every time the button is clicked, the client must send the current count along with the request. The server treats each request independently, without knowledge of previous interactions.
-
-In the stateless scenario, the server does not remember the count between requests. Each request is treated as a new, standalone transaction.
+A stateful approach has the server track the count internally. A stateless approach relies on the client to send the current count with every interaction. Each style has unique trade-offs, so the best choice depends on factors like scalability requirements, complexity of the workflow, and overall system design.
