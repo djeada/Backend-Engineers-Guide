@@ -13,16 +13,6 @@ git clone https://github.com/your_username/Backend-Engineers-Guide.git
 cd Backend-Engineers-Guide/notes
 ```
 
-
-what are:
-
-- cookies
-- sessions
-
-
-https://youtube.com/playlist?list=PLP0UwHI8wt0wNDYZcHmMhxGZkYWU0fhcM&si=63bEfrN7Hi5Cp-eb
-
-
 ## Notes
 
 ### API Design
