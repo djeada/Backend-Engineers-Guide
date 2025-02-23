@@ -72,8 +72,8 @@ cd Backend-Engineers-Guide/notes
 
 | Topic                    | Notes                                                                                       |
 | ------------------------ | ------------------------------------------------------------------------------------------- |
+| Pub Sub vs Queue            | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/01_pub_sub_vs_queue.md) |
 | Messaging System Integration         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/02_messaging_system_integration.md) |
-| Message Brokers                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/02_message_brokers.md) |
 | Batch Processing        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/03_batch_processing.md) |
 | Stream Processing                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/04_stream_processing.md) |
 
