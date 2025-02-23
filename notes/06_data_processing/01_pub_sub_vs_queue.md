@@ -7,7 +7,7 @@ Message queues enable asynchronous, decoupled communication in distributed syste
 A message queue is a fundamental building block for asynchronous, decoupled communication in distributed systems. Publishers send messages to a queue, and one or more consumers retrieve those messages in a controlled fashion—often in first-in, first-out (FIFO) order—to process them independently. Below are expanded notes and diagrams illustrating message queues, along with the publish-subscribe pattern.
 
 ```
-ASCII DIAGRAM: Basic Message Queue
+Basic Message Queue
 
        +----------+             +-----------+
        | Publisher|             |  Consumer |
@@ -27,7 +27,7 @@ ASCII DIAGRAM: Basic Message Queue
 - The queue can be **configured** to hold messages temporarily when downstream systems are busy or offline.  
 
 ```
-ASCII DIAGRAM: Multiple Publishers and Consumers
+Multiple Publishers and Consumers
 
    +-----------+     +------------+
    |Publisher A|     |Publisher B |
@@ -45,10 +45,10 @@ ASCII DIAGRAM: Multiple Publishers and Consumers
  +----------+  +---------+  +---------+
 ```
 
-- Having multiple publishers is **common** when events or data originate from various system components.  
-- Supporting multiple consumers is **helpful** for parallel processing, workload sharing, or specialized job handling.  
-- FIFO ordering can be **maintained** in a simple queue but might need special configurations for concurrency.  
-- Advanced queue systems often include **visibility** timeouts, retry policies, and dead-letter queues for unprocessable messages.  
+- Having multiple publishers is common when events or data originate from various system components.  
+- Supporting multiple consumers is helpful for parallel processing, workload sharing, or specialized job handling.  
+- FIFO ordering can be maintained in a simple queue but might need special configurations for concurrency.  
+- Advanced queue systems often include visibility timeouts, retry policies, and dead-letter queues for unprocessable messages.  
 
 ### Publish-Subscribe Pattern (Pub-Sub)
 
@@ -76,31 +76,31 @@ ASCII DIAGRAM: Basic Pub-Sub
 +-----------+       +-----------+
 ```
 
-- A publish-subscribe broker is **crucial** for decoupling producers from consumers, letting them evolve independently.  
-- Each subscriber is **registered** for certain topics and automatically receives all messages on those topics.  
-- Multiple subscribers can be **helped** by receiving identical messages, which is beneficial for logging or analytics.  
-- The publisher does not need to be **aware** of the subscription logic, simplifying scaling and modifications.  
+- A publish-subscribe broker is important for decoupling producers from consumers, letting them evolve independently.  
+- Each subscriber is registered for certain topics and automatically receives all messages on those topics.  
+- Multiple subscribers can be helped by receiving identical messages, which is beneficial for logging or analytics.  
+- The publisher does not need to be aware of the subscription logic, simplifying scaling and modifications.  
 
 ```
-ASCII DIAGRAM: Multiple Topics & Subscribers
+Multiple Topics & Subscribers
 
-     +---------+
-     |Publisher|
-     +----+----+
-          |
+     +-----------+
+     | Publisher |
+     +-----+-----+
+           |
     (Publish: TopicA, TopicB)
-          v
-    +-----+----------+
+           v
+    +------+---------+
     |  Pub-Sub       |
     |   Broker       |
     +-----+----------+
-        /      \
-       /        \
-      v          v
-+-----------+  +-----------+
-| Topic A   |  | Topic B   |
-| Subscribers|  | Subscribers|
-+-----+------+  +-----+------+
+         /        \
+       /            \
+      v              v
++-------------+   +-------------+
+| Topic A     |   | Topic B     |
+| Subscribers |   | Subscribers |
++-----+-------+   +-----+-------+
 ```
 
 - Different topics can be targeted for different categories of events or messages.  
