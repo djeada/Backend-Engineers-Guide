@@ -103,24 +103,22 @@ ASCII DIAGRAM: Multiple Topics & Subscribers
 +-----+------+  +-----+------+
 ```
 
-- Different topics can be **targeted** for different categories of events or messages.  
-- Subscribers might be **selective**, subscribing to only the topics relevant to their processing logic.  
-- Pub-sub is **favored** in event-driven architectures where multiple services must react to the same event.  
+- Different topics can be targeted for different categories of events or messages.  
+- Subscribers might be selective, subscribing to only the topics relevant to their processing logic.  
+- Pub-sub is favored in event-driven architectures where multiple services must react to the same event.  
 
 ### Concepts in Message Queues and Pub-Sub
 
-- **Asynchronous Processing**: Allows tasks to run **independently**, reducing wait times and improving responsiveness.  
-- **Distributed Processing**: Helps handle **scalability** by assigning tasks to multiple machines or containers.  
-- **FIFO (First-In, First-Out)**: Ensures **predictable** ordering where necessary, particularly important in certain business workflows.  
-- **Message Integrity**: Guarantees **reliable** delivery and accurate content, crucial for critical or financial systems.  
-- **Error Handling**: Provides **robust** strategies like retries, dead-letter queues, and alternative routing to manage failures.
+- Asynchronous processing allows tasks to run independently, reducing wait times and improving responsiveness.
+- Distributed processing helps handle scalability by assigning tasks to multiple machines or containers.
+- FIFO (First-In, First-Out) ensures predictable ordering where necessary, which is particularly important in certain business workflows.
+- Message integrity guarantees reliable delivery and accurate content, which is crucial for financial or critical systems.
+- Error handling provides strategies such as retries, dead-letter queues, and alternative routing to manage failures effectively.
 
 ### Best Practices
 
-- **Ensure Message Reliability**: Set up **acknowledgments** or receipts to confirm proper message delivery.  
-- **Monitor System Performance**: Track **metrics** such as queue length, throughput, and message delays for efficient scaling.  
-- **Implement Robust Error Handling**: Deploy **dead-letter** queues for messages that fail repeatedly.  
-- **Scalability**: Prepare to **partition** queues or add more broker nodes when load increases.  
-- **Secure the Pipeline**: Use **authentication** and encryption to protect messages, especially in multi-tenant or external environments.
-
-  
+- Ensuring message reliability involves setting up acknowledgments or receipts to confirm proper message delivery.
+- Monitoring system performance requires tracking metrics like queue length, throughput, and message delays for efficient scaling.
+- Implementing robust error handling includes deploying dead-letter queues for messages that fail repeatedly.
+- Scalability is maintained by partitioning queues or adding more broker nodes when load increases.
+- Securing the pipeline includes using authentication and encryption to protect messages, especially in multi-tenant or external environments.
