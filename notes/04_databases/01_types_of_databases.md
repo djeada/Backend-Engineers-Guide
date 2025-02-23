@@ -158,7 +158,7 @@ CockroachDB, Google Cloud Spanner, TiDB.
 ### Distributed and Cloud-Native Databases  
 Some databases are designed from the ground up for distributed deployments across multiple regions. They offer automatic sharding, replication, and fault tolerance.
 
-#### Key Attributes  
+#### Attributes  
 1) Data is split into shards or partitions across nodes.  
 2) Replication ensures data redundancy for fault tolerance.  
 3) Global or multi-region deployment can reduce latency for geo-distributed workloads.
@@ -178,13 +178,14 @@ Some databases are designed from the ground up for distributed deployments acros
          Clients distribute queries across nodes
 ```
 
-### Selecting the Right Database  
-1) **Data Structure**: Relational data often fits RDBMS, while semi-structured JSON data might benefit from document stores.  
-2) **Query Patterns**: Key-based lookups align well with key-value stores, while highly connected data might need a graph approach.  
-3) **Scalability**: Horizontal scaling can be easier with NoSQL, NewSQL, or distributed RDBMS solutions.  
-4) **Consistency Model**: ACID (strong consistency) or eventual consistency.  
-5) **Performance**: Latency needs, data ingestion rates, and concurrency levels.  
-6) **Ecosystem and Tooling**: Established solutions have robust drivers, libraries, and community support.
+### Selecting the Right Database 
+
+- Relational data is typically managed in a relational database management system, while semi-structured JSON data is often stored in a document-oriented database.
+- Key-based lookups perform best in key-value stores, and managing complex relationships in data may be achieved with graph databases.
+- Systems that need to scale horizontally might use NoSQL, NewSQL, or distributed relational databases to handle growing workloads.
+- Some applications require strict ACID compliance for consistency, whereas others operate effectively with eventual consistency.
+- Database performance is influenced by factors such as response time, data ingestion rates, and the ability to handle concurrent operations.
+- Mature database solutions offer a range of drivers, libraries, and community support that can simplify integration and ongoing development.
 
 ### Example Metrics and Formulas for Database Performance  
 
