@@ -187,34 +187,170 @@ Some databases are designed from the ground up for distributed deployments acros
 - Database performance is influenced by factors such as response time, data ingestion rates, and the ability to handle concurrent operations.
 - Mature database solutions offer a range of drivers, libraries, and community support that can simplify integration and ongoing development.
 
-### Example Metrics and Formulas for Database Performance  
+### Setting Up SQLite and Preparing the Benchmark Environment
 
-#### Transactions per Second (TPS)  
-A common measure for OLTP systems. If `N_trx` transactions occur over a period `T_seconds`, TPS is:
+SQLite is a file-based database, making it ideal for simple benchmarks. First, install Python (if not already installed) and use the built-in `sqlite3` module.
 
+#### Steps to Set Up
+
+1. **Install Python:**  
+   Ensure Python 3 is installed on your machine.
+
+2. **Create a Benchmark Script:**  
+   Save the following script as `sqlite_benchmark.py` (you can adjust parameters as needed).
+
+#### Measuring Transactions per Second (TPS)
+
+This script creates a database, a table, and then inserts a fixed number of records while timing the operation. The TPS is calculated as the number of transactions divided by the elapsed time.
+
+```python
+import sqlite3
+import time
+
+# Configuration
+DB_FILE = 'benchmark.db'
+NUM_TRANSACTIONS = 10000  # Total number of inserts to simulate TPS measurement
+
+# Connect to SQLite (creates the file if it doesn't exist)
+conn = sqlite3.connect(DB_FILE)
+cur = conn.cursor()
+
+# Setup: Drop table if exists and create a new one
+cur.execute("DROP TABLE IF EXISTS test;")
+cur.execute("CREATE TABLE test (id INTEGER PRIMARY KEY AUTOINCREMENT, data TEXT);")
+conn.commit()
+
+# Begin transaction for bulk insert performance (faster than individual commits)
+start_time = time.time()
+cur.execute("BEGIN TRANSACTION;")
+for i in range(NUM_TRANSACTIONS):
+    cur.execute("INSERT INTO test (data) VALUES (?);", (f"Sample data {i}",))
+cur.execute("COMMIT;")
+end_time = time.time()
+
+# Calculate TPS
+elapsed_time = end_time - start_time
+TPS = NUM_TRANSACTIONS / elapsed_time
+
+print(f"Transactions per Second (TPS): {TPS:.2f}")
+print(f"Total time for {NUM_TRANSACTIONS} transactions: {elapsed_time:.2f} seconds")
 ```
-TPS = N_trx / T_seconds
+
+**What to Expect:**  
+- **TPS Value:** A higher TPS indicates the database efficiently handles many inserts.  
+- **Interpretation:** If TPS is lower than expected, check for disk I/O constraints or adjust transaction boundaries.
+
+> **TODO:** Plot TPS vs. number of transactions (e.g., X-axis: Number of Transactions, Y-axis: TPS).
+
+#### Measuring Read/Write Latency
+
+This script measures the latency for individual read and write operations. It calculates the average latency and can be extended to compute percentiles.
+
+```python
+import sqlite3
+import time
+import statistics
+
+DB_FILE = 'benchmark.db'
+NUM_OPERATIONS = 1000  # Number of operations for each test
+
+# Connect to the same SQLite database
+conn = sqlite3.connect(DB_FILE)
+cur = conn.cursor()
+
+# Prepare a list to store latencies
+write_latencies = []
+read_latencies = []
+
+# Write Latency Measurement: Single row insert and commit each time
+for i in range(NUM_OPERATIONS):
+    start = time.time()
+    cur.execute("INSERT INTO test (data) VALUES (?);", (f"Write test data {i}",))
+    conn.commit()  # Committing each time for measurement granularity
+    end = time.time()
+    write_latencies.append(end - start)
+
+# Read Latency Measurement: Single SELECT query
+for i in range(NUM_OPERATIONS):
+    start = time.time()
+    cur.execute("SELECT * FROM test WHERE id = ?;", (i + 1,))  # Using id from 1 to NUM_OPERATIONS
+    cur.fetchone()
+    end = time.time()
+    read_latencies.append(end - start)
+
+# Calculate averages
+avg_write_latency = statistics.mean(write_latencies)
+avg_read_latency = statistics.mean(read_latencies)
+
+print(f"Average Write Latency: {avg_write_latency*1000:.2f} ms")
+print(f"Average Read Latency: {avg_read_latency*1000:.2f} ms")
+
+# Optional: Calculate percentiles
+write_95th = statistics.quantiles(write_latencies, n=100)[94] * 1000
+read_95th = statistics.quantiles(read_latencies, n=100)[94] * 1000
+
+print(f"95th Percentile Write Latency: {write_95th:.2f} ms")
+print(f"95th Percentile Read Latency: {read_95th:.2f} ms")
 ```
 
-#### Read/Write Latency  
-Often measured as average or percentile latencies:
+**What to Expect:**  
+- **Write Latency:** Expect slightly higher latency per write if each commit is executed separately.  
+- **Read Latency:** Should be very low for indexed lookups.  
+- **Interpretation:** High latencies may indicate disk bottlenecks or suboptimal commit strategies.
 
-```
-Avg_Read_Latency = (Sum_of_Read_Durations) / (Number_of_Reads)
-```
+> **TODO:** Plot read and write latencies (X-axis: Operation Number, Y-axis: Latency in ms).
 
-#### Sharding and Partitioning  
-When distributing data across multiple shards, a formula for node usage might be:
+#### Discussion on Sharding/Partitioning and Replication in SQLite
 
-```
-Data_Per_Node = (Total_Data_Volume) / (Number_of_Shards)
-```
+SQLite is designed as a single-file, embedded database, so traditional sharding, partitioning, and replication are not directly supported.  
+However, for academic purposes, you can simulate:
 
-#### Replication  
-Replication ensures fault tolerance at the cost of overhead:
+- **Partitioning:**  
+  Create multiple SQLite files representing different partitions. Measure file size or access times per file.
+  
+- **Replication:**  
+  Manually copy the database file to simulate replication, or use a tool/script to monitor file synchronization times.
 
-```
-Effective_Storage = (Number_of_Replicas) * (Data_Volume)
-```
+Since these are not native to SQLite, the scripts above focus on TPS and latency. For production systems requiring sharding/replication, consider a more robust RDBMS like PostgreSQL or MySQL.
 
-In synchronous replication, writes commit only after multiple nodes confirm the update, which can increase latency.
+> **TODO:** (If simulating partitioning) Plot data file sizes or access times across multiple SQLite databases.
+
+#### Running the Benchmark and Analyzing the Results
+
+##### Steps to Run the Benchmark:
+1. **Save the Scripts:**  
+   Create two separate Python scripts (or combine them with appropriate function calls) for TPS and latency tests.
+   
+2. **Execute the Scripts:**  
+   Run the scripts from the command line:
+   ```bash
+   python sqlite_benchmark.py
+   ```
+   
+3. **Collect the Output:**  
+   Note the TPS, average latencies, and percentile latencies printed to the console.
+
+##### Interpreting the Metrics:
+- **TPS:**  
+  - **High TPS:** Good for write-heavy OLTP scenarios.
+  - **Low TPS:** May indicate disk I/O issues or inefficient transaction management.
+- **Latency:**  
+  - **Low Read/Write Latency:** Ideal for real-time applications.
+  - **High Latency:** Investigate commit frequency, disk speed, or query complexity.
+  
+4. **Visualization:**  
+   Use tools like Python’s matplotlib or external tools to create plots. For example:
+   ```python
+   import matplotlib.pyplot as plt
+
+   # Example: Plotting Write Latencies
+   plt.figure(figsize=(10, 5))
+   plt.plot(write_latencies, label="Write Latency")
+   plt.xlabel("Operation Number")
+   plt.ylabel("Latency (seconds)")
+   plt.title("Write Latency per Operation")
+   plt.legend()
+   plt.show()
+   ```
+
+> **TODO:** Enhance visualization by plotting multiple metrics together (e.g., TPS vs. Time, Latency Percentiles).
