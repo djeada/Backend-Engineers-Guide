@@ -6,10 +6,11 @@ Data warehousing unifies large volumes of information from different sources int
 
 #### Purpose of a Data Warehouse  
 Data warehouses serve as the “single source of truth,” enabling analysts and business intelligence (BI) tools to perform historical and trend analysis. The hallmarks of a warehouse often include:  
-- **Subject-oriented**: Organized by major business domains (finance, sales, HR).  
-- **Integrated**: Data is standardized, removing duplicates and reconciling format differences.  
-- **Non-volatile**: Data is rarely changed or deleted once loaded; updates are typically additive.  
-- **Time-variant**: The warehouse retains historical snapshots for trend analysis across months or years.
+
+- In its design, the system emphasizes a *subject-oriented* approach by organizing data around key business domains such as finance, sales, and human resources.  
+- Following initial categorization, the framework ensures data is *integrated* by standardizing formats and removing duplicates.  
+- The repository is built to be *non-volatile*, which means records are seldom altered or deleted, and updates are typically added rather than replaced.  
+- Historical snapshots are maintained in a *time-variant* manner, allowing analysis of trends over extended periods like months or years.
 
 #### Common Architectures  
 
@@ -33,7 +34,7 @@ Data warehouses serve as the “single source of truth,” enabling analysts and
    **Pros**: Flexible storage of all data types.  
    **Cons**: Additional complexity to decide which data is curated and loaded into the warehouse.
 
-Below is an ASCII diagram of a typical architecture that loads data into a staging area before final processing in a consolidated warehouse:
+Below is a diagram of a typical architecture that loads data into a staging area before final processing in a consolidated warehouse:
 
 ```
                 +---------------+
@@ -121,9 +122,9 @@ Focuses on agile ingestion. Data is split into **hubs** (unique business keys), 
 
 #### ETL Flow  
 
-1. **Extract**: Gather raw data from sources (files, APIs, databases).  
-2. **Transform**: Cleanse, standardize, and enrich data in a staging area.  
-3. **Load**: Write the transformed data to the warehouse.
+- In the *Extract* phase, raw data is collected from diverse sources such as files, APIs, and databases.  
+- During the *Transform* stage, data is cleansed, standardized, and enriched in a staging area to ensure consistency.  
+- In the *Load* step, the prepared data is transferred to the repository for further analysis.
 
 ##### Example Bash + SQL ETL Flow
 
@@ -180,6 +181,7 @@ WHERE s.load_timestamp > (SELECT last_load_time FROM etl_meta WHERE table_name='
 Large fact tables are often partitioned by date. Queries on specific time ranges only scan relevant partitions.
 
 **Creating a partitioned table** (PostgreSQL example):
+
 ```sql
 CREATE TABLE fact_sales_partitioned (
     sales_key SERIAL,
@@ -200,6 +202,7 @@ FOR VALUES FROM ('2025-02-01') TO ('2025-03-01');
 
 #### BI Tools  
 Popular BI tools (e.g., Power BI, Tableau, Looker) connect to the warehouse via ODBC/JDBC. They let users drag-and-drop fields, automatically generating SQL or MDX queries.  
+
 ```text
 +-------------------------------------+
 |  Power BI / Tableau / QlikSense    |
@@ -219,12 +222,13 @@ Sometimes a warehouse also accommodates near real-time updates. Tools like Apach
 
 ### Performance Considerations  
 
-1. **Columnar Storage**: Warehouses like Snowflake, Amazon Redshift, Apache Parquet-based systems store columns together, yielding high compression and quick aggregations.  
-2. **Indexes / Statistics**: Traditional RDBMS-based warehouses may still use indexes or cost-based optimizers.  
-3. **Materialized Views**: Precomputed summary tables that speed up frequent queries, automatically refreshed or triggered.  
-4. **Massively Parallel Processing (MPP)**: Distributed compute nodes handle pieces of large datasets. Queries can be split and run concurrently.
-
+- The design leverages *columnar storage* by organizing data in columns rather than rows, which improves compression rates and accelerates aggregations in systems such as Snowflake, Amazon Redshift, and Apache Parquet-based warehouses.  
+- Traditional setups incorporate *indexes* and cost-based optimizers, which enhance query performance even in environments based on relational databases.  
+- The use of *materialized views* enables the creation of precomputed summary tables that refresh automatically or via triggers to speed up recurring queries.  
+- Implementation of *MPP* (Massively Parallel Processing) allows the workload to be distributed across multiple compute nodes, facilitating the concurrent execution of query fragments.
+  
 **Example** (Creating a materialized view in Oracle):
+
 ```sql
 CREATE MATERIALIZED VIEW mv_monthly_sales
 BUILD IMMEDIATE
@@ -247,17 +251,20 @@ Ensures consistency for core entities (customers, products). MDM merges duplicat
 Systems like Apache Atlas (for Hadoop ecosystems) or commercial metadata managers can track how each column is transformed. This lineage helps troubleshoot if a downstream metric is incorrect.
 
 #### Data Quality Checks  
-- **Integrity Checks**: Validate reference keys exist in dimension tables.  
-- **Range Checks**: Confirm that sales amount is not negative or excessively large.  
-- **Deduplication**: Identify repeated records from different source systems.
+
+- The process includes *integrity checks* that verify reference keys exist in the corresponding dimension tables.  
+- A set of *range checks* is applied to confirm that sales amounts fall within acceptable limits, avoiding negative or unreasonably high values.  
+- The workflow incorporates *deduplication* measures to detect and remove repeated records coming from different source systems.
 
 **Example** (Using SQL to find invalid references):
+
 ```sql
 SELECT f.*
 FROM fact_sales f
 LEFT JOIN dim_product d ON f.product_key = d.product_key
 WHERE d.product_key IS NULL;
 ```
+
 This query identifies fact rows referencing a product that does not exist in the dimension table.
 
 ### Cloud Data Warehousing  
@@ -266,6 +273,7 @@ This query identifies fact rows referencing a product that does not exist in the
 Providers such as Amazon Redshift, Google BigQuery, Snowflake, and Azure Synapse handle infrastructure, scaling, and updates automatically. They offer separation of storage and compute, letting you scale them independently.
 
 **Example** (BigQuery load command in Google Cloud CLI):
+
 ```bash
 bq load --source_format=CSV \
   mydataset.fact_sales \
@@ -273,47 +281,42 @@ bq load --source_format=CSV \
   date_key:DATE,product_key:INT64,quantity_sold:INT64,total_amount:NUMERIC
 ```
 
-#### Pros & Cons  
-- **Pros**: Minimal operational overhead, elasticity, advanced performance features.  
-- **Cons**: Potential lock-in, unpredictable cost if queries or data volumes spike.
+- The approach offers clear *pros* by reducing operational overhead, providing elasticity to scale resources as needed, and incorporating advanced performance features that enhance query efficiency.  
+- On the other hand, the *cons* include the risk of vendor lock-in and the possibility of unpredictable costs, particularly when query usage or data volumes increase unexpectedly.
 
 ### Practical Use Cases  
 
-1. **Financial Reporting**  
-   Integrate transactional data from multiple ERPs to produce consolidated financial statements.  
-2. **Sales and Marketing**  
-   Combine CRM leads, e-commerce transactions, and advertising metrics to evaluate campaign ROI.  
-3. **Supply Chain Analytics**  
-   Track inventory movements, shipping times, and reorder points across global operations.  
-4. **Customer 360**  
-   Merge customer interactions from call centers, websites, and in-store systems for targeted marketing.
-
+- Transactional data from multiple ERP systems is consolidated to generate comprehensive financial statements such as income statements, balance sheets, and cash flow reports, illustrating a detailed view of organizational performance within *financial reporting*.  
+- The combination of CRM lead data, e-commerce transactions, and advertising metrics is leveraged to assess campaign effectiveness and calculate return on investment, providing actionable insights in the realm of *sales and marketing*.  
+- Detailed monitoring of inventory movements, shipping durations, and reorder thresholds across global operations is implemented to streamline processes and reduce delays, a focus of *supply chain analytics*.  
+- Customer interactions collected from call centers, websites, and in-store systems are integrated to develop holistic profiles that enable personalized communication and service, which is central to the concept of *customer 360*.
+  
 ### Example End-to-End Workflow  
 
-Below is an ASCII overview of a sample pipeline that merges daily transactions from an e-commerce platform, cleans and enriches them, loads them into a star schema, and serves them to a BI dashboard:
+Below is an overview of a sample pipeline that merges daily transactions from an e-commerce platform, cleans and enriches them, loads them into a star schema, and serves them to a BI dashboard:
 
 ```
 (1) Operational DB (MySQL)    (2) Flat Files (CSV) 
            +                           +          
-           |  Extract                 |  Extract  
+           |  Extract                  |  Extract  
            v                           v          
  +--------------------+      +--------------------+ 
- |   Staging Tables   |      |   Staging (Landing)| 
+ |   Staging Tables   |      |  Staging (Landing) | 
  |   (Temporary)      |      +---------+----------+ 
  +---------+----------+                |  (Transform)
            |                           |  
-     (Transform + Merge)              v          
-           v                 +---------------------+  
+     (Transform + Merge)               |          
+           v                           v
  +-------------------------------------------------+  
- |         Data Warehouse (Star Schema)           |
- |    fact_sales, dim_date, dim_product, etc.     |
+ |         Data Warehouse (Star Schema)            |
+ |    fact_sales, dim_date, dim_product, etc.      |
  +---------------------+---------------------------+  
                        | (Load & Index)              
                        | 
                        v
             +---------------------------+
-            |  BI Tool / Dashboard     |
-            |  Summaries & Analytics   |
+            |  BI Tool / Dashboard      |
+            |  Summaries & Analytics    |
             +---------------------------+
 ```
 
@@ -324,11 +327,9 @@ Below is an ASCII overview of a sample pipeline that merges daily transactions f
 
 ### Challenges and Best Practices  
 
-- **Evolving Requirements**: Start with key subject areas (sales, finance) and expand.  
-- **Schema Changes**: Regularly evaluate if you need more dimensions or to rename columns.  
-- **Performance Tuning**: Partition large fact tables, create materialized views for common aggregations, maintain stats.  
-- **Data Lake Integration**: Offload raw or unstructured data to cheaper storage, only refine critical pieces into the warehouse.  
-- **Security/Compliance**: Implement role-based access, encrypt sensitive columns, and apply row-level or column-level security rules if needed.  
-- **Monitoring**: Track ETL job runtimes, error counts, data growth, and slow queries. Tools like Airflow, Luigi, or enterprise schedulers can orchestrate jobs, sending alerts on failures or anomalies.  
-
-
+- The approach begins by addressing core business areas and gradually expanding scope, ensuring that requirements are met as the business evolves within *evolving requirements* strategies.  
+- Regular reviews of the data model are conducted, allowing for adjustments such as adding dimensions or renaming columns as needed, which is a key aspect of managing *schema changes*.  
+- To enhance query efficiency, large fact tables are partitioned and materialized views are created for common aggregations, while statistics are routinely maintained as part of *performance tuning* practices.  
+- Unstructured or raw data is offloaded to cost-effective storage solutions, with only the most critical data refined and loaded into the main repository, reflecting the principles of *data lake integration*.  
+- Security protocols are enforced by implementing role-based access controls, encrypting sensitive information, and applying specific security rules at the row or column level when necessary, thereby addressing *security/compliance* concerns.  
+- Operational oversight is maintained by monitoring ETL job runtimes, error frequencies, data growth trends, and slow queries, with orchestration tools such as Airflow or Luigi sending alerts for any failures or anomalies as part of a robust *monitoring* framework.
