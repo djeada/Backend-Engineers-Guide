@@ -1,4 +1,5 @@
-## Data transmissio  
+## Data transmission
+
 Data transmission in API design covers how information is sent and received between a client and a server. This involves choosing data formats, transport protocols, security measures, and techniques to ensure both correctness and efficiency. Whether an application is stateful or stateless affects the data payloads and what metadata is carried on each request.
 
 ### Factors in Data Transmission  
