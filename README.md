@@ -1,8 +1,8 @@
 # Backend Engineer's Guide
 
-This repository is a collection I've put together, focusing on various backend engineering topics. It's a place where you can find information on API design, databases, deployment, distributed computing, networking, performance optimization, security, and even more specialized areas. Each topic is broken down into a Markdown file, found in the notes directory. I've tried my best to provide detailed notes, explanations, and examples.
+Welcome to my backend engineering notes. I've spent countless hours organizing these Markdown files into clear topics—API design, databases, deployment, distributed systems, networking, performance, security, and more—each stored in the notes directory. This is my personal archive of practical insights and real-world examples that I've gathered over the years.
 
-I try to keep these notes updated and expanded regularly, aiming to provide up-to-date, relevant information. Of course, if you have any contributions or suggestions, they're more than welcome. We're all learning together, after all.
+I update these notes regularly because I'm always learning and evolving in this field. Your feedback and contributions are welcome—if you see room for improvement or have ideas to share, please let me know.
 
 ## Getting Started
 
@@ -17,101 +17,121 @@ cd Backend-Engineers-Guide/notes
 
 ### API Design
 
-| Topic                         | Notes                                                                                                     |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Overview                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/01_overview.md)                   |
-| REST                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/02_rest.md)                   |
-| GraphQL                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/03_graphql.md)                   |
-| gRPC                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/04_grpc.md)                   |
-| Stateful vs Stateless Applications | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/05_state_management.md)                   |
-| Encoding and Data Transmission | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/06_data_transmission.md) |
+| Topic                          | Notes                                                                                                                                       |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Overview                       | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/01_overview.md)  |
+| REST                           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/02_rest.md)      |
+| GraphQL                        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/03_graphql.md)   |
+| gRPC                           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/04_grpc.md)      |
+| Stateful vs Stateless          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/05_state_management.md)  |
+| Data Transmission              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/01_api_design/06_data_transmission.md) |
+
+---
 
 ### Network Communications
 
-| Topic                         | Notes                                                                                                     |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Real-time Communication Methods                    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/01_overview.md)                   |
-| TCP vs UDP                        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/02_tcp_and_udp.md)                   |
-| HTTP Protocol                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/03_http_protocol.md)                   |
-| WebSockets | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_communication_protocols/04_web_sockets.md)                   |
-| Performance Metrics | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/05_metrics_and_analysis.md) |
+| Topic                   | Notes                                                                                                                                                    |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Overview                | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/01_overview.md)    |
+| TCP vs UDP              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/02_tcp_and_udp.md)  |
+| HTTP Protocol           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/03_http_protocol.md)   |
+| WebSockets              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/04_web_sockets.md)      |
+| Metrics and Analysis    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/02_network_communications/05_metrics_and_analysis.md) |
+
+---
 
 ### Web Servers
 
-| Topic                         | Notes                                                                                                     |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Web Server Overview                 | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/01_web_server_overview.md)                   |
-| Static and Dynamic Content                       | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/02_static_dynamic_content.md)                   |
-| Tomcat                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/03_tomcat.md)                   |
-| Apache | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/04_apache.md)                   |
-| Nginx | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/05_nginx.md) |
-| Forward Proxies     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/06_forward_proxies.md)                   |
-| Reverse Proxies | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/07_reverse_proxies.md)                   |
-| Load Balancing                 | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/08_load_balancing.md)                   |
+| Topic                           | Notes                                                                                                                                                 |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Web Server Overview             | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/01_web_server_overview.md)  |
+| Static & Dynamic Content        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/02_static_dynamic_content.md) |
+| Tomcat                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/03_tomcat.md)             |
+| Apache                          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/04_apache.md)             |
+| Nginx                           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/05_nginx.md)              |
+| Forward Proxies                 | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/06_forward_proxies.md)    |
+| Reverse Proxies                 | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/07_reverse_proxies.md)    |
+| Load Balancing                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/03_server_technologies/08_load_balancing.md)     |
 
+---
 
 ### Databases
 
-| Topic                    | Notes                                                                                                 |
-| ------------------------ | ----------------------------------------------------------------------------------------------------- |
-| Types of Databases       | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/01_types_of_databases.md) |
-| Transactions             | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/02_transactions.md) |
-| Indexes                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/03_indexes.md) |
-| Isolation Levels         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/04_isolation_levels.md) |
-| Data Warehousing         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/05_data_warehousing.md) |
-| Replication              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/06_replication.md) |
+| Topic                     | Notes                                                                                                                                          |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Types of Databases        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/01_types_of_databases.md) |
+| Transactions              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/02_transactions.md)       |
+| Indexes                   | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/03_indexes.md)            |
+| Isolation Levels          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/04_isolation_levels.md)     |
+| Data Warehousing          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/05_data_warehousing.md)     |
+| Replication               | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/06_replication.md)          |
+| Halloween Problem         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/04_databases/07_halloween_problem.md)     |
+
+---
 
 ### Caching
 
-| Topic                    | Notes                                                                                       |
-| ------------------------ | ------------------------------------------------------------------------------------------- |
-| Caching Strategies and Techniques         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_caching/01_caching_strategies_and_techniques.md) |
-| Redis         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_caching/01_redis.md) |
+| Topic                         | Notes                                                                                                                                                 |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Caching Strategies            | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_caching/01_caching_strategies.md)          |
+| Redis                         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_caching/02_redis.md)                  |
+| Content Delivery Networks     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_caching/03_content_delivery_networks.md) |
+| Database Caching              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/05_caching/04_database_caching.md)       |
+
+---
 
 ### Data Processing
 
-| Topic                    | Notes                                                                                       |
-| ------------------------ | ------------------------------------------------------------------------------------------- |
-| Pub Sub vs Queue            | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/01_pub_sub_vs_queue.md) |
-| Messaging System Integration         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/02_messaging_system_integration.md) |
-| Batch Processing        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/03_batch_processing.md) |
-| Stream Processing                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/04_stream_processing.md) |
+| Topic                          | Notes                                                                                                                                                  |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Pub Sub vs Queue               | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/01_pub_sub_vs_queue.md)      |
+| Messaging System Integration   | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/02_messaging_system_integration.md) |
+| Batch Processing               | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/03_batch_processing.md)      |
+| Stream Processing              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/06_data_processing/04_stream_processing.md)     |
+
+---
+
+### Data Formats
+
+| Topic                | Notes                                                                                                                                           |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Protocol Buffers     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_formats/01_protocol_buffers.md)  |
+| XML                  | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_formats/02_xml.md)             |
+| JSON                 | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_formats/03_json.md)            |
+| YAML                 | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_formats/04_yaml.md)            |
+
+---
 
 ### Security
 
-| Topic                    | Notes                                                                                   |
-| ------------------------ | --------------------------------------------------------------------------------------- |
-| Protobuf          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_formats/01_protocol_buffers.md) |
-| XML          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_formats/02_xml.md) |
-| JSON           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_formats/03_json.md) |
-| YAML           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/07_data_formats/04_yaml.md) |
+| Topic                                   | Notes                                                                                                                                       |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Auth                                    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_security/01_auth.md)                 |
+| TLS                                     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_security/02_tls.md)                  |
+| Security Vulnerabilities                | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_security/03_security_vulnerabilities.md) |
+| Security Best Practices and Measures    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_security/04_security_best_practices_and_measures.md) |
+| Third-Party Cookies Vulnerabilities     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_security/05_third_party_cookies_vulnerabilities.md) |
 
-### Security
-
-| Topic                    | Notes                                                                                   |
-| ------------------------ | --------------------------------------------------------------------------------------- |
-| Auth      | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_security/01_auth.md) |
-| TLS      | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_security/02_tls.md) |
-| Security Vulnerabilities in Backend           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_security/03_security_vulnerabilities.md) |
-| Security Best Practices and Measures           | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_security/04_security_best_practices_and_measures.md) |
-| Third-Party Cookies Vulnerabilities          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/08_security/05_third_party_cookies_vulnerabilities.md) |
+---
 
 ### Deployment
 
-| Topic                    | Notes                                                                                          |
-| ------------------------ | ---------------------------------------------------------------------------------------------- |
-| CentOS Digital Ocean     | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_deployment/01_centos_digital_ocean.md) |
-| Static Python Website    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_deployment/02_static_python_website_netlify.md) |
+| Topic                        | Notes                                                                                                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| CentOS Digital Ocean         | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_deployment/01_centos_digital_ocean.md)   |
+| Static Python Website        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/09_deployment/02_static_python_website_netlify.md) |
+
+---
 
 ### Distributed Systems
 
-| Topic                    | Notes                                                                                     |
-| ------------------------ | ----------------------------------------------------------------------------------------- |
-| Coordination Services    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/01_coordination_services.md) |
-| Gossip Protocol          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/02_gossip_protocol.md) |
-| Linearizability          | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/03_linearizability.md) |
-| Concurrent Writes        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/04_concurrent_writes.md) |
-| Operational Transform    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/05_operational_transform.md) |
+| Topic                        | Notes                                                                                                                                                     |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Coordination Services        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/01_coordination_services.md)   |
+| Gossip Protocol              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/02_gossip_protocol.md)         |
+| Linearizability              | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/03_linearizability.md)         |
+| Concurrent Writes            | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/04_concurrent_writes.md)         |
+| Operational Transform        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/05_operational_transform.md)     |
 
 ## References
 
