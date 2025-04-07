@@ -1,6 +1,6 @@
 # Backend Engineer's Guide
 
-This repository is a collection I've put together, focusing on various backend engineering topics. It's a place where you can find information on API design, databases, deployment, distributed computing, networking, performance optimization, security, and even more specialized areas. Each topic is broken down into a Markdown file, found in the notes directory. Here, I've tried my best to provide detailed notes, explanations, and examples.
+This repository is a collection I've put together, focusing on various backend engineering topics. It's a place where you can find information on API design, databases, deployment, distributed computing, networking, performance optimization, security, and even more specialized areas. Each topic is broken down into a Markdown file, found in the notes directory. I've tried my best to provide detailed notes, explanations, and examples.
 
 I try to keep these notes updated and expanded regularly, aiming to provide up-to-date, relevant information. Of course, if you have any contributions or suggestions, they're more than welcome. We're all learning together, after all.
 
@@ -113,18 +113,56 @@ cd Backend-Engineers-Guide/notes
 | Concurrent Writes        | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/04_concurrent_writes.md) |
 | Operational Transform    | [<img src="https://img.icons8.com/color/344/markdown.png" height="50" />](https://github.com/djeada/Backend-Engineers-Guide/blob/main/notes/10_distributed_systems/05_operational_transform.md) |
 
-## Refrences
+## References
 
-Here are some recommended resources for learning more about backend engineering:
+### Books
+- **Kleppmann, Martin**  
+  *Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems*  
+  [Amazon Link](https://amzn.to/4iX2sU6)
 
-* [Node.js API Design](https://www.cs.unb.ca/~bremner/teaching/cs2613/books/nodejs-api/)
-* [RESTful API Designing guidelines](https://restfulapi.net/)
-* [Database Systems Concepts](https://www.db-book.com/)
-* [Distributed Systems for Fun and Profit](http://book.mixu.net/distsys/)
-* [Google Cloud Platform Documentation](https://cloud.google.com/docs)
-* [AWS Documentation](https://aws.amazon.com/documentation/)
-* [Nginx Documentation](https://nginx.org/en/docs/)
-* [The Twelve-Factor App](https://12factor.net/)
+- **Newman, Sam**  
+  *Building Microservices: Designing Fine-Grained Systems*  
+  [Amazon Link](https://amzn.to/4i9MvJg)
+
+- **Martin, Robert C.**  
+  *Clean Architecture: A Craftsman's Guide to Software Structure and Design*  
+  [Amazon Link](https://https://amzn.to/4lp7ZEU)
+
+- **Evans, Eric**  
+  *Domain-Driven Design: Tackling Complexity in the Heart of Software*  
+  [Amazon Link](https://amzn.to/4iYQ6Lx)
+
+- **Nygard, Michael T.**  
+  *Release It!: Design and Deploy Production-Ready Software*  
+  [Amazon Link](https://amzn.to/4jf34UW)
+
+- **Abbott, Martin L.; Fisher, Michael T.**  
+  *The Art of Scalability: Scalable Web Architecture, Processes, and Organizations for the Modern Enterprise*  
+  [Amazon Link](https://amzn.to/422qAyR)
+
+- **Richardson, Chris**  
+  *Microservices Patterns: With examples in Java*  
+  [Amazon Link](https://amzn.to/4jqgbD1)
+
+- **Humble, Jez; Farley, David**  
+  *Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation*  
+  [Amazon Link](https://amzn.to/3RDoxep)
+
+- **Beyer, Betsy; Jones, Niall; Petoff, Jennifer; Murphy, Chris**  
+  *Site Reliability Engineering: How Google Runs Production Systems*  
+  [Amazon Link](https://amzn.to/4i8cOiZ)
+
+### Online Courses and Resources
+- [The Net Ninja - Node.js Tutorial for Beginners](https://www.thenetninja.co.uk/courses/node-js-tutorial-for-beginners)
+- [Udemy - The Complete Node.js Developer Course](https://www.udemy.com/course/the-complete-nodejs-developer-course-2/)
+- [Coursera - Building Scalable Java Microservices with Spring Boot and Spring Cloud](https://www.coursera.org/learn/google-cloud-java-spring)
+- [edX - Microservices Architecture](https://www.edx.org/course/microservices-architecture)
+- [Pluralsight - Backend Development with Python](https://www.pluralsight.com/courses/backend-development-with-python)
+- [FreeCodeCamp - Node.js and Express](https://www.freecodecamp.org/news/tag/nodejs/)
+- [Microsoft Learn - Building Web APIs with ASP.NET Core](https://docs.microsoft.com/en-us/learn/modules/build-web-api-aspnet-core/)
+- [DigitalOcean Tutorials](https://www.digitalocean.com/community/tutorials)
+- [REST API Tutorial](https://restfulapi.net/)
+- [Postman Learning Center](https://learning.postman.com/)
 
 ## Contributing
 We welcome contributions to this guide! If you would like to contribute, please create a pull request. For major changes, please open an issue first to discuss what you would like to change.
