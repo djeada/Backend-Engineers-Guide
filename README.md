@@ -1,6 +1,6 @@
 # Backend Engineer's Guide
 
-Welcome to my backend engineering notes. I've spent countless hours organizing these Markdown files into clear topics—API design, databases, deployment, distributed systems, networking, performance, security, and more—each stored in the notes directory. This is my personal archive of practical insights and real-world examples that I've gathered over the years.
+Welcome to my backend engineering notes. I've spent many hours organizing these Markdown files into clear topics—API design, databases, deployment, distributed systems, networking, performance, security, and more—each stored in the notes directory. This is my personal archive of practical insights and real-world examples that I've gathered over the years.
 
 I update these notes regularly because I'm always learning and evolving in this field. Your feedback and contributions are welcome—if you see room for improvement or have ideas to share, please let me know.
 
