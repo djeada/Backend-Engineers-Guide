@@ -4,6 +4,8 @@ Welcome to my backend engineering notes. I've spent many hours organizing these 
 
 I update these notes regularly because I'm always learning and evolving in this field. Your feedback and contributions are welcome—if you see room for improvement or have ideas to share, please let me know.
 
+![backend_notes](https://github.com/user-attachments/assets/d83eff1b-aa60-4edc-a389-ad216501a3de)
+
 ## Getting Started
 
 To begin, clone the repository to your local machine and navigate to the "notes" directory to access each topic's Markdown file.
