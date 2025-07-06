@@ -201,8 +201,11 @@ Under Serializable, Tx B would block or Tx A would abort to preserve a serial or
 ### Choosing the Right Isolation Level
 
 I. **Read Uncommitted** – Diagnostics or ETL where stale or transient data is acceptable. Rarely used.
+
 II. **Read Committed** – Safe default that eliminates dirty reads yet scales well.
+
 III. **Repeatable Read** – Critical when multiple selects must agree on row values; good for financial summaries.
+
 IV. **Serializable** – Regulatory or business rules require absolute correctness; expect more contention and occasional retry logic.
 
 **Rule of Thumb**: Start with the vendor’s default, profile real workloads, then escalate only where tests prove anomalies would harm correctness.
@@ -245,8 +248,13 @@ SET SESSION transaction_isolation = 'SERIALIZABLE';
 ### Common Pitfalls and Tips
 
 I. **Long Transactions** – Hold locks or versions longer; keep business logic outside the transaction where possible.
+
 II. **Phantom Handling** – Verify whether your engine blocks phantoms at Repeatable Read; assumptions differ.
+
 III. **Lock Escalation** – Some systems upgrade many row locks to a table lock; monitor and tune thresholds.
+
 IV. **Snapshot vs. Repeatable Read** – Do not conflate them: snapshot may allow write-skew anomalies absent in true Repeatable Read.
+
 V. **Read-Only Transactions** – Declare `SET TRANSACTION READ ONLY` to let the optimizer skip superfluous locks or validation.
+
 VI. **Serializable Rollbacks** – Code retry loops around `SerializationFailure` errors; this is normal, not a bug.
