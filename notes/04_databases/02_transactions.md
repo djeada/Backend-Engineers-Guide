@@ -1,112 +1,104 @@
 ## Database Transactions
 
-Database transactions are a fundamental concept in data management, providing a reliable means to group one or more operations into a logical unit of work. This approach ensures that the database transitions from one valid state to another, even amidst concurrent user activity or potential system interruptions. Below is an expanded overview in notes form, presented with diagrams and lists for clarity.
+Database transactions are a cornerstone of reliable data management. They let an application bundle **multiple low-level reads and writes into a single, all-or-nothing unit** so the database moves cleanly from one consistent state to another—even when dozens of users race to change the same rows or hardware glitches interrupt the process. Transactions offer the developer a simple success/ failure switch while the engine handles *locking, logging, versioning,* and *recovery* behind the scenes.
 
 ```
-+---------------------------------------------------+
-|          Application (Transaction Context)        |
-|                                                   |
-|   Begin Transaction   --->   Perform Operations   |
-|                                                   |
-|   Commit or Rollback  <---   Confirmation         |
-+---------------------------------------------------+
++-------------------------------------------------------------+
+|            Application (Transaction Context)                |
+|                                                             |
+|   BEGIN TRANSACTION  ──►   Perform SQL/CRUD Operations      |
+|                                                             |
+|   COMMIT  ◄── Success? ────── Yes ───┐                      |
+|                                      │                      |
+|   ROLLBACK ◄── On error or cancel ───┘                      |
++-------------------------------------------------------------+
 ```
 
-Transactions often start with a **begin** statement, then involve multiple data operations, and finally end with either **commit** (to make changes permanent) or **rollback** (to undo partial or failed changes).
+A typical flow starts with **`BEGIN`** (or an implicit start), runs several statements that may touch many tables, then finishes with **`COMMIT`** to make every change permanent—or **`ROLLBACK`** to annul them if any step fails.
 
 ### ACID: The Core Properties
 
-- Each transaction enforces **Atomicity** by treating all operations as a single, indivisible unit that either fully applies or fully reverts.  
-- The database maintains **Consistency** by ensuring that constraints or rules are not violated after a transaction completes.  
-- Concurrent transactions aim for **Isolation**, which means they behave as though they are running one after the other.  
-- Data achieves **Durability** by persisting commits on reliable storage, so completed transactions remain in effect even after a crash.  
+* **Atomicity** – All operations inside the transaction succeed together; if one fails, the engine *undoes* every prior step using its log, leaving no half-finished updates behind.
+* **Consistency** – Every commit must obey all schema constraints, triggers, and business rules, so the database never lands in an illegal state.
+* **Isolation** – Concurrent transactions behave as though executed sequentially; the chosen *isolation level* dictates exactly how invisible their intermediate work is to one another (see earlier section).
+* **Durability** – Once the engine acknowledges a commit, the redo/ WAL records are safely persisted—usually flushed to stable media or replicated—so the data survives crashes, power loss, or failover.
 
-### Dealing with Single Object Writes
+### Dealing with Single-Object Writes
 
 ```
-    Single Object Write Flow
+   Single-Object Write Flow
    +-------------------------+
-   |         Begin          |
-   +-----------+------------+
-               |
-               v
+   |        BEGIN            |
+   +-------------+-----------+
+                 |
+                 v
    +-------------------------+
-   |   Lock or version check |
-   +-----------+------------+
-               |
-               v
+   |  Lock / Version Check   |
+   +-------------+-----------+
+                 |
+                 v
    +-------------------------+
-   |       Write data       |
-   +-----------+------------+
-               |
-               v
+   |     Apply the Write     |
+   +-------------+-----------+
+                 |
+                 v
    +-------------------------+
-   |      Commit / Rollback |
+   |   COMMIT or ROLLBACK    |
    +-------------------------+
 ```
 
-- A log-based system can be **helpful** for ensuring atomicity by using a Write-Ahead Log (WAL) to record pending changes before they are applied.  
-- A lock-based system can be **useful** for isolation by preventing other transactions from modifying the same object concurrently.  
-- An MVCC approach can be **advantageous** because it allows multiple readers to access different object versions without waiting for locks.  
-- A single object write often involves **minimal** overhead, but can still benefit from standardized transaction methods for consistency and durability.  
+* **Write-Ahead Log (WAL)** – The engine first records an *“intent”* entry to durable storage; only after the log is safe does it touch the actual data page, guaranteeing atomicity and crash recovery.
+* **Lock-based concurrency** – A short-lived exclusive lock (row or page) blocks other writers, preserving isolation but possibly reducing concurrency.
+* **MVCC (Multi-Version Concurrency Control)** – Instead of blocking, the engine keeps the *old* record version for readers while a new version is inserted for writers; this boosts read throughput at the cost of extra storage and version clean-up.
+* Because only one object changes, the critical section is small, yet adopting the same ACID machinery keeps semantics uniform across *all* operations—large or tiny.
 
 ### Advanced Transaction Management
 
-Transactions involving multiple objects or distributed environments call for more sophisticated techniques. They help coordinate complex tasks while preserving consistency across diverse systems or tables.
+Complex workloads touch many independent resources—multiple tables, shards, or even distinct databases—so additional coordination layers are required.
 
 #### Two-Phase Commit (2PC)
 
 ```
-          Coordinator                       Participant(s)
-   +-----------------------+        +------------------------------+
-   |  Prepare Transaction  |  -->   |    Pre-commit / Validate     |
-   |  (Request Vote)       |        |  ------------------------->  |
-   |                       |        |            (Vote)            |
-   |  -------------------> |        +------------------------------+
-   | (Votes)               |
-   | <-------------------- |
-   +-----------------------+
-             |
-             v
-   +-----------------------+
-   |       Commit /        |
-   |       Rollback        |
-   +-----------------------+
+          Coordinator                         Participant(s)
+   +-------------------------+      +------------------------------+
+   |  1. PREPARE (ask to vote) ──►  |  PRE-COMMIT / VALIDATE       |
+   |                             |  |  ─────────────────────────►  |
+   |  ◄── 2. VOTES (YES / NO)   |  |            (Vote)            |
+   +-------------------------+  |  +------------------------------+
+               | All YES?        |
+               v                 |
+   +-------------------------+   |
+   | 3. COMMIT else ROLLBACK |   |
+   +-------------------------+   |
 ```
 
-- The coordinator sends a **prepare** request to each participant, asking if it can commit.  
-- Each participant responds with a **vote** (commit or abort) based on local checks.  
-- If all participants vote commit, the coordinator issues a final **commit**; otherwise, it issues a **rollback**.  
-- This protocol can be **helpful** in distributed databases to keep atomicity when multiple nodes are involved.  
-- There can be **blocking** scenarios if the coordinator or participants fail at certain stages, so careful design is needed.  
+* *Phase 1* – The **coordinator** writes its own *prepare* record and instructs every **participant** to do the same; each votes *commit* only if it can guarantee durability locally.
+* *Phase 2* – If **all** votes are *YES*, the coordinator logs **COMMIT** and tells participants to finalize; any *NO* triggers a **ROLLBACK** everywhere.
+* Guarantees global atomicity across disparate systems but can **block** if the coordinator crashes after participants prepared yet before they learned the outcome. Production systems often add *timeouts,* *retry logs,* or even *three-phase commit* variants to reduce that window.
 
 #### Deadlock Detection and Prevention
 
 ```
-   Deadlock Example
-
-   Transaction A    Transaction B
-        |                |
-   lock Resource X  lock Resource Y
-        |                |
-      waits for Y     waits for X
-        |                |
-      (circular wait -> deadlock)
+        Deadlock Example
+   Transaction A          Transaction B
+      |                        |
+   lock X                  lock Y
+      |                        |
+   wait Y  ◄────────────── wait X
+      |                        |
+   (circular wait → deadlock)
 ```
 
-- Deadlock arises when transactions hold locks in a cycle, each waiting for a resource the other holds.  
-- Detection algorithms can be **useful** for periodically scanning transactions to see if cycles have formed.  
-- Prevention strategies can be **helpful** by forcing transactions to acquire locks in a predefined order or by rolling back one transaction when a cycle is probable.  
-- Timeouts can be **practical** in resolving stuck transactions if the system cannot conclusively detect a deadlock.  
+* A deadlock is a cycle in the **wait-for graph**: each transaction owns a lock the next needs.
+* **Detection** – Engines like PostgreSQL or SQL Server run periodic graph checks; upon finding a cycle they pick a *victim* to roll back automatically.
+* **Prevention** – Acquire locks in a canonical order (e.g., by primary key), use *lock time-outs,* or favor MVCC reads to shrink the window.
+* **Application best practice** – Keep transactions short and touch data in a predictable order to minimize deadlock probability.
 
 ### Concurrency Control Methods Comparison
 
-Below is a summary of different methods employed to handle concurrent transactions:
-
-| Method         | Mechanism               | Pros                                                            | Cons                                                               | Common Use Cases                      |
-|----------------|-------------------------|-----------------------------------------------------------------|---------------------------------------------------------------------|---------------------------------------|
-| Locks          | Lock data objects       | It can be **effective** for strict consistency.                 | It can lead to contention and potential deadlocks.                 | Traditional RDBMS with high integrity |
-| MVCC           | Maintain multiple versions of data | It often allows **high** read concurrency.          | It can require additional storage for versions.                    | Databases that serve many read queries|
-| Timestamp      | Use timestamps to order transactions | It can be **straightforward** to reason about order. | It can roll back transactions that conflict with newer timestamps. | Systems needing simpler concurrency   |
-| Optimistic     | Validate changes at commit | It can be **appropriate** for low-conflict workloads. | It can cause commits to fail if conflicts are detected at end.     | Highly distributed or mostly-read apps|
-  
+| Method         | Underlying Mechanism                  | Pros                                                       | Cons                                                          | Typical Scenarios                                    |
+| -------------- | ------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------- |
+| **Locks**      | Pessimistic read/write locks          | Strong consistency; simple mental model                    | Blocking, deadlocks, lock-escalation overhead                 | OLTP systems where conflicts are frequent            |
+| **MVCC**       | Append row versions + snapshot reads  | Readers never block writers; high read scalability         | Vacuuming/garbage collection; more I/O for version churn      | Mixed read-heavy workloads (PostgreSQL, InnoDB)      |
+| **Timestamps** | Assign global time/order to Txns      | Easy to serialize logically; no blocking                   | High abort rate if contention; clock or logical-counter drift | In-memory or distributed DBs (Spanner, FoundationDB) |
+| **Optimistic** | Validate at commit (compare‐and‐swap) | Near-zero overhead during read phase; suits low contention | Late failures waste work; write-write conflicts cause retries | Microservices or mobile apps with rare collisions    |
