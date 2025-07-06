@@ -1,10 +1,10 @@
 ## Halloween Problem
 
-The Halloween Problem is a well-known issue in database systems where an update operation might unintentionally modify the same rows multiple times. The name originates from its initial discovery on October 31 (Halloween), but the problem itself has no thematic connection to that holiday. This document explains how the Halloween Problem occurs and covers strategies for avoiding repeated, unintended updates in relational databases.
+The Halloween Problem is a well-known issue in database systems where an update operation might unintentionally modify the same rows multiple times. The name originates from its initial discovery on October 31 (Halloween), but the problem itself has no thematic connection to that holiday.
 
 ### Nature of the Halloween Problem
 
-The core issue arises when an `UPDATE` operation modifies a row such that the row continues to meet the criteria for further updates. In certain databases, particularly those that scan rows in an order influenced by the columns being updated, the same row may be re-selected and updated again. This leads to repeated increments or changes, skewing final results and undermining data integrity.
+The issue arises when an `UPDATE` operation modifies a row such that the row continues to meet the criteria for further updates. In certain databases, particularly those that scan rows in an order influenced by the columns being updated, the same row may be re-selected and updated again. This leads to repeated increments or changes, skewing final results and undermining data integrity.
 
 A classic example involves increasing salaries of employees who earn below a given threshold. If an employee’s salary goes from \$45,000 to \$49,500 after one update, that row might still qualify for another 10% raise if the database re-checks it, repeatedly boosting that salary.
 
