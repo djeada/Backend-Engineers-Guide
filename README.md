@@ -1,7 +1,7 @@
 # Backend Engineer's Guide
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](#contributing)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/djeada/Backend-Engineers-Guide/pulls)
 
 A comprehensive collection of backend engineering notes, covering essential topics such as API design, databases, deployment strategies, distributed systems, networking, performance optimization, security best practices, and more. This repository serves as both a personal knowledge base and a community resource for backend engineers at all experience levels.
@@ -115,7 +115,7 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 | Isolation Levels | Concurrency control and isolation | [📖 Read](notes/04_databases/04_isolation_levels.md) |
 | Data Warehousing | Analytics and data warehouse design | [📖 Read](notes/04_databases/05_data_warehousing.md) |
 | Replication | Database replication strategies | [📖 Read](notes/04_databases/06_replication.md) |
-| Halloween Problem | Classic database update anomaly | [📖 Read](notes/04_databases/07_halloween_problem.md) |
+| Halloween Problem | Classic database update anomaly | [📖 Read](notes/04_databases/07_%20halloween_problem.md) |
 
 ---
 
