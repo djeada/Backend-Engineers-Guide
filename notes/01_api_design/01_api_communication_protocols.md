@@ -3,11 +3,11 @@
 API communication protocols describe how different software components exchange data and invoke functionality across networks. They define the transport mechanisms, data formats, interaction styles, and often how developers should structure their requests and responses. These protocols are often chosen based on specific project needs, such as required data formats, real-time communication, or existing infrastructure. Below is a comprehensive overview of several common protocols and approaches, complete with diagrams and bullet-point notes for easier reference.
 
 ```
-   +-------------+       Request       +-------------+
-   |             | ------------------> |             |
-   |   Client    |                     |   Server    |
-   |             | <------------------ |             |
-   +-------------+       Response      +-------------+
++-------------+       Request       +-------------+
+|             | ------------------> |             |
+|   Client    |                     |   Server    |
+|             | <------------------ |             |
++-------------+       Response      +-------------+
 ```
 
 This basic diagram shows a client making a request to a server and the server sending a response. Different protocols can change how data is structured, the method of transport, and the overall interaction pattern (e.g., streaming vs. single request).
@@ -15,11 +15,11 @@ This basic diagram shows a client making a request to a server and the server se
 ### gRPC
 
 ```
-   +---------+       Proto   +---------+
-   |         | <---- Buffer -|         |
-   | Client  |               | Server  |
-   |         | -----> defs ->|         |
-   +---------+               +---------+
++---------+       Proto   +---------+
+|         | <---- Buffer -|         |
+| Client  |               | Server  |
+|         | -----> defs ->|         |
++---------+               +---------+
 ```
 
 - It is widely **useful** in microservices architectures due to its efficient binary serialization with Protocol Buffers.  
@@ -32,11 +32,11 @@ This basic diagram shows a client making a request to a server and the server se
 ### REST
 
 ```
-   +-----------+        GET/POST/PUT/DELETE       +-----------+
-   |           | ------------------------------->  |           |
-   |  Client   |                                  |   Server  |
-   |           | <-------------------------------  |           |
-   +-----------+             JSON/XML/etc.         +-----------+
++-----------+        GET/POST/PUT/DELETE        +-----------+
+|           | ------------------------------->  |           |
+|  Client   |                                   |   Server  |
+|           | <-------------------------------  |           |
++-----------+             JSON/XML/etc.         +-----------+
 ```
 
 - It is often **simple** to adopt because it builds on standard HTTP methods like GET, POST, PUT, and DELETE.  
@@ -49,11 +49,11 @@ This basic diagram shows a client making a request to a server and the server se
 ### GraphQL
 
 ```
-   +------------+      query { ... } / mutation { ... }      +------------+
-   |            | -----------------------------------------> |            |
-   |  Client    |                                           |  GraphQL   |
-   |            | <----------------------------------------- |  Server    |
-   +------------+                JSON response               +------------+
++------------+      query { ... } / mutation { ... }      +------------+
+|            | -----------------------------------------> |            |
+|  Client    |                                            |  GraphQL   |
+|            | <----------------------------------------- |  Server    |
++------------+                JSON response               +------------+
 ```
 
 - It is especially **helpful** when clients need precise data fetching, as it allows specifying exactly which fields to retrieve.  
@@ -66,11 +66,11 @@ This basic diagram shows a client making a request to a server and the server se
 ### SOAP
 
 ```
-   +-----------+      <soap:Envelope>               +-----------+
-   |           | <--------------------------------> |           |
-   |   Client  |        XML-based messages          |   Server  |
-   |           | <--------------------------------> |           |
-   +-----------+                                     +-----------+
++-----------+      <soap:Envelope>               +-----------+
+|           | <--------------------------------> |           |
+|   Client  |        XML-based messages          |   Server  |
+|           | <--------------------------------> |           |
++-----------+                                    +-----------+
 ```
 
 - It is often **useful** in enterprise environments where strict standards and formal contracts are required.  
@@ -100,11 +100,11 @@ This basic diagram shows a client making a request to a server and the server se
 ### Server-Sent Events (SSE)
 
 ```
-   +-----------+  text/event-stream   +-----------+
-   |           | <-------------------  |           |
-   |  Client   |    continuous feed   |   Server  |
-   |           | <-------------------  |           |
-   +-----------+                       +-----------+
++-----------+  text/event-stream    +-----------+
+|           | <-------------------  |           |
+|  Client   |    continuous feed    |   Server  |
+|           | <-------------------  |           |
++-----------+                       +-----------+
 ```
 
 - It is **useful** when a unidirectional, server-to-client streaming pattern is needed, such as live updates.  
