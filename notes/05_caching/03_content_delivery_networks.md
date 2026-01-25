@@ -3,20 +3,20 @@
 A Content Delivery Network (CDN) is a geographically distributed system of servers that deliver web assets such as images, videos, and other media to users based on their proximity to the servers. This design is *helpful* for reducing latency and improving the performance of websites or applications that serve a global audience. CDNs typically operate through specialized data centers known as Points of Presence (PoPs), where content is cached and quickly served to end-users.
 
 ```
-         +--------------+
-         |   End User   |
-         +------+-------+
-                |
-       (Request Content)
-                |
-      +---------v---------+
-      |   CDN Edge Server |
-      +---------+---------+
-                |  (If cache miss)
-                |
-      +---------v---------+
-      |   Origin Server   |
-      +-------------------+
++--------------+
+|   End User   |
++------+-------+
+       |
+(Request Content)
+       |
++---------v---------+
+|   CDN Edge Server |
++---------+---------+
+       |  (If cache miss)
+       |
++---------v---------+
+|   Origin Server   |
++-------------------+
 ```
 
 
