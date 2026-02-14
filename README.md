@@ -69,7 +69,7 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 
 | Topic | Description | Link |
 |-------|-------------|------|
-| Overview | Introduction to API design principles and patterns | [📖 Read](notes/01_api_design/01_overview.md) |
+| API Communication Protocols | Introduction to API design principles and patterns | [📖 Read](notes/01_api_design/01_api_communication_protocols.md) |
 | REST | RESTful API architecture and best practices | [📖 Read](notes/01_api_design/02_rest.md) |
 | GraphQL | Query language for APIs with flexible data fetching | [📖 Read](notes/01_api_design/03_graphql.md) |
 | gRPC | High-performance RPC framework using Protocol Buffers | [📖 Read](notes/01_api_design/04_grpc.md) |
@@ -82,7 +82,7 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 
 | Topic | Description | Link |
 |-------|-------------|------|
-| Overview | Fundamentals of network communication | [📖 Read](notes/02_network_communications/01_overview.md) |
+| Network Communications | Fundamentals of network communication | [📖 Read](notes/02_network_communications/01_network_communications.md) |
 | TCP vs UDP | Comparison of transport layer protocols | [📖 Read](notes/02_network_communications/02_tcp_and_udp.md) |
 | HTTP Protocol | Hypertext Transfer Protocol deep dive | [📖 Read](notes/02_network_communications/03_http_protocol.md) |
 | WebSockets | Real-time bidirectional communication | [📖 Read](notes/02_network_communications/04_web_sockets.md) |
@@ -115,7 +115,7 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 | Isolation Levels | Concurrency control and isolation | [📖 Read](notes/04_databases/04_isolation_levels.md) |
 | Data Warehousing | Analytics and data warehouse design | [📖 Read](notes/04_databases/05_data_warehousing.md) |
 | Replication | Database replication strategies | [📖 Read](notes/04_databases/06_replication.md) |
-| Halloween Problem | Classic database update anomaly | [📖 Read](notes/04_databases/07_%20halloween_problem.md) |
+| Halloween Problem | Classic database update anomaly | [📖 Read](notes/04_databases/07_halloween_problem.md) |
 
 ---
 
@@ -182,6 +182,8 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 | Linearizability | Strong consistency guarantees | [📖 Read](notes/10_distributed_systems/03_linearizability.md) |
 | Concurrent Writes | Handling write conflicts | [📖 Read](notes/10_distributed_systems/04_concurrent_writes.md) |
 | Operational Transform | Collaborative editing algorithms | [📖 Read](notes/10_distributed_systems/05_operational_transform.md) |
+| Algorithms Summary | Overview of distributed system algorithms | [📖 Read](notes/10_distributed_systems/06_algorithms_summary.md) |
+| Optimistic vs Pessimistic Locking | Concurrency control strategies | [📖 Read](notes/10_distributed_systems/07_optimistic_vs_pessimistic_locking.md) |
 
 ## References
 
