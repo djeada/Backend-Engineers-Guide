@@ -25,6 +25,7 @@ python api_design/rest_api_example.py
 | `api_design/` | `idempotency_example.py` | Idempotency keys for retry-safe POST operations |
 | `network_communications/` | `tcp_udp_example.py` | TCP vs UDP echo server/client comparison |
 | `network_communications/` | `http_request_example.py` | HTTP methods, headers, and content types |
+| `network_communications/` | `retry_backoff_example.sh` | Exponential-backoff retry loop for unstable outbound calls |
 | `databases/` | `transaction_example.py` | SQLite transactions and ACID properties |
 | `databases/` | `index_example.py` | Index performance and EXPLAIN QUERY PLAN |
 | `caching/` | `lru_cache_example.py` | LRU cache implementation and eviction |
@@ -35,6 +36,7 @@ python api_design/rest_api_example.py
 | `data_processing/` | `batch_processing_example.py` | Batch processing pipeline with configurable batches |
 | `security/` | `hashing_example.py` | Password hashing, token generation |
 | `security/` | `jwt_example.py` | JWT-like token creation and verification |
+| `security/` | `rate_limiter_example.py` | Token-bucket request throttling with burst tolerance |
 | `distributed_systems/` | `gossip_protocol_example.py` | Gossip protocol cluster simulation |
 | `distributed_systems/` | `vector_clock_example.py` | Vector clock causality tracking |
 | `server_technologies/` | `load_balancer_example.py` | Load balancing strategy simulation |
