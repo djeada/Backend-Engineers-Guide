@@ -29,7 +29,7 @@ while (( attempt < max_attempts )); do
 
   delay=$((2 ** (attempt - 1)))
   echo "Request failed, backing off for ${delay}s"
-  sleep 0.2
+  sleep "${delay}"
 done
 
 echo "Request failed after ${max_attempts} attempts."
