@@ -1,10 +1,11 @@
 # Scripts
 
-A collection of small, self-contained Python scripts that demonstrate key backend engineering concepts covered in the [notes](../notes). Every script uses only the Python standard library so no extra dependencies are needed.
+A collection of small, self-contained scripts (primarily Python, plus Bash) that demonstrate key backend engineering concepts covered in the [notes](../notes). Python scripts use only the standard library so no extra dependencies are needed.
 
 ## Prerequisites
 
 - Python 3.8 or later
+- Bash
 
 ## Quick Start
 
@@ -21,6 +22,7 @@ python api_design/rest_api_example.py
 |-----------|--------|-------|
 | `api_design/` | `rest_api_example.py` | Minimal REST API server with CRUD endpoints |
 | `api_design/` | `graphql_example.py` | GraphQL-like query engine with field selection |
+| `api_design/` | `idempotency_example.py` | Idempotency keys for retry-safe POST operations |
 | `network_communications/` | `tcp_udp_example.py` | TCP vs UDP echo server/client comparison |
 | `network_communications/` | `http_request_example.py` | HTTP methods, headers, and content types |
 | `databases/` | `transaction_example.py` | SQLite transactions and ACID properties |
@@ -39,3 +41,4 @@ python api_design/rest_api_example.py
 | `server_technologies/` | `reverse_proxy_example.py` | Reverse proxy routing by path prefix |
 | `deployment/` | `health_check_example.py` | Health-check and readiness endpoints |
 | `deployment/` | `rolling_deploy_example.py` | Rolling deployment simulation |
+| `deployment/` | `rolling_restart_example.sh` | Rolling restart sequence with health-check gating |
