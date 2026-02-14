@@ -107,7 +107,8 @@ def main():
     demo_rollback(conn)
     conn.close()
 
-    import tempfile, os
+    import tempfile
+    import os
 
     tmp = os.path.join(tempfile.gettempdir(), "tx_demo.db")
     try:

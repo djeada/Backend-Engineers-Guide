@@ -36,13 +36,22 @@ class RESTHandler(BaseHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", 0))
         return json.loads(self.rfile.read(length)) if length else {}
 
+    def _parse_item_id(self):
+        """Extract the integer item ID from the path, or None on failure."""
+        try:
+            return int(self.path.split("/")[-1])
+        except ValueError:
+            return None
+
     # ---------- GET ----------
     def do_GET(self):
         if self.path == "/items":
             self._send_json(200, list(items.values()))
         elif self.path.startswith("/items/"):
-            item_id = int(self.path.split("/")[-1])
-            if item_id in items:
+            item_id = self._parse_item_id()
+            if item_id is None:
+                self._send_json(400, {"error": "Invalid item ID"})
+            elif item_id in items:
                 self._send_json(200, items[item_id])
             else:
                 self._send_json(404, {"error": "Item not found"})
@@ -64,8 +73,10 @@ class RESTHandler(BaseHTTPRequestHandler):
     # ---------- PUT ----------
     def do_PUT(self):
         if self.path.startswith("/items/"):
-            item_id = int(self.path.split("/")[-1])
-            if item_id in items:
+            item_id = self._parse_item_id()
+            if item_id is None:
+                self._send_json(400, {"error": "Invalid item ID"})
+            elif item_id in items:
                 body = self._read_body()
                 items[item_id] = {"id": item_id, **body}
                 self._send_json(200, items[item_id])
@@ -77,8 +88,10 @@ class RESTHandler(BaseHTTPRequestHandler):
     # ---------- DELETE ----------
     def do_DELETE(self):
         if self.path.startswith("/items/"):
-            item_id = int(self.path.split("/")[-1])
-            if item_id in items:
+            item_id = self._parse_item_id()
+            if item_id is None:
+                self._send_json(400, {"error": "Invalid item ID"})
+            elif item_id in items:
                 del items[item_id]
                 self._send_json(204, {})
             else:
