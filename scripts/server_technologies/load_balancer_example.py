@@ -82,12 +82,9 @@ def simulate(strategy_name: str, strategy, backends: list[Backend], requests: in
         backend = strategy.next_backend()
         backend.total_requests += 1
         backend.active_connections += 1
-        # Simulate variable request duration by randomly closing some connections
+        # Simulate variable request duration by randomly completing the request
         if random.random() < 0.6:
-            for b in backends:
-                if b.active_connections > 0:
-                    b.active_connections -= 1
-                    break
+            backend.active_connections = max(0, backend.active_connections - 1)
 
     for b in backends:
         print(f"  {b.name} (weight={b.weight}): {b.total_requests} requests")

@@ -10,7 +10,8 @@ No external dependencies required.
 Usage:
     python health_check_example.py
 
-Then test with curl (in another terminal):
+The script runs a built-in self-test. You can also test manually with curl
+while the server is running:
     curl http://localhost:8100/health
     curl http://localhost:8100/ready
 """
