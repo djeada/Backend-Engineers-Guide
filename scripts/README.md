@@ -27,3 +27,5 @@ python api_design/rest_api_example.py
 | `data_processing/` | `pub_sub_example.py` | In-process publish/subscribe broker |
 | `security/` | `hashing_example.py` | Password hashing, token generation |
 | `distributed_systems/` | `gossip_protocol_example.py` | Gossip protocol cluster simulation |
+| `server_technologies/` | `load_balancer_example.py` | Load balancing strategy simulation |
+| `deployment/` | `health_check_example.py` | Health-check and readiness endpoints |
