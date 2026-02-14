@@ -23,6 +23,7 @@ A comprehensive collection of backend engineering notes, covering essential topi
   - [Security](#security)
   - [Deployment](#deployment)
   - [Distributed Systems](#distributed-systems)
+- [Scripts](#scripts)
 - [References](#references)
 - [Contributing](#contributing)
 - [License](#license)
@@ -184,6 +185,23 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 | Operational Transform | Collaborative editing algorithms | [📖 Read](notes/10_distributed_systems/05_operational_transform.md) |
 | Algorithms Summary | Overview of distributed system algorithms | [📖 Read](notes/10_distributed_systems/06_algorithms_summary.md) |
 | Optimistic vs Pessimistic Locking | Concurrency control strategies | [📖 Read](notes/10_distributed_systems/07_optimistic_vs_pessimistic_locking.md) |
+
+## Scripts
+
+The [`scripts/`](scripts/) directory contains small, self-contained Python scripts that bring the topics above to life with runnable demos. Every script uses only the Python standard library.
+
+| Directory | Script | Topic |
+|-----------|--------|-------|
+| `api_design/` | [`rest_api_example.py`](scripts/api_design/rest_api_example.py) | Minimal REST API server with CRUD endpoints |
+| `network_communications/` | [`tcp_udp_example.py`](scripts/network_communications/tcp_udp_example.py) | TCP vs UDP echo server/client comparison |
+| `databases/` | [`transaction_example.py`](scripts/databases/transaction_example.py) | SQLite transactions and ACID properties |
+| `caching/` | [`lru_cache_example.py`](scripts/caching/lru_cache_example.py) | LRU cache implementation and eviction |
+| `data_formats/` | [`format_conversion.py`](scripts/data_formats/format_conversion.py) | JSON, XML, and YAML conversion |
+| `data_processing/` | [`pub_sub_example.py`](scripts/data_processing/pub_sub_example.py) | In-process publish/subscribe broker |
+| `security/` | [`hashing_example.py`](scripts/security/hashing_example.py) | Password hashing, token generation |
+| `distributed_systems/` | [`gossip_protocol_example.py`](scripts/distributed_systems/gossip_protocol_example.py) | Gossip protocol cluster simulation |
+
+See the [scripts README](scripts/README.md) for prerequisites and usage instructions.
 
 ## References
 
