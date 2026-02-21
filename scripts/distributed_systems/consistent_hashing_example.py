@@ -56,6 +56,14 @@ def distribute_keys(ring, keys):
     return mapping
 
 
+def find_node(dist, key):
+    """Return the node that owns *key* in the given distribution."""
+    for node, items in dist.items():
+        if key in items:
+            return node
+    return None
+
+
 def main():
     print("=" * 60)
     print("Consistent Hashing Ring Demo")
@@ -80,8 +88,7 @@ def main():
     for node, items in sorted(dist2.items()):
         print(f"  {node}: {len(items)} keys")
 
-    moved = sum(1 for k in keys if dist1.get(ring.get_node(k)) is None
-                or ring.get_node(k) != dist1_node(dist1, k))
+    moved = sum(1 for k in keys if find_node(dist1, k) != ring.get_node(k))
     print(f"\n  Keys remapped: {moved}/{len(keys)} ({moved/len(keys)*100:.1f}%)")
     print()
 
@@ -95,13 +102,6 @@ def main():
     print("Key takeaway: consistent hashing minimizes key movement when")
     print("nodes join or leave, making it ideal for distributed caches")
     print("and partitioned databases.")
-
-
-def dist1_node(dist, key):
-    for node, items in dist.items():
-        if key in items:
-            return node
-    return None
 
 
 if __name__ == "__main__":
