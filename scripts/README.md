@@ -25,32 +25,42 @@ python api_design/rest_api_example.py
 | `api_design/` | `idempotency_example.py` | Idempotency keys for retry-safe POST operations |
 | `api_design/` | `webhook_signature_example.py` | HMAC webhook signature verification for event authenticity |
 | `api_design/` | `pagination_example.sh` | Offset/limit pagination walkthrough for large datasets |
+| `api_design/` | `versioning_example.py` | API versioning strategies (URL path, header, query param) |
 | `network_communications/` | `tcp_udp_example.py` | TCP vs UDP echo server/client comparison |
 | `network_communications/` | `http_request_example.py` | HTTP methods, headers, and content types |
 | `network_communications/` | `retry_backoff_example.sh` | Exponential-backoff retry loop for unstable outbound calls |
 | `network_communications/` | `circuit_breaker_example.py` | Circuit breaker state transitions for flaky dependencies |
+| `network_communications/` | `dns_resolver_example.py` | Simulated hierarchical DNS resolution with caching |
 | `databases/` | `transaction_example.py` | SQLite transactions and ACID properties |
 | `databases/` | `index_example.py` | Index performance and EXPLAIN QUERY PLAN |
 | `databases/` | `connection_pool_example.py` | Fixed-size connection pool acquisition and exhaustion |
+| `databases/` | `migration_example.py` | Schema migration versioning with SQLite |
 | `caching/` | `lru_cache_example.py` | LRU cache implementation and eviction |
 | `caching/` | `cache_strategies_example.py` | Write-through, write-back, and cache-aside patterns |
 | `caching/` | `cache_warming_example.sh` | Cache warm-up of hot keys before traffic cutover |
+| `caching/` | `ttl_cache_example.py` | TTL-based cache with automatic expiration |
 | `data_formats/` | `format_conversion.py` | JSON, XML, and YAML conversion |
 | `data_formats/` | `protocol_buffer_example.py` | Protocol-buffer-like binary serialization |
 | `data_processing/` | `pub_sub_example.py` | In-process publish/subscribe broker |
 | `data_processing/` | `batch_processing_example.py` | Batch processing pipeline with configurable batches |
 | `data_processing/` | `dead_letter_queue_example.py` | Retry then route poison jobs to a DLQ |
+| `data_processing/` | `stream_processing_example.py` | Sliding-window stream processing pipeline |
 | `security/` | `hashing_example.py` | Password hashing, token generation |
 | `security/` | `jwt_example.py` | JWT-like token creation and verification |
 | `security/` | `rate_limiter_example.py` | Token-bucket request throttling with burst tolerance |
 | `security/` | `api_key_rotation_example.sh` | Zero-downtime API key rotation sequence |
+| `security/` | `encryption_example.py` | Symmetric encryption, key derivation, and HMAC integrity |
 | `distributed_systems/` | `gossip_protocol_example.py` | Gossip protocol cluster simulation |
 | `distributed_systems/` | `vector_clock_example.py` | Vector clock causality tracking |
 | `distributed_systems/` | `quorum_example.py` | Quorum overlap checks for replicated data consistency |
+| `distributed_systems/` | `consistent_hashing_example.py` | Consistent hashing ring for data partitioning |
+| `distributed_systems/` | `leader_election_example.py` | Bully algorithm leader election simulation |
 | `server_technologies/` | `load_balancer_example.py` | Load balancing strategy simulation |
 | `server_technologies/` | `reverse_proxy_example.py` | Reverse proxy routing by path prefix |
 | `server_technologies/` | `nginx_log_parse_example.sh` | Parse access logs to count requests and 5xx errors |
+| `server_technologies/` | `middleware_chain_example.py` | Middleware request pipeline with logging, auth, and CORS |
 | `deployment/` | `health_check_example.py` | Health-check and readiness endpoints |
 | `deployment/` | `rolling_deploy_example.py` | Rolling deployment simulation |
 | `deployment/` | `rolling_restart_example.sh` | Rolling restart sequence with health-check gating |
 | `deployment/` | `blue_green_switch_example.sh` | Blue/green deployment traffic switch workflow |
+| `deployment/` | `canary_deploy_example.py` | Canary deployment with traffic shifting and auto-rollback |
