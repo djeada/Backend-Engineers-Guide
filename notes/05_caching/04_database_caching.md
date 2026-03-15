@@ -3,20 +3,21 @@
 Database caching stores frequently used query results or objects in a cache, bringing them closer to the application for *faster* data retrieval. This reduces load on the primary database and shortens response times, ultimately improving user experience.
 
 ```
-   +--------------+
-   |  Application |
-   +-------+------+
-           |
-           | (Query/Write)
-           v
-   +-------+------+
-   |    Cache    |
-   +-------+------+
-           | (Cache Miss)
-           v
-   +-------+------+
-   |  Database   |
-   +--------------+
+#
++--------------+
+|  Application |
++-------+------+
+        |
+        | (Query/Write)
+        v
++-------+------+
+|    Cache     |
++-------+------+
+        | (Cache Miss)
+        v
++-------+------+
+|  Database    |
++--------------+
 ```
 
 - Using a database cache is **beneficial** for minimizing round trips to the main database system.  
@@ -49,6 +50,7 @@ Database caching stores frequently used query results or objects in a cache, bri
 ### Cache Strategies
 
 ```
+#
 Read-Through:
 App -> Cache -> DB
           ^
