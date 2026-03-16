@@ -26,25 +26,25 @@ A typical flow starts with **`BEGIN`** (or an implicit start), runs several stat
 ### Dealing with Single-Object Writes
 
 ```
-   Single-Object Write Flow
-   +-------------------------+
-   |        BEGIN            |
-   +-------------+-----------+
-                 |
-                 v
-   +-------------------------+
-   |  Lock / Version Check   |
-   +-------------+-----------+
-                 |
-                 v
-   +-------------------------+
-   |     Apply the Write     |
-   +-------------+-----------+
-                 |
-                 v
-   +-------------------------+
-   |   COMMIT or ROLLBACK    |
-   +-------------------------+
+Single-Object Write Flow
++-------------------------+
+|        BEGIN            |
++-------------+-----------+
+              |
+              v
++-------------------------+
+|  Lock / Version Check   |
++-------------+-----------+
+              |
+              v
++-------------------------+
+|     Apply the Write     |
++-------------+-----------+
+              |
+              v
++-------------------------+
+|   COMMIT or ROLLBACK    |
++-------------------------+
 ```
 
 * **Write-Ahead Log (WAL)** – The engine first records an *“intent”* entry to durable storage; only after the log is safe does it touch the actual data page, guaranteeing atomicity and crash recovery.
@@ -59,17 +59,26 @@ Complex workloads touch many independent resources—multiple tables, shards, or
 #### Two-Phase Commit (2PC)
 
 ```
-          Coordinator                         Participant(s)
-   +-------------------------+      +------------------------------+
-   |  1. PREPARE (ask to vote) ──►  |  PRE-COMMIT / VALIDATE       |
-   |                             |  |  ─────────────────────────►  |
-   |  ◄── 2. VOTES (YES / NO)   |  |            (Vote)            |
-   +-------------------------+  |  +------------------------------+
-               | All YES?        |
-               v                 |
-   +-------------------------+   |
-   | 3. COMMIT else ROLLBACK |   |
-   +-------------------------+   |
+Coordinator                                   Participant(s)
+┌───────────────────────────────┐        ┌────────────────────────────────┐
+│ 1. PREPARE                    │        │ Receive PREPARE                │
+│    (Ask participants to vote) │ ────►  │ Validate / Pre-commit          │
+└───────────────────────────────┘        │                                │
+            ▲                            │ Send VOTE (YES / NO)           │
+            │                            └───────────────┬────────────────┘
+            │                                            │
+            └─────────────── 2. VOTES ◄──────────────────┘
+
+                       Decision Phase
+                           │
+                           ▼
+
+               ┌─────────────────────────┐
+               │ 3. DECISION             │
+               │                         │
+               │ All YES  → COMMIT       │
+               │ Any NO   → ROLLBACK     │
+               └─────────────────────────┘
 ```
 
 * *Phase 1* – The **coordinator** writes its own *prepare* record and instructs every **participant** to do the same; each votes *commit* only if it can guarantee durability locally.
