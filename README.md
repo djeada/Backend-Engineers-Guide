@@ -6,7 +6,7 @@
 
 A comprehensive collection of backend engineering notes, covering essential topics such as API design, databases, deployment strategies, distributed systems, networking, performance optimization, security best practices, and more. This repository serves as both a personal knowledge base and a community resource for backend engineers at all experience levels.
 
-![backend_notes](https://github.com/user-attachments/assets/d83eff1b-aa60-4edc-a389-ad216501a3de)
+<img width="1536" height="1024" alt="backend_notes" src="https://github.com/user-attachments/assets/b1a1a790-aa63-448d-840d-aa01b4055cdc" />
 
 ## Table of Contents
 
