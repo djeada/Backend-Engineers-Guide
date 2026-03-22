@@ -44,19 +44,21 @@ The cache-aside pattern is one of the most widely used strategies, where the app
 ```
   Cache-Aside Read Flow
 
-  +------------+        +-------------+        +----------------+
-  |            | 1. Get |             |        |                |
-  | Application+------->+    Cache    |        |   Data Store   |
-  |   Code     |        |             |        |                |
-  |            |  HIT?  |             |        |                |
-  |            |<-------+             |        |                |
-  |            |                      |        +----------------+
-  |            |  Yes: return value   |                ^
-  |            |  No:                 |                |
-  |            +--- 2. Query DB ---------------------------->|
-  |            |<-- 3. Return result -------------------------|
-  |            +--- 4. Store in cache--->+    |
-  +------------+                         +----+
+  +-------------+        +--------------+        +----------------+
+  |             | 1. Get |              |        |                |
+  | Application +------->+    Cache     |        |   Data Store   |
+  |   Code      |        |              |        |                |
+  |             |  HIT?  |              |        |                |
+  |             |<-------+              |        |                |
+  |             |                       |        +-------+--------+
+  |             | Yes: return value     |                ^  |
+  |             |                       |                |  |
+  |             | No:                   |                |  |
+  |             +-- 2. Query DB ----------------------->+  |
+  |             |<--- 3. Return result -----------------+  |
+  |             +-- 4. Store in cache -->+              |   |
+  +-------------+                       +--------------+   |
+                                                           v
 ```
 
 - The application first **checks** the cache and only queries the database when the requested item is not present.

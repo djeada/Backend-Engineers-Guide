@@ -54,7 +54,7 @@ COMMIT;
 
 * **Atomicity** – All operations inside the transaction succeed together; if one fails, the engine *undoes* every prior step using its log, leaving no half-finished updates behind.
 * **Consistency** – Every commit must obey all schema constraints, triggers, and business rules, so the database never lands in an illegal state.
-* **Isolation** – Concurrent transactions behave as though executed sequentially; the chosen *isolation level* dictates exactly how invisible their intermediate work is to one another (see earlier section).
+* **Isolation** – Concurrent transactions behave as though executed sequentially; the chosen *isolation level* dictates exactly how invisible their intermediate work is to one another (see the Isolation Levels section below).
 * **Durability** – Once the engine acknowledges a commit, the redo/ WAL records are safely persisted—usually flushed to stable media or replicated—so the data survives crashes, power loss, or failover.
 
 ### Isolation Levels
