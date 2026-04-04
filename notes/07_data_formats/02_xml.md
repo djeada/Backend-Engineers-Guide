@@ -12,27 +12,34 @@ XML, or Extensible Markup Language, is a **W3C**-standardized markup language de
 
 ## XML Syntax Rules
 
-1. **XML Declaration** – a document should begin with `<?xml version="1.0" encoding="UTF-8"?>` to declare the version and **character** encoding.
-2. **Single Root** – every well-formed document must have exactly one root element that **wraps** all other elements.
-3. **Case Sensitivity** – tag names are case-sensitive, so `<Name>` and `<name>` are treated as **different** elements.
-4. **Proper Nesting** – elements must close in the reverse order they were opened, ensuring a **balanced** tree.
-5. **Quoted Attributes** – attribute values must always be enclosed in single or **double** quotation marks.
-6. **Special Characters** – reserved characters like `<`, `>`, and `&` must be written as **entity** references (`&lt;`, `&gt;`, `&amp;`).
+1. **XML Declaration** a document should begin with `<?xml version="1.0" encoding="UTF-8"?>` to declare the version and **character** encoding.
+2. **Single Root** every well-formed document must have exactly one root element that **wraps** all other elements.
+3. **Case Sensitivity** tag names are case-sensitive, so `<Name>` and `<name>` are treated as **different** elements.
+4. **Proper Nesting** elements must close in the reverse order they were opened, ensuring a **balanced** tree.
+5. **Quoted Attributes** attribute values must always be enclosed in single or **double** quotation marks.
+6. **Special Characters** reserved characters like `<`, `>`, and `&` must be written as **entity** references (`&lt;`, `&gt;`, `&amp;`).
 
 ## Document Tree Structure
 
 Every XML document forms a logical **tree** rooted at the single root element. Understanding this tree is key to querying and transforming XML.
 
 ```
-                      [document]
-                           |
-                     <employee>
-                    /    |     \
-              <name>  <address>  <skills>
-               |      /   |  \       |
-          "John"  <street> <city> <zipCode>  <skill> <skill>
-                    |       |       |          |       |
-               "1234.."  "Any.."  "12345"   "Java"  "C#"
+document
+└── employee
+    ├── name
+    │   └── "John"
+    ├── address
+    │   ├── street
+    │   │   └── "1234.."
+    │   ├── city
+    │   │   └── "Any.."
+    │   └── zipCode
+    │       └── "12345"
+    └── skills
+        ├── skill
+        │   └── "Java"
+        └── skill
+            └── "C#"
 ```
 
 - Each **node** in the tree is either an element, a text node, an attribute, or a processing instruction.
