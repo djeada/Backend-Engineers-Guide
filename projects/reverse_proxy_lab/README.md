@@ -10,7 +10,14 @@ This mini-project packages two existing server-technology demos into a short lea
 
 ## Quick start
 
-Run these commands from the repository root:
+Run all demos at once:
+
+```bash
+cd projects/reverse_proxy_lab
+./run.sh
+```
+
+Or run individual demos from the repository root:
 
 ```bash
 python scripts/server_technologies/reverse_proxy_example.py

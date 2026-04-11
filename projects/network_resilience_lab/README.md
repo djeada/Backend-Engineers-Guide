@@ -11,7 +11,14 @@ This mini-project groups networking demos into a short lab for studying **transp
 
 ## Quick start
 
-Run these commands from the repository root:
+Run all demos at once:
+
+```bash
+cd projects/network_resilience_lab
+./run.sh
+```
+
+Or run individual demos from the repository root:
 
 ```bash
 python scripts/network_communications/tcp_udp_example.py

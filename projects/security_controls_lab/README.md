@@ -11,7 +11,14 @@ This mini-project groups core security demos into a lab on **credential safety**
 
 ## Quick start
 
-Run these commands from the repository root:
+Run all demos at once:
+
+```bash
+cd projects/security_controls_lab
+./run.sh
+```
+
+Or run individual demos from the repository root:
 
 ```bash
 python scripts/security/hashing_example.py

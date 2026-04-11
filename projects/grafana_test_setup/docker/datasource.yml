@@ -1,0 +1,12 @@
+# Docker-specific Grafana data source.
+# Uses the Docker service name "prometheus" instead of 127.0.0.1.
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    uid: prometheus-main
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false

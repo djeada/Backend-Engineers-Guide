@@ -1,0 +1,48 @@
+# docker-compose.yml — run the full Grafana alerting stack in containers
+#
+# Usage:
+#   docker compose up -d          # start all services
+#   docker compose logs -f        # follow logs
+#   docker compose down           # stop and remove containers
+#
+# This is an alternative to the local install.sh / start.sh workflow.
+# It uses the same Grafana provisioning files and Python apps but runs
+# Prometheus and Grafana as Docker containers instead of local binaries.
+
+services:
+  metricgen:
+    build: ./metricgen
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    depends_on:
+      - metricgen
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:10.4.3
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./docker/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml:ro
+      - ./grafana/provisioning/alerting/alerts.yml:/etc/grafana/provisioning/alerting/alerts.yml:ro
+      - ./grafana/provisioning/alerting/policies.yml:/etc/grafana/provisioning/alerting/policies.yml:ro
+      - ./docker/contactpoints.yml:/etc/grafana/provisioning/alerting/contactpoints.yml:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+  webhook-receiver:
+    build: ./webhook_receiver
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

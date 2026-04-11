@@ -38,7 +38,20 @@ A hands-on learning environment for **Grafana alerting, Prometheus metrics, and 
 
 ## Quick start
 
+### Option A: Docker Compose (recommended)
+
 ```bash
+cd projects/grafana_test_setup
+docker compose up -d
+```
+
+This pulls Prometheus and Grafana images and builds the Python services automatically.
+
+### Option B: Local binaries
+
+```bash
+cd projects/grafana_test_setup
+
 # 1. Install Grafana, Prometheus, and Python dependencies
 ./scripts/install.sh
 

@@ -10,7 +10,14 @@ This mini-project uses a gossip simulation to study **membership propagation** a
 
 ## Quick start
 
-Run this command from the repository root:
+Run the demo:
+
+```bash
+cd projects/cluster_membership_lab
+./run.sh
+```
+
+Or run directly from the repository root:
 
 ```bash
 python scripts/distributed_systems/gossip_protocol_example.py

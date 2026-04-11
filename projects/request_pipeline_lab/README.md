@@ -10,7 +10,14 @@ This mini-project focuses on the **middleware pipeline** that sits between an in
 
 ## Quick start
 
-Run this command from the repository root:
+Run the demo:
+
+```bash
+cd projects/request_pipeline_lab
+./run.sh
+```
+
+Or run directly from the repository root:
 
 ```bash
 python scripts/server_technologies/middleware_chain_example.py

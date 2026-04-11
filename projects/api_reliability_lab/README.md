@@ -10,7 +10,14 @@ This mini-project groups a few API-design demos into a short lab for studying **
 
 ## Quick start
 
-Run these commands from the repository root:
+Run all demos at once:
+
+```bash
+cd projects/api_reliability_lab
+./run.sh
+```
+
+Or run individual demos from the repository root:
 
 ```bash
 python scripts/api_design/versioning_example.py
