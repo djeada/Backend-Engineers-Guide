@@ -223,6 +223,11 @@ The [`projects/`](projects/) directory contains guided labs that combine notes, 
 | Project | Focus | Link |
 |---------|-------|------|
 | API Reliability Lab | API versioning, idempotency, and webhook verification | [📖 Open](projects/api_reliability_lab/README.md) |
+| Network Resilience Lab | TCP/UDP trade-offs, HTTP request flow, DNS caching, and circuit breakers | [📖 Open](projects/network_resilience_lab/README.md) |
+| Security Controls Lab | Password hashing, JWT verification, encryption concepts, and rate limiting | [📖 Open](projects/security_controls_lab/README.md) |
+| Data Interchange Lab | JSON/XML/YAML conversion and Protocol Buffers-style binary serialization | [📖 Open](projects/data_interchange_lab/README.md) |
+| Request Pipeline Lab | Middleware composition for logging, auth, tracing, and CORS | [📖 Open](projects/request_pipeline_lab/README.md) |
+| Cluster Membership Lab | Gossip propagation and eventual consistency in distributed clusters | [📖 Open](projects/cluster_membership_lab/README.md) |
 | Database Reliability Lab | Transactions, schema evolution, indexes, and connection pooling | [📖 Open](projects/database_reliability_lab/README.md) |
 | Cache Patterns Lab | LRU eviction, TTL expiration, and cache write strategies | [📖 Open](projects/cache_patterns_lab/README.md) |
 | Messaging Reliability Lab | Pub/sub, batch processing, stream processing, and dead-letter queues | [📖 Open](projects/messaging_reliability_lab/README.md) |
