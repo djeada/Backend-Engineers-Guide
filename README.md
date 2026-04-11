@@ -24,6 +24,7 @@ A comprehensive collection of backend engineering notes, covering essential topi
   - [Deployment](#deployment)
   - [Distributed Systems](#distributed-systems)
 - [Scripts](#scripts)
+- [Projects](#projects)
 - [References](#references)
 - [Contributing](#contributing)
 - [License](#license)
@@ -214,6 +215,18 @@ The [`scripts/`](scripts/) directory contains small, self-contained Python scrip
 | `deployment/` | [`rolling_deploy_example.py`](scripts/deployment/rolling_deploy_example.py) | Rolling deployment simulation |
 
 See the [scripts README](scripts/README.md) for prerequisites and usage instructions.
+
+## Projects
+
+The [`projects/`](projects/) directory contains guided labs that combine notes, scripts, and longer walkthroughs into focused backend engineering exercises.
+
+| Project | Focus | Link |
+|---------|-------|------|
+| Grafana Alert Test Environment | Multi-service lab for Grafana alerting, Prometheus metrics, and notification policies | [📖 Open](projects/grafana_test_setup/README.md) |
+| Reverse Proxy Lab | Path-based routing and load-balancing strategies using standard-library demos | [📖 Open](projects/reverse_proxy_lab/README.md) |
+| Deployment Rollout Lab | Rolling deploys, canary releases, and readiness checks | [📖 Open](projects/deployment_rollout_lab/README.md) |
+
+See the [projects README](projects/README.md) for the full project index.
 
 ## References
 
