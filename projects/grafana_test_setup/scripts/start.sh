@@ -4,6 +4,10 @@
 # Check status anytime with: ./scripts/status.sh
 
 set -euo pipefail
+
+source "$(cd "$(dirname "$0")" && pwd)/common.sh"
+
+if [[ ! -x "${GRAFANA_HOME}/bin/grafana" ]]; then
   printf 'Grafana is not installed. Run ./scripts/install.sh first.\n' >&2
   exit 1
 fi
