@@ -222,6 +222,11 @@ The [`projects/`](projects/) directory contains guided labs that combine notes, 
 
 | Project | Focus | Link |
 |---------|-------|------|
+| API Reliability Lab | API versioning, idempotency, and webhook verification | [📖 Open](projects/api_reliability_lab/README.md) |
+| Database Reliability Lab | Transactions, schema evolution, indexes, and connection pooling | [📖 Open](projects/database_reliability_lab/README.md) |
+| Cache Patterns Lab | LRU eviction, TTL expiration, and cache write strategies | [📖 Open](projects/cache_patterns_lab/README.md) |
+| Messaging Reliability Lab | Pub/sub, batch processing, stream processing, and dead-letter queues | [📖 Open](projects/messaging_reliability_lab/README.md) |
+| Distributed Coordination Lab | Leader election, vector clocks, quorums, and consistent hashing | [📖 Open](projects/distributed_coordination_lab/README.md) |
 | Grafana Alert Test Environment | Multi-service lab for Grafana alerting, Prometheus metrics, and notification policies | [📖 Open](projects/grafana_test_setup/README.md) |
 | Reverse Proxy Lab | Path-based routing and load-balancing strategies using standard-library demos | [📖 Open](projects/reverse_proxy_lab/README.md) |
 | Deployment Rollout Lab | Rolling deploys, canary releases, and readiness checks | [📖 Open](projects/deployment_rollout_lab/README.md) |
