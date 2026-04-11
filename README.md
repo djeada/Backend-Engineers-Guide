@@ -24,6 +24,7 @@ A comprehensive collection of backend engineering notes, covering essential topi
   - [Deployment](#deployment)
   - [Distributed Systems](#distributed-systems)
 - [Scripts](#scripts)
+- [Projects](#projects)
 - [References](#references)
 - [Contributing](#contributing)
 - [License](#license)
@@ -214,6 +215,28 @@ The [`scripts/`](scripts/) directory contains small, self-contained Python scrip
 | `deployment/` | [`rolling_deploy_example.py`](scripts/deployment/rolling_deploy_example.py) | Rolling deployment simulation |
 
 See the [scripts README](scripts/README.md) for prerequisites and usage instructions.
+
+## Projects
+
+The [`projects/`](projects/) directory contains guided labs that combine notes, scripts, and longer walkthroughs into focused backend engineering exercises.
+
+| Project | Focus | Link |
+|---------|-------|------|
+| API Reliability Lab | API versioning, idempotency, and webhook verification | [📖 Open](projects/api_reliability_lab/README.md) |
+| Network Resilience Lab | TCP/UDP trade-offs, HTTP request flow, DNS caching, and circuit breakers | [📖 Open](projects/network_resilience_lab/README.md) |
+| Security Controls Lab | Password hashing, JWT verification, encryption concepts, and rate limiting | [📖 Open](projects/security_controls_lab/README.md) |
+| Data Interchange Lab | JSON/XML/YAML conversion and Protocol Buffers-style binary serialization | [📖 Open](projects/data_interchange_lab/README.md) |
+| Request Pipeline Lab | Middleware composition for logging, auth, tracing, and CORS | [📖 Open](projects/request_pipeline_lab/README.md) |
+| Cluster Membership Lab | Gossip propagation and eventual consistency in distributed clusters | [📖 Open](projects/cluster_membership_lab/README.md) |
+| Database Reliability Lab | Transactions, schema evolution, indexes, and connection pooling | [📖 Open](projects/database_reliability_lab/README.md) |
+| Cache Patterns Lab | LRU eviction, TTL expiration, and cache write strategies | [📖 Open](projects/cache_patterns_lab/README.md) |
+| Messaging Reliability Lab | Pub/sub, batch processing, stream processing, and dead-letter queues | [📖 Open](projects/messaging_reliability_lab/README.md) |
+| Distributed Coordination Lab | Leader election, vector clocks, quorums, and consistent hashing | [📖 Open](projects/distributed_coordination_lab/README.md) |
+| Grafana Alert Test Environment | Multi-service lab for Grafana alerting, Prometheus metrics, and notification policies | [📖 Open](projects/grafana_test_setup/README.md) |
+| Reverse Proxy Lab | Path-based routing and load-balancing strategies using standard-library demos | [📖 Open](projects/reverse_proxy_lab/README.md) |
+| Deployment Rollout Lab | Rolling deploys, canary releases, and readiness checks | [📖 Open](projects/deployment_rollout_lab/README.md) |
+
+See the [projects README](projects/README.md) for the full project index.
 
 ## References
 
