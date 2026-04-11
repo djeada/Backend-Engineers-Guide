@@ -1,0 +1,28 @@
+# ─────────────────────────────────────────────────────────────────────
+# NOTIFICATION POLICY — controls HOW alerts are routed and grouped
+#
+# KEY CONCEPT: Even if 10 alerts fire at once, grouping bundles them
+# into a single notification per unique combination of group_by labels.
+# This is the primary tool for reducing alert spam.
+#
+# Timing explained:
+#   group_wait      — after first alert in a group, wait this long to
+#                     collect more alerts before sending the first notification
+#   group_interval  — minimum time between notifications for the SAME group
+#   repeat_interval — how long before re-notifying for an already-firing alert
+# ─────────────────────────────────────────────────────────────────────
+apiVersion: 1
+
+policies:
+  - orgId: 1
+    receiver: local-webhook          # Default receiver for all alerts
+    group_by:
+      - alertname                    # Group alerts with the same name...
+      - env                          # ...same environment...
+      - service                      # ...same service...
+      - dependency_group             # ...and same dependency group
+    # EXAMPLE: If both "checkout/payments/uat" alerts fire within 10s,
+    # they arrive in ONE webhook call instead of two.
+    group_wait: 10s
+    group_interval: 1m
+    repeat_interval: 4h              # Don't re-notify for 4 hours

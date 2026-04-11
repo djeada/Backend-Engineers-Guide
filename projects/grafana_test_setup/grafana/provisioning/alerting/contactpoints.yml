@@ -1,0 +1,20 @@
+# ─────────────────────────────────────────────────────────────────────
+# CONTACT POINT — where Grafana sends alert notifications
+#
+# KEY CONCEPT: A contact point is the "delivery address" for alerts.
+# In production this would be Slack, PagerDuty, email, etc.
+# Here we use a local webhook receiver so you can inspect the exact
+# JSON payload Grafana sends when an alert fires or resolves.
+#
+# The notification policy (policies.yml) routes alerts to this contact point.
+# ─────────────────────────────────────────────────────────────────────
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: local-webhook              # Referenced by name in policies.yml
+    receivers:
+      - uid: local-webhook-receiver
+        type: webhook                # HTTP POST with JSON alert payload
+        settings:
+          url: http://127.0.0.1:8080/alerts   # Our local webhook_receiver/app.py

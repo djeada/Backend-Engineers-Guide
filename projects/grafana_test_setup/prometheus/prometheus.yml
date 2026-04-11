@@ -1,0 +1,27 @@
+# ─────────────────────────────────────────────────────────────────────
+# PROMETHEUS CONFIGURATION
+#
+# KEY CONCEPT: Prometheus is a "pull-based" monitoring system. It
+# periodically fetches (scrapes) metrics from HTTP endpoints. Each
+# target exposes a /metrics path in a specific text format.
+#
+# DATA FLOW: metricgen exposes /metrics → Prometheus scrapes it every
+# 15 seconds → Grafana queries Prometheus to evaluate alert rules.
+# ─────────────────────────────────────────────────────────────────────
+global:
+  scrape_interval: 15s        # How often Prometheus pulls metrics from targets
+  evaluation_interval: 15s    # How often Prometheus evaluates its own recording rules
+
+scrape_configs:
+  # Prometheus scrapes its own metrics (useful for monitoring Prometheus itself)
+  - job_name: prometheus
+    static_configs:
+      - targets:
+          - 127.0.0.1:9090
+
+  # Our metric generator — this is the target that produces demo_parent_failure
+  # and demo_child_failure metrics that the Grafana alert rules query
+  - job_name: metricgen
+    static_configs:
+      - targets:
+          - 127.0.0.1:8000    # metricgen/app.py serves /metrics here

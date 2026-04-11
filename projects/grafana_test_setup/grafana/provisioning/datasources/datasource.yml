@@ -1,0 +1,19 @@
+# ─────────────────────────────────────────────────────────────────────
+# DATA SOURCE — tells Grafana where to find Prometheus
+#
+# KEY CONCEPT: Grafana doesn't store metrics itself. It queries external
+# data sources. This file auto-configures Prometheus on startup so you
+# don't have to add it manually in the Grafana UI.
+#
+# The "uid" (prometheus-main) is how alert rules reference this data source.
+# ─────────────────────────────────────────────────────────────────────
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    uid: prometheus-main      # Alert rules reference this uid in datasourceUid
+    type: prometheus
+    access: proxy             # Grafana server proxies queries (not browser-direct)
+    url: http://127.0.0.1:9090
+    isDefault: true           # Used when no data source is specified
+    editable: false           # Provisioned data sources can't be edited in the UI

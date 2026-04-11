@@ -1,0 +1,156 @@
+# ─────────────────────────────────────────────────────────────────────
+# GRAFANA ALERT RULES (provisioned from file)
+#
+# KEY CONCEPT: Grafana evaluates these rules on a schedule. Each rule
+# queries Prometheus, applies a threshold, and fires an alert if the
+# condition is true for the duration specified in "for".
+#
+# DATA FLOW:  metricgen → Prometheus scrapes → Grafana queries → alert fires
+#             → notification policy routes → contact point (webhook) delivers
+# ─────────────────────────────────────────────────────────────────────
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: demo-alert-tests
+    folder: Alert Tests
+    interval: 10s              # How often Grafana evaluates these rules
+
+    rules:
+      # ── PARENT ALERT ──────────────────────────────────────────────
+      # Fires when the top-level dependency metric is > 0.
+      # This represents the ROOT CAUSE — e.g. "the payments service is down".
+      - uid: demo-parent-alert
+        title: Demo Parent Dependency Failure
+        condition: C            # Which refId decides firing (see data below)
+        data:
+          # Step A: Query Prometheus for the raw metric value
+          - refId: A
+            datasourceUid: prometheus-main   # Must match uid in datasource.yml
+            relativeTimeRange:
+              from: 300         # Look back 5 minutes (300 seconds)
+              to: 0
+            model:
+              datasource:
+                type: prometheus
+                uid: prometheus-main
+              editorMode: code
+              expr: demo_parent_failure      # PromQL — returns all label combos
+              instant: true                  # Single point-in-time value
+              intervalMs: 1000
+              maxDataPoints: 43200
+              range: false
+              refId: A
+
+          # Step C: Apply a threshold to decide "is this firing?"
+          # __expr__ is Grafana's built-in expression engine, not Prometheus.
+          # It takes the result of step A and checks: is the last value > 0?
+          - refId: C
+            datasourceUid: __expr__          # Built-in Grafana expression engine
+            relativeTimeRange:
+              from: 0
+              to: 0
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 0                    # Threshold: fire when value > 0
+                    type: gt                 # "greater than"
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A                    # References step A's result
+                  reducer:
+                    type: last               # Use the most recent data point
+                  type: query
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A                  # Input from step A
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: C
+              type: threshold                # This is a threshold expression
+        noDataState: OK          # If no data, treat as OK (not alerting)
+        execErrState: Error      # If query errors, mark as Error
+        for: 30s                 # Must be true for 30s before firing ("pending" state)
+        labels:
+          tier: parent           # Used by notification policies for routing/inhibition
+          severity: critical     # Higher severity than child alerts
+        annotations:
+          # Template syntax: {{ $labels.X }} pulls label values from the metric
+          summary: 'Parent dependency failure: {{ $labels.service }} / {{ $labels.dependency_group }} / {{ $labels.env }}'
+
+      # ── CHILD ALERT ───────────────────────────────────────────────
+      # Fires when the downstream metric is > 0, BUT ONLY IF the parent
+      # metric is NOT also > 0.
+      #
+      # KEY TEACHING POINT: The "unless on(...)" PromQL operator is how
+      # we suppress the child alert when the parent is firing. This means
+      # only the root-cause alert notifies, reducing noise.
+      - uid: demo-child-alert
+        title: Demo Child Service Failure
+        condition: C
+        data:
+          - refId: A
+            datasourceUid: prometheus-main
+            relativeTimeRange:
+              from: 300
+              to: 0
+            model:
+              datasource:
+                type: prometheus
+                uid: prometheus-main
+              editorMode: code
+              # ── THE SUPPRESSION QUERY ──────────────────────────────
+              # "unless on(env, service, dependency_group)" means:
+              #   return demo_child_failure EXCEPT where demo_parent_failure > 0
+              #   has matching env, service, and dependency_group labels.
+              #
+              # Result: when BOTH parent and child are failing (same labels),
+              # this query returns empty → child alert does NOT fire.
+              # When ONLY child is failing, this returns the child metric → fires.
+              expr: demo_child_failure unless on(env, service, dependency_group) (demo_parent_failure > 0)
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              range: false
+              refId: A
+
+          # Same threshold logic as parent alert
+          - refId: C
+            datasourceUid: __expr__
+            relativeTimeRange:
+              from: 0
+              to: 0
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: C
+              type: threshold
+        noDataState: OK
+        execErrState: Error
+        for: 30s
+        labels:
+          tier: child            # Distinguished from parent for routing
+          severity: warning      # Lower severity — this is a symptom, not root cause
+        annotations:
+          summary: 'Child service failure: {{ $labels.service }} / {{ $labels.dependency_group }} / {{ $labels.env }}'
