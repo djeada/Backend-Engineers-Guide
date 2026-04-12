@@ -11,7 +11,14 @@ This mini-project packages the database demos into a learning path for **consist
 
 ## Quick start
 
-Run these commands from the repository root:
+Run all demos at once:
+
+```bash
+cd projects/database_reliability_lab
+./run.sh
+```
+
+Or run individual demos from the repository root:
 
 ```bash
 python scripts/databases/transaction_example.py

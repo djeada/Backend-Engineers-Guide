@@ -11,7 +11,14 @@ This mini-project groups the distributed-systems demos into a lab for **leadersh
 
 ## Quick start
 
-Run these commands from the repository root:
+Run all demos at once:
+
+```bash
+cd projects/distributed_coordination_lab
+./run.sh
+```
+
+Or run individual demos from the repository root:
 
 ```bash
 python scripts/distributed_systems/leader_election_example.py

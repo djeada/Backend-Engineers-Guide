@@ -10,7 +10,14 @@ This mini-project groups the format demos into a short lab on **serialization tr
 
 ## Quick start
 
-Run these commands from the repository root:
+Run all demos at once:
+
+```bash
+cd projects/data_interchange_lab
+./run.sh
+```
+
+Or run individual demos from the repository root:
 
 ```bash
 python scripts/data_formats/format_conversion.py

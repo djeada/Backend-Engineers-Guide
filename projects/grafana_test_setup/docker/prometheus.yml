@@ -1,0 +1,17 @@
+# Docker-specific Prometheus configuration.
+# Identical to ../prometheus/prometheus.yml but uses Docker service names
+# instead of 127.0.0.1 so containers can reach each other.
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets:
+          - prometheus:9090
+
+  - job_name: metricgen
+    static_configs:
+      - targets:
+          - metricgen:8000

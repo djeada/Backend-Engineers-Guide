@@ -11,7 +11,14 @@ This mini-project groups the data-processing demos into a lab on **event deliver
 
 ## Quick start
 
-Run these commands from the repository root:
+Run all demos at once:
+
+```bash
+cd projects/messaging_reliability_lab
+./run.sh
+```
+
+Or run individual demos from the repository root:
 
 ```bash
 python scripts/data_processing/pub_sub_example.py

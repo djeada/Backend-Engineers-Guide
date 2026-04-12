@@ -10,7 +10,14 @@ This mini-project groups the deployment demos into a single lab for studying **s
 
 ## Quick start
 
-Run these commands from the repository root:
+Run all demos at once:
+
+```bash
+cd projects/deployment_rollout_lab
+./run.sh
+```
+
+Or run individual demos from the repository root:
 
 ```bash
 python scripts/deployment/rolling_deploy_example.py

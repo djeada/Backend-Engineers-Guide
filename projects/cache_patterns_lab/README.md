@@ -10,7 +10,14 @@ This mini-project groups the caching demos into a focused lab on **latency reduc
 
 ## Quick start
 
-Run these commands from the repository root:
+Run all demos at once:
+
+```bash
+cd projects/cache_patterns_lab
+./run.sh
+```
+
+Or run individual demos from the repository root:
 
 ```bash
 python scripts/caching/lru_cache_example.py

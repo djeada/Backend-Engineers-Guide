@@ -1,0 +1,12 @@
+# Docker-specific contact point.
+# Uses the Docker service name "webhook-receiver" instead of 127.0.0.1.
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: local-webhook
+    receivers:
+      - uid: local-webhook-receiver
+        type: webhook
+        settings:
+          url: http://webhook-receiver:8080/alerts
