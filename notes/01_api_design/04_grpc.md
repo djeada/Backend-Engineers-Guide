@@ -191,3 +191,95 @@ Consider a few approaches when designing and operating gRPC services:
 - Rely on load balancing strategies that are compatible with HTTP/2 and maintain persistent connections.  
 - Monitor service performance by collecting metrics on request latencies, error rates, and resource usage.
 
+### Error Handling and Status Codes  
+gRPC defines a set of standard status codes that differ from HTTP status codes. These codes cover both common and domain-specific failure scenarios:
+
+| Code              | Number | Description                                                    |
+|-------------------|--------|----------------------------------------------------------------|
+| OK                | 0      | The call succeeded                                             |
+| CANCELLED         | 1      | The call was cancelled by the caller                           |
+| UNKNOWN           | 2      | An unknown error occurred                                      |
+| INVALID_ARGUMENT  | 3      | The client sent an invalid argument                            |
+| DEADLINE_EXCEEDED | 4      | The operation did not complete before the deadline              |
+| NOT_FOUND         | 5      | The requested resource was not found                           |
+| ALREADY_EXISTS    | 6      | The resource the client tried to create already exists         |
+| PERMISSION_DENIED | 7      | The caller does not have permission for this operation         |
+| UNAUTHENTICATED   | 16     | The caller has not provided valid authentication credentials   |
+| RESOURCE_EXHAUSTED| 8      | A resource limit has been reached (e.g., rate limit)           |
+| UNIMPLEMENTED     | 12     | The method is not implemented on the server                    |
+| INTERNAL          | 13     | An internal server error occurred                              |
+| UNAVAILABLE       | 14     | The service is temporarily unavailable                         |
+
+Servers attach a status code and an optional message to every response. Clients should handle these codes explicitly to provide meaningful error messages or retry logic.
+
+### Deadlines and Timeouts  
+Every gRPC call should include a deadline, which is an absolute point in time by which the call must complete. If the deadline is exceeded, the call fails with `DEADLINE_EXCEEDED`. Deadlines propagate across service boundaries, so when service A calls service B which calls service C, the original deadline flows through the entire chain:
+
+```
+Client (deadline: 5s) → Service A (remaining: 4.8s) → Service B (remaining: 4.5s)
+```
+
+Setting appropriate deadlines prevents cascading failures and ensures that no single slow downstream service can block the entire request pipeline indefinitely.
+
+### Metadata and Interceptors  
+gRPC metadata is the equivalent of HTTP headers. Clients and servers can attach key-value pairs to calls for purposes such as authentication, tracing, or request identification:
+
+```go
+md := metadata.Pairs("authorization", "Bearer my-token")
+ctx := metadata.NewOutgoingContext(context.Background(), md)
+response, err := client.GetBook(ctx, &pb.GetBookRequest{Id: "1"})
+```
+
+Interceptors (also called middleware) are functions that run before or after each RPC call. They are used for cross-cutting concerns like logging, authentication, metrics collection, and error handling. Both unary and streaming calls support interceptors:
+
+```go
+func loggingInterceptor(
+    ctx context.Context,
+    req interface{},
+    info *grpc.UnaryServerInfo,
+    handler grpc.UnaryHandler,
+) (interface{}, error) {
+    log.Printf("Method: %s", info.FullMethod)
+    resp, err := handler(ctx, req)
+    log.Printf("Response error: %v", err)
+    return resp, err
+}
+```
+
+### Health Checking  
+gRPC provides a standardized health checking protocol defined in `grpc.health.v1`. Services implement a `Health` service that load balancers and orchestrators (like Kubernetes) can query to determine whether the service is ready to accept traffic:
+
+```proto
+service Health {
+  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
+  rpc Watch(HealthCheckRequest) returns (stream HealthCheckResponse);
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
+}
+```
+
+The `Check` method returns the current status, while `Watch` streams status changes. This is especially important in containerized environments where readiness probes rely on health checks.
+
+### gRPC vs REST  
+Choosing between gRPC and REST depends on the use case. The following comparison highlights key differences:
+
+| Aspect             | gRPC                                    | REST                                    |
+|--------------------|----------------------------------------|-----------------------------------------|
+| Transport          | HTTP/2                                 | HTTP/1.1 or HTTP/2                      |
+| Data format        | Protocol Buffers (binary)              | JSON, XML (text-based)                  |
+| Contract           | Strict `.proto` file                   | Informal or OpenAPI spec                |
+| Streaming          | Native bidirectional streaming         | Requires WebSockets or SSE              |
+| Browser support    | Limited (requires grpc-web proxy)      | Universal                               |
+| Code generation    | Built-in from `.proto` definitions     | Optional via OpenAPI generators         |
+| Performance        | Generally faster due to binary format  | Slower due to text parsing overhead     |
+| Human readability  | Low (binary on the wire)               | High (JSON is human-readable)           |
+| Typical use case   | Internal microservices                 | Public-facing APIs                      |
+
+gRPC excels for internal service-to-service communication where performance matters and both ends share the `.proto` contract. REST remains the better choice for public APIs that need broad client compatibility and human-readable payloads.

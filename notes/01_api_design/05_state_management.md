@@ -1,4 +1,4 @@
-## State Managment  
+## State Management  
 Stateful and stateless designs are common terms in software architecture. They describe how an application handles data over multiple interactions. This set of notes explains the differences between applications that remember information between requests and those that treat every request as a fresh transaction. Various diagrams and code snippets illustrate how each approach operates in practice. Brief formulas appear to show how state management can affect concurrency and scaling.
 
 ### The Concept of State  
@@ -183,3 +183,89 @@ Below is an illustration of a web application that implements a simple counter, 
 ```
 
 A stateful approach has the server track the count internally. A stateless approach relies on the client to send the current count with every interaction. Each style has unique trade-offs, so the best choice depends on factors like scalability requirements, complexity of the workflow, and overall system design.
+
+### Token-Based Authentication vs Server-Side Sessions  
+One of the most common decisions related to state is how to handle authentication. The two primary approaches are server-side sessions and token-based authentication (typically JWT):
+
+#### Server-Side Sessions (Stateful)  
+The server creates a session object after login and stores it in memory or a database. A session ID is sent to the client (usually via a cookie), and the client includes it with every subsequent request. The server looks up the session to identify the user:
+
+```
+Client                              Server
+  |   POST /login                    |
+  |   {user, password}               |
+  | -------------------------------->|
+  |                                  | Creates session in memory/store
+  |   Set-Cookie: session_id=abc123  |
+  | <--------------------------------|
+  |                                  |
+  |   GET /profile                   |
+  |   Cookie: session_id=abc123      |
+  | -------------------------------->|
+  |                                  | Looks up session abc123
+  |   {name: "Alice", role: "admin"} |
+  | <--------------------------------|
+```
+
+This approach makes it easy to revoke access (just delete the session), but it requires session storage that all server instances can reach.
+
+#### Token-Based Authentication (Stateless)  
+The server issues a signed token (such as a JWT) at login. The client stores it and includes it in the `Authorization` header on every request. The server validates the token signature without looking up any stored state:
+
+```
+Client                              Server
+  |   POST /login                    |
+  |   {user, password}               |
+  | -------------------------------->|
+  |                                  | Signs JWT with secret key
+  |   {token: "eyJhbG..."}          |
+  | <--------------------------------|
+  |                                  |
+  |   GET /profile                   |
+  |   Authorization: Bearer eyJhbG...|
+  | -------------------------------->|
+  |                                  | Verifies JWT signature
+  |   {name: "Alice", role: "admin"} |
+  | <--------------------------------|
+```
+
+Tokens are self-contained, making horizontal scaling straightforward, but revoking a token before it expires requires additional infrastructure like a blocklist.
+
+| Aspect               | Server-Side Sessions       | Token-Based (JWT)            |
+|-----------------------|----------------------------|------------------------------|
+| State storage         | Server (memory or database)| Client (token in header)     |
+| Scalability           | Requires shared session store | Scales easily across instances |
+| Revocation            | Simple (delete session)    | Requires blocklist or short expiry |
+| Payload size          | Small cookie               | Larger header (token carries claims) |
+| Offline validation    | Not possible               | Server can verify without a store |
+
+### Distributed State Management  
+When stateful behavior is necessary in a distributed system, state must be accessible to all instances. Several strategies address this:
+
+#### External Session Stores  
+An in-memory data store like Redis or Memcached holds session data so that any server instance can access it:
+
+```
++----------+      +----------+      +----------+
+| Server 1 |      | Server 2 |      | Server 3 |
++-----+----+      +-----+----+      +-----+----+
+      |                 |                 |
+      +--------+--------+--------+--------+
+               |                 |
+         +-----+-----+    +-----+-----+
+         |   Redis    |    |  Database  |
+         | (Sessions) |    |  (Persistent)|
+         +-----------+    +-----------+
+```
+
+Redis provides fast reads and writes with built-in expiration, making it a popular choice for session storage. The trade-off is an additional infrastructure dependency.
+
+#### Sticky Sessions  
+A load balancer routes all requests from the same client to the same server instance. This avoids the need for shared state but reduces fault tolerance, because a server failure loses all sessions it was handling.
+
+#### State in Microservices  
+Microservices architectures often mix stateful and stateless patterns. API gateways and edge services tend to be stateless (using JWTs), while individual services that manage domain-specific data may be stateful internally. The key principle is to push state to the edges (databases, caches) and keep the services themselves as stateless as possible:
+
+- Stateless services are easier to deploy, scale, and replace.  
+- State that must persist belongs in a dedicated data store with proper replication.  
+- Event-driven patterns (event sourcing, CQRS) can reduce the need for shared mutable state by recording changes as immutable events.
