@@ -114,6 +114,58 @@ This basic diagram shows a client making a request to a server and the server se
 - It lacks **bidirectional** communication, so any client-to-server updates must use separate endpoints.  
 - It is often simpler than WebSockets if client feedback to the server is minimal or infrequent.  
 
+### Long Polling
+
+```
++-----------+                       +-----------+
+|           |  1. Request           |           |
+|  Client   | --------------------> |  Server   |
+|           |                       |  (holds)  |
+|           |  2. Response when     |           |
+|           | <---- data ready ---- |           |
++-----------+                       +-----------+
+     |                                    |
+     | 3. Immediately send new request    |
+     | ---------------------------------> |
+     |          (cycle repeats)           |
+```
+
+- It serves as a **bridge** between plain HTTP polling and full real-time protocols, keeping a request open until the server has something to send.  
+- It reduces **wasted** requests compared to short polling, where the client repeatedly asks for updates at fixed intervals.  
+- It is **compatible** with standard HTTP infrastructure, so no special protocol upgrades or server features are needed.  
+- It can increase **server load** when many clients hold open connections simultaneously, requiring careful resource management.  
+- It may suffer from **timeout** issues, since proxies and load balancers sometimes close idle connections, forcing the client to reconnect.  
+- It is often used as a **fallback** for environments where WebSockets or SSE are not supported.  
+
+### Webhooks
+
+```
++-----------+   1. Register callback URL   +-----------+
+|           | ---------------------------> |           |
+| Consumer  |                              | Provider  |
+|           |   2. Event occurs, POST to   |           |
+|           | <--------------------------- |           |
++-----------+       callback URL           +-----------+
+```
+
+- They use an **inversion** of the typical request-response model, where the server pushes data to the client when an event occurs rather than the client polling for changes.  
+- They require the consumer to expose an **endpoint** that the provider can call, which means the consumer must be reachable over the network.  
+- They are well **suited** for event-driven integrations such as payment confirmations, repository push notifications, or CI/CD triggers.  
+- They typically transmit **JSON** payloads over HTTPS POST requests, often including a signature header so the consumer can verify authenticity.  
+- They can introduce **reliability** challenges because the consumer must acknowledge receipt; providers often implement retry logic for failed deliveries.  
+- They work best when events are **infrequent** and the consumer does not need a continuous stream of data.  
+
+### Choosing the Right Protocol
+
+Selecting a protocol depends on the specific requirements of the system being built. The following decision factors help narrow down the choices:
+
+- **Latency requirements** determine whether a persistent connection (WebSockets, gRPC streaming) is necessary or whether request-response patterns (REST, GraphQL) suffice.  
+- **Data shape flexibility** matters when clients vary widely in what they need; GraphQL excels here, while REST works well when resources are well-defined.  
+- **Interoperability** is important for public-facing APIs where broad client support is required; REST and webhooks are nearly universal.  
+- **Throughput and efficiency** favor binary protocols like gRPC when services communicate internally at high volume.  
+- **Team expertise** can influence adoption speed; REST has the lowest barrier to entry, while gRPC and GraphQL have steeper learning curves.  
+- **Direction of data flow** separates unidirectional patterns (SSE, webhooks) from bidirectional ones (WebSockets, gRPC streaming).  
+
 ### Comparison Table
 
 | Protocol/Style | Transport         | Data Format      | Interaction Style             | Benefits                                              | Drawbacks                                                 | Ideal Use Cases                                                                        |
@@ -124,3 +176,5 @@ This basic diagram shows a client making a request to a server and the server se
 | **SOAP**       | HTTP, SMTP, etc. | XML              | RPC-style or document style   | **Useful** for enterprise standards (WS-Security)     | Verbose payloads, more complex to implement              | Strictly regulated or legacy systems needing formal service definitions                |
 | **WebSockets** | TCP (Upgraded)   | Text or Binary   | Bidirectional, real-time     | **Helpful** for interactive applications             | Requires persistent connections, specialized scaling      | Chat, live dashboards, gaming, collaborative editing                                    |
 | **SSE**        | HTTP (One-way)   | text/event-stream| Server-to-client streaming    | **Straightforward** setup for continuous updates      | Only supports unidirectional communication               | Live feeds, notifications, real-time event distribution where client rarely sends data |
+| **Long Polling** | HTTP           | JSON, XML, etc.  | Held request-response         | **Compatible** with standard HTTP infrastructure      | Higher server resource usage from held connections        | Near-real-time updates when WebSockets or SSE are unavailable                          |
+| **Webhooks**   | HTTP (Callback)  | JSON (typically) | Event-driven push             | **Efficient** for infrequent events, no polling       | Consumer must be reachable; delivery reliability concerns | Payment notifications, CI/CD triggers, third-party integrations                        |

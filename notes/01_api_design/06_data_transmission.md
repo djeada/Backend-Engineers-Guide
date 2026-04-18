@@ -139,6 +139,94 @@ Caching can dramatically reduce data transmission by serving responses directly 
 
 If the requested data hasn’t changed, the proxy returns the cached copy without reaching the server. This design often helps with static resources or read-heavy endpoints.
 
+### Conditional Requests and ETags  
+Conditional requests allow clients to avoid downloading data that has not changed since the last fetch. The server includes an `ETag` (entity tag) in the response, which is a hash or version identifier for the resource:
+
+```
+Client                                 Server
+  |   GET /posts/1                      |
+  | ----------------------------------> |
+  |   200 OK                            |
+  |   ETag: "abc123"                    |
+  |   {id: 1, title: "Hello"}          |
+  | <---------------------------------- |
+  |                                     |
+  |   GET /posts/1                      |
+  |   If-None-Match: "abc123"           |
+  | ----------------------------------> |
+  |   304 Not Modified                  |
+  | <---------------------------------- |
+```
+
+When the resource has not changed, the server returns `304 Not Modified` with no body, saving bandwidth and processing time. The `If-Modified-Since` header offers a time-based alternative to ETags.
+
+| Header              | Direction  | Purpose                                            |
+|---------------------|------------|----------------------------------------------------|
+| `ETag`              | Response   | Unique identifier for a specific version of a resource |
+| `If-None-Match`     | Request    | Return the resource only if the ETag has changed   |
+| `Last-Modified`     | Response   | Timestamp of the last modification                 |
+| `If-Modified-Since` | Request    | Return the resource only if modified after this date |
+| `Cache-Control`     | Both       | Directives for caching behavior (max-age, no-cache, etc.) |
+
+### Content Negotiation in Detail  
+Content negotiation goes beyond choosing between JSON and XML. It also covers language, encoding, and character set preferences:
+
+```
+Accept: application/json; q=1.0, application/xml; q=0.5
+Accept-Language: en-US, fr; q=0.8
+Accept-Encoding: gzip, br
+Accept-Charset: utf-8
+```
+
+The `q` (quality) parameter indicates preference, with `1.0` being the highest. The server picks the best match from what it supports and reflects the choice in the response headers.
+
+### Pagination in Data Transmission  
+Transmitting large datasets in a single response wastes bandwidth and increases latency. Pagination strategies split data into pages:
+
+- **Offset-based** uses `offset` and `limit` parameters. Simple but can produce inconsistent results if data changes between page requests.  
+- **Cursor-based** uses an opaque cursor (often a base64-encoded identifier) to mark the position. More efficient for large or frequently changing datasets.  
+- **Keyset-based** uses the last seen value of a sorted column (e.g., `created_after=2024-01-15T00:00:00Z`) to fetch the next page. Efficient and avoids offset drift.  
+
+The response typically includes metadata about the pagination state:
+
+```json
+{
+  "data": ["..."],
+  "pagination": {
+    "next_cursor": "eyJpZCI6MTAwfQ==",
+    "has_more": true,
+    "total_count": 5432
+  }
+}
+```
+
+### Rate Limiting and Throttling  
+APIs transmit rate limit information in response headers so clients can self-regulate:
+
+```
+HTTP/1.1 200 OK
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 847
+X-RateLimit-Reset: 1713465600
+```
+
+When the limit is exceeded, the server responds with `429 Too Many Requests` and a `Retry-After` header. This mechanism protects the server from overload and ensures fair usage across clients.
+
+### Webhooks for Asynchronous Data Delivery  
+Instead of clients polling for updates, webhooks push data to a registered callback URL when events occur. This reduces unnecessary network traffic and delivers information in near real-time:
+
+```
+Provider                              Consumer
+  |   Event occurs                     |
+  |   POST https://consumer.com/hook  |
+  |   {event: "order.completed", ...} |
+  | ---------------------------------> |
+  |   200 OK (acknowledgement)         |
+  | <--------------------------------- |
+```
+
+Providers typically sign webhook payloads with a shared secret so consumers can verify authenticity. Retry policies handle cases where the consumer is temporarily unreachable.
+
 ### Example Requests in Different Formats  
 
 #### JSON-based REST  
