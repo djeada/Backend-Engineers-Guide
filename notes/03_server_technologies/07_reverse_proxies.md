@@ -1,4 +1,4 @@
-## Reverse Proxy
+## Reverse Proxies
 
 A reverse proxy is a special server that receives incoming requests from external clients and forwards them to one or more internal web servers. By acting as an intermediary, it hides the details of the internal network, providing a single entry point that can improve load balancing, security, caching, and overall performance of the back-end servers.
 
@@ -44,7 +44,7 @@ ASCII DIAGRAM: Reverse Proxy in Action
 2. **Server Selection**: The proxy checks its rules (like load balancing or caching).  
 3. **Forwarding**: The request is routed to a suitable **backend** server (e.g., one with the smallest load).  
 4. **Response Return**: The chosen server responds back to the proxy.  
-5. **Final Delivery**: The proxy sends the server’s response to the client as if it was from the proxy itself.
+5. **Final Delivery**: The proxy sends the server’s response to the client as if it were from the proxy itself.
 
 ```
 Client -> Reverse Proxy -> Web Server -> Reverse Proxy -> Client
@@ -63,7 +63,7 @@ II. Web Acceleration
 - **Compression**: Compresses responses to reduce bandwidth and speed up transmissions.  
 - **SSL/TLS Termination**: Proxy handles encryption/decryption, easing the CPU load on web servers.
 
-III. Security and Anonymity
+III. Security and Observability
 
 - **Shielding**: Hides the internal structure and IPs of your server farm.  
 - **Attack Mitigation**: Can filter suspicious traffic or block malicious payloads before they reach back-end servers.  
@@ -73,6 +73,47 @@ IV. SSL Encryption
 
 - **SSL Offloading**: The proxy handles certificate details and SSL encryption, letting back-end servers communicate via plain HTTP.  
 - **Easier Certificate Management**: Central place to manage SSL certificates for multiple services.
+
+### Preserving Client and Request Metadata
+
+Without additional headers, the backend usually sees the reverse proxy as the immediate client. That is often desirable for network isolation, but application code still needs a safe way to learn the original request details.
+
+- **`X-Forwarded-For`**: Carries the client IP chain.
+- **`X-Forwarded-Proto`**: Indicates whether the original request used HTTP or HTTPS.
+- **`X-Forwarded-Host`**: Preserves the public hostname the client used.
+- **`Forwarded`**: Standardized alternative to the `X-Forwarded-*` family.
+
+Backends should trust these headers only when requests come from known proxies or load balancers; otherwise, clients can spoof them.
+
+### Example Nginx Configuration
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name app.example.com;
+
+    ssl_certificate     /etc/ssl/certs/app.crt;
+    ssl_certificate_key /etc/ssl/private/app.key;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 60s;
+    }
+}
+```
+
+This setup terminates TLS at the proxy, forwards requests to an internal service, and preserves the metadata that the backend commonly needs for redirects, logging, and audit trails.
+
+### Operational Considerations
+
+- **Health Checks and Failover**: Reverse proxies often probe backends and stop routing traffic to unhealthy instances.
+- **Retries and Timeouts**: Conservative retry rules reduce user-facing failures but must avoid replaying unsafe operations such as non-idempotent `POST` requests.
+- **Caching**: A proxy can cache static or slowly changing responses, which reduces latency and shields backends from spikes.
+- **WebSockets and Streaming**: Long-lived connections require explicit configuration so the proxy does not close them prematurely.
+- **High Availability**: Because the proxy is a critical entry point, production systems often run multiple proxy instances behind DNS failover or another load balancer.
 
 ### Types of Reverse Proxies
 

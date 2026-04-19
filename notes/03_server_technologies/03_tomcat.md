@@ -99,8 +99,6 @@ apache-tomcat-9.0.xx/
         <Connector port="8080" protocol="HTTP/1.1"
                    connectionTimeout="20000"
                    redirectPort="8443" />
-        
-        <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
 
         <Engine name="Catalina" defaultHost="localhost">
             <Host name="localhost"  appBase="webapps"
@@ -113,9 +111,11 @@ apache-tomcat-9.0.xx/
 
 - **Server**: The root element. The `port="8005"` attribute sets the port that listens for shutdown commands.  
 - **Service**: A collection of connectors working with a single `Engine`.  
-- **Connector**: Defines how Tomcat receives requests. The default HTTP connector is on port 8080. An AJP connector might also be defined (port 8009).  
+- **Connector**: Defines how Tomcat receives requests. The default HTTP connector is on port 8080.
 - **Engine**: The request processing engine, with a `defaultHost` referencing a `<Host>` element.  
 - **Host**: Represents a virtual host. The `appBase` is the directory where web apps are deployed.
+
+If you need the AJP protocol for integration with an external web server, enable it explicitly rather than assuming it is present by default. In newer Tomcat versions it is commonly disabled unless configured, and it should be protected with firewall rules and a shared secret.
 
 #### web.xml (Global)  
 `conf/web.xml` holds default servlet mappings and configurations shared by all web apps. It also sets MIME mappings for file extensions.
@@ -140,7 +140,7 @@ Tomcat includes a “Manager” application that allows you to deploy, start, st
 </tomcat-users>
 ```
 
-You can then log in and manage deployments.
+You can then log in and manage deployments. In production, replace the example credentials with a strong password or an external identity provider, and restrict access to the manager application to trusted networks.
 
 #### CLI Deployment  
 You can deploy a WAR remotely using `curl` or other tools. Example:
@@ -210,10 +210,10 @@ HTTP keep-alive can reduce overhead, but holding connections open too long can c
 Adjust the JVM’s heap size with `CATALINA_OPTS` or `JAVA_OPTS`. For example:
 
 ```bash
-export CATALINA_OPTS="-Xms512m -Xmx2048m -XX:MaxPermSize=256m"
+export CATALINA_OPTS="-Xms512m -Xmx2048m -XX:MaxMetaspaceSize=256m"
 ```
 
-Ensure the server has enough memory to handle all threads and web app needs.
+Ensure the server has enough memory to handle all threads and web app needs. `MaxPermSize` applied to the old PermGen memory space and is obsolete on modern Java versions, where Metaspace is used instead.
 
 #### Logging and Monitoring  
 Look at `logs/catalina.out` and your web app logs for errors or performance warnings. Tools like JMX or the built-in manager’s status page can show thread usage, memory consumption, and request throughput.  
