@@ -6,7 +6,7 @@ HTTP began with simple, stateless transactions. Over time, improvements tackled 
 
 - **HTTP/0.9 and 1.0**: Earliest forms, one request per TCP connection, no persistent connections by default.  
 - **HTTP/1.1**: Introduced persistent connections, chunked transfer encoding, caching directives, and more robust header management.  
-- **HTTP/2**: Added multiplexing (multiple concurrent requests over one TCP connection), header compression, and server push.  
+- **HTTP/2**: Added multiplexing (multiple concurrent requests over one TCP connection), header compression, and more efficient framing.
 - **HTTP/3**: Replaces TCP with QUIC, operating over UDP for improved latency and loss recovery.
 
 ```
@@ -199,7 +199,7 @@ pedia
 In this example, the response is broken into two chunks, "Wiki" (4 bytes) and "pedia" (5 bytes). A final size of `0` indicates the end of chunks.
 
 ### HTTP/2: Multiplexing and Performance  
-HTTP/2 introduced a binary framing layer, allowing multiple request-response exchanges (streams) to occur simultaneously over a single TCP connection. This solves the head-of-line blocking problem in HTTP/1.1. Features include:
+HTTP/2 introduced a binary framing layer, allowing multiple request-response exchanges (streams) to occur simultaneously over a single TCP connection. This removes much of the application-layer head-of-line blocking caused by opening too many parallel HTTP/1.1 request pipelines, although packet loss on the underlying TCP connection can still stall all streams that share it. Features include:
 
 1. **Multiplexing**: Multiple streams of data interleave on one connection.  
 2. **Header Compression**: Reduces overhead from verbose headers.  
@@ -218,7 +218,7 @@ An outline of HTTP/2 multiplexing:
 ```
 
 ### HTTP/3: QUIC Protocol  
-HTTP/3 leverages QUIC, which uses UDP with built-in encryption and independent streams. It avoids TCP’s head-of-line blocking at the transport level and can recover more gracefully from packet loss. While still emerging, HTTP/3 aims to further reduce latency and connection setup times.
+HTTP/3 leverages QUIC, which runs over UDP and integrates TLS 1.3-style security, congestion control, and independent streams in the transport itself. It avoids TCP’s transport-level head-of-line blocking and can recover more gracefully from packet loss. While still emerging, HTTP/3 aims to further reduce latency and connection setup times.
 
 ### Security with HTTPS and TLS  
 Transport Layer Security (TLS) provides encryption, authentication, and data integrity for HTTP connections (known as HTTPS). The client and server perform a TLS handshake to negotiate cipher suites and exchange keys. This secures the data from eavesdropping or tampering.
@@ -234,13 +234,23 @@ Client                             Server
 ```
 
 ### HTTP Performance and Capacity  
-A simplified concurrency formula for an HTTP server could be:
+A useful mental model is to separate concurrency from throughput:
 
 ```
-Max_Concurrent = (Threads or Connections) / (Avg_Request_Processing_Time)
+Max_In_Flight_Requests ≈ Available_Workers
+Throughput ≈ Max_In_Flight_Requests / Avg_Request_Processing_Time
 ```
 
-If each request blocks one thread for the entire processing time, the maximum concurrency is limited. Non-blocking I/O or event-driven models can help scale better. Administrators often examine requests per second (RPS), throughput, and tail latencies (p95, p99) to gauge performance.
+If each request blocks one thread for the entire processing time, the maximum number of concurrent in-flight requests is limited by the worker pool. Non-blocking I/O or event-driven models can help scale better. Administrators often examine requests per second (RPS), throughput, and tail latencies (p95, p99) to gauge performance.
+
+### Timeouts, Retries, and Idempotency
+Real HTTP clients and servers need more than method parsing and status codes. They also need policies for failure handling.
+
+- **Timeouts** keep slow dependencies from exhausting connection pools.
+- **Retries with backoff** help recover from transient network issues or overloaded upstreams.
+- **Idempotency** matters when retrying writes. Repeating a `GET` is usually safe, while repeating a `POST` may require an idempotency key or deduplication strategy.
+
+These concerns are especially important in backend-to-backend calls, where one slow dependency can create cascading latency across multiple services.
 
 ### Example Usage with curl  
 Here are some basic commands demonstrating HTTP operations. Each example is followed by sample output and a short explanation.

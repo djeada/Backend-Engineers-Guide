@@ -1,4 +1,4 @@
-## Metrics Analysis  
+## Metrics and Analysis
 In modern distributed systems, the performance and reliability of communication channels, APIs, and network infrastructure are critical factors that determine user experience. Metrics and analysis offer insights into system behavior under varying loads, help identify bottlenecks, and guide capacity planning. Capturing the right metrics and interpreting them correctly leads to robust, scalable architectures. This document explores the core metrics for communication, API usage, and network layers, alongside common formulas, analysis techniques, and best practices in monitoring and diagnostics.
 
 ### Why Metrics Matter  
