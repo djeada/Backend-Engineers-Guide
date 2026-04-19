@@ -89,6 +89,15 @@ Real-time applications, such as chat systems or collaboration tools, often use W
 #### gRPC  
 gRPC (Google Remote Procedure Call) rides on top of HTTP/2 and uses Protocol Buffers (protobuf) by default. It provides efficient, type-safe request/response interactions, plus streaming features. The sequence includes establishing an HTTP/2 connection, then sending RPC calls within the multiplexed channel.  
 
+### Name Resolution and Service Discovery
+Before most application traffic can flow, a client or upstream service needs an address for the target system. Public traffic often depends on DNS records such as `A`, `AAAA`, `CNAME`, and `MX`, while internal backends also use service discovery systems, load balancer hostnames, or platform-specific naming mechanisms.
+
+- **Recursive DNS resolution** walks from root servers to TLD servers and finally to an authoritative server.
+- **Caching with TTLs** reduces repeated lookups and lowers latency for frequently used names.
+- **Service discovery** in Kubernetes, Consul, or cloud load balancers gives backends stable names even when instance IPs change.
+
+If name resolution is slow or stale, the rest of the request path suffers. That is why backend teams often monitor DNS latency, cache hit rates, and TTL choices alongside application metrics.
+
 ### Middleware, Load Balancing, and Reverse Proxies  
 Backend systems often employ load balancers or reverse proxies to distribute incoming requests across multiple servers. Middleware can intercept requests to handle cross-cutting concerns like authentication, rate-limiting, or logging.
 
@@ -113,10 +122,11 @@ Backend systems often employ load balancers or reverse proxies to distribute inc
 Reverse proxies like Nginx or HAProxy terminate the incoming TCP connection, possibly handle HTTPS, and then forward packets to the appropriate backend service.
 
 ### Concurrency and Scaling  
-Scalability depends on how effectively the backend handles multiple concurrent requests. A high-level concurrency formula might show that maximum concurrency is limited by the product of each request’s duration and the available resources:
+Scalability depends on how effectively the backend handles multiple concurrent requests. In a blocking server model, the maximum number of simultaneously in-flight requests is roughly bounded by the number of worker threads or open connections available. Throughput then depends on how quickly those workers finish each request.
 
 ```
-Max_Concurrent =  (Threads or Connections) / (Average_Req_Duration)
+Max_In_Flight_Requests ≈ Available_Workers
+Throughput ≈ Max_In_Flight_Requests / Average_Req_Duration
 ```
 
 When load becomes too high, new instances may be started or network traffic can be routed differently (horizontal scaling). Some services implement asynchronous I/O (e.g., Node.js, Go, or async frameworks in Python/Java) to handle many connections efficiently.
@@ -138,7 +148,18 @@ APIs usually serve data in JSON because it is widely supported and human-readabl
 #### Compression and Caching  
 HTTP compression (gzip, Brotli) reduces payload size. Caching can take place at client, proxy, or server levels, using headers like `Cache-Control` and `ETag` to control validity. This can drastically lower bandwidth usage and reduce server load.
 
+### Reliability Patterns for Networked Backends
+Real networks are imperfect, so production services add defensive patterns on top of the transport protocol:
+
+- **Timeouts** prevent requests from waiting forever on slow or dead dependencies.
+- **Retries with backoff and jitter** help recover from short-lived failures without overwhelming the target service.
+- **Circuit breakers** stop sending traffic to an unhealthy downstream dependency until it has time to recover.
+- **Idempotency keys** make retries safer for write operations such as payment or order creation APIs.
+
+These patterns matter because reliability is not provided by TCP alone. TCP can retransmit dropped packets, but it cannot decide whether an application-level request should be retried, abandoned, or short-circuited.
+
 ### Common Network Communication Patterns in Backends  
 - **Request-Response**: The most common model, where the client sends a request and waits for a server response.  
 - **Pub/Sub**: A server publishes updates, and subscribers receive messages (e.g., via WebSockets, messaging queues, or streaming).  
 - **Streaming**: Long-lived connections (HTTP/2, WebSockets, or gRPC streams) enable continuous flows of data.  
+- **Fail-Fast Dependency Calls**: Timeouts, retries, and circuit breakers keep one unhealthy service from cascading failures into the rest of the system.

@@ -110,8 +110,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
 #### Typical UDP Use Cases  
 1) Live video or audio streaming where some packet loss is tolerable.  
 2) Online gaming with real-time position updates.  
-3) Domain Name System (DNS) lookups for speed.  
+3) Domain Name System (DNS) lookups for speed, especially for small request/response exchanges.
 4) Internal network broadcast or multicast services.
+
+It is also worth noting that UDP is only the transport. Higher-level protocols can add reliability, encryption, or stream management on top of it. For example, QUIC runs over UDP and implements its own recovery, congestion control, and secure session establishment.
 
 ### Comparing TCP and UDP  
 
@@ -122,7 +124,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
 | Ordering            | Packets arrive in sequence or are reordered       | Packets can arrive in any order    |
 | Overhead            | Higher overhead for handshakes and acknowledgments| Lower overhead, lightweight headers|
 | Speed               | Slower than UDP due to control mechanisms         | Usually faster but less reliable   |
-| Typical Use Cases   | Web requests, file transfers, database access     | Streaming media, online games, DNS |
+| Typical Use Cases   | Web requests, file transfers, database access     | Streaming media, online games, DNS, QUIC/HTTP/3 |
 
 ### Performance and Throughput  
 A simplified throughput equation can be used for TCP to illustrate the effects of congestion control:
@@ -137,3 +139,10 @@ Window_size is how many bytes can be sent before waiting for an acknowledgment, 
 Both TCP and UDP can run over secure channels like TLS or DTLS.  
 1) TCP over TLS: Often known as HTTPS (for web traffic).  
 2) UDP over DTLS: Provides security for datagram-based traffic, such as secure VoIP.  
+
+### Choosing Between TCP and UDP in Practice
+The choice is rarely just “reliable versus unreliable.” A better question is where you want complexity to live.
+
+- Choose **TCP** when the application expects ordered bytes, built-in retransmission, and straightforward interoperability with existing tooling.
+- Choose **UDP** when low latency, multicast, or custom transport behavior matters more than in-order delivery.
+- Choose a **UDP-based higher-level protocol** such as QUIC when you want low-latency connection setup and stream multiplexing, but you still need reliability and encryption above raw UDP.
