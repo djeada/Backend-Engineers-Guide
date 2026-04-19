@@ -233,7 +233,7 @@ Savepoints within a Transaction
 ```
 
 * **Nested recovery** – Savepoints are especially useful in stored procedures or ORM frameworks where an inner operation may fail but the outer transaction should survive.
-* **Implementation** – Most engines (PostgreSQL, MySQL, Oracle, SQL Server) implement savepoints by recording the current WAL position; `ROLLBACK TO` replays undo records back to that point.
+* **Implementation** – Engines track enough transactional state to return to the savepoint boundary. Depending on the database, that may involve subtransactions, undo segments, or log records; `ROLLBACK TO` discards only the work performed after the savepoint.
 * **Release** – `RELEASE SAVEPOINT sp1` discards the marker without rolling back, freeing engine resources.
 
 ### Concurrency Control Methods Comparison

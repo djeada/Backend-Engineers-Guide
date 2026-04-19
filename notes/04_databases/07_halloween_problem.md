@@ -98,35 +98,24 @@ Modern DBMSs implement several **automatic** defenses:
 
 Because each vendor differs, always test critical updates under production-like loads.
 
-### Order by Primary Key
+### Stable Key Selection
 
-Running the update in a **stable key order** eliminates back-tracking:
+Selecting the target rows by a **stable key set** avoids re-reading rows whose indexed values are being changed:
 
-1. Adding `ORDER BY <primary_key>` forces the executor to process rows in ascending (or descending) primary-key sequence, which by definition never changes within the statement.
-2. Once a row is past the cursor, even large attribute changes cannot cause it to reappear.
+1. First capture the primary keys of qualifying rows in a spool, temporary table, or CTE.
+2. Then drive the `UPDATE` from that fixed list of keys rather than scanning the changing index directly.
+3. This keeps the candidate set stable even if the updated column would otherwise move rows inside the access path.
 
 ```
-+----------------------------+
-| Table: employees           |
-+----------------------------+
-| PK 1  salary 45000         |
-| PK 2  salary 47000         |  --+
-| PK 3  salary 48000         |    | Cursor direction
-| PK 4  salary 49000         |    |  (ascending PK)
-| PK 5  salary 49500         |    |
-+----------------------------+    v
-             |                    +----------------------------------+
-             |  UPDATE ...        | After pass:                      |
-             |  ORDER BY PK       +----------------------------------+
-             |                    | 1  49500 (was 45000)             |
-             |                    | 2  51700 (was 47000)             |
-             v                    | 3  52800 (was 48000)             |
-+----------------------------+    | 4  53900 (was 49000)             |
-| Executor scans once only   |    | 5  54450 (was 49500)             |
-+----------------------------+    +----------------------------------+
+Step 1: Materialize target keys      Step 2: Update by key
++-----------------------------+      +------------------------------+
+| SELECT id                   |      | UPDATE employees e          |
+| FROM employees              |      | SET salary = salary * 1.10  |
+| WHERE salary < 50000        | ---> | WHERE e.id IN ( ...keys... )|
++-----------------------------+      +------------------------------+
 ```
 
-A supporting index on the key avoids a full-table scan and external sort, keeping the remedy performant.
+A supporting index on the stable key still helps performance, but the important point is that the database updates a fixed candidate set rather than discovering new candidates while it is already mutating them.
 
 ### Locking Mechanisms
 

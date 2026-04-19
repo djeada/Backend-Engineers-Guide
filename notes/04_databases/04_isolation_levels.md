@@ -130,7 +130,7 @@ SET SESSION transaction_isolation = 'READ COMMITTED';
 
 * **Default**: Read Committed.
 * **Extras**: Snapshot (MVCC-based) and Read Committed Snapshot.
-* **Serializable**: Two-phase locking unless Snapshot is enabled, in which case it validates at commit.
+* **Serializable**: A separate isolation level that uses locking to prevent phantoms; it is distinct from SQL Server's Snapshot isolation.
 
 ```sql
 SET TRANSACTION ISOLATION LEVEL SNAPSHOT;
@@ -139,7 +139,8 @@ SET TRANSACTION ISOLATION LEVEL SNAPSHOT;
 #### Oracle
 
 * **Default**: Read Committed (with MVCC).
-* **Serializable**: Provides repeatable reads with predicate locking; Oracle treats Read Uncommitted as Read Committed.
+* **Serializable**: Snapshot-based and may raise serialization errors (for example, `ORA-08177`) instead of blocking every conflicting writer.
+* **Read Uncommitted**: Not exposed separately; Oracle effectively treats it as Read Committed.
 * **Repeatable Read**: Not exposed separately.
 
 ### ANSI SQL Commands for Isolation Levels
@@ -195,7 +196,7 @@ Under Serializable, Tx B would block or Tx A would abort to preserve a serial or
 ### Performance and Locking Overheads
 
 * **Row & Range Locks**: Higher isolation can pin more rows longer, increasing wait times and deadlock probability.
-* **Snapshot Isolation**: MVCC engines (PostgreSQL, Oracle, SQL Server snapshot) favor *version reads* over blocking, but still validate write overlaps at commit.
+* **Snapshot-Based Reads**: MVCC engines often let readers use a consistent snapshot instead of blocking on writers. The exact conflict rules differ by engine and isolation level—for example, SQL Server Snapshot and Oracle Serializable may fail conflicting transactions instead of blocking them.
 * **Deadlocks**: More locks + longer lifetimes → greater risk; engines automatically pick a victim to roll back.
 
 ### Choosing the Right Isolation Level
@@ -257,4 +258,4 @@ IV. **Snapshot vs. Repeatable Read** – Do not conflate them: snapshot may allo
 
 V. **Read-Only Transactions** – Declare `SET TRANSACTION READ ONLY` to let the optimizer skip superfluous locks or validation.
 
-VI. **Serializable Rollbacks** – Code retry loops around `SerializationFailure` errors; this is normal, not a bug.
+VI. **Serializable Rollbacks** – Code retry loops around serialization errors raised by the database; these retries are a normal part of strong isolation in many engines.

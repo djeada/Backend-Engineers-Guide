@@ -139,7 +139,7 @@ Databases maintain internal statistics about distribution of column values. The 
     +--------(Check stats & cost)--------+
     |                                    |
     v                                    v
-Sequantial Scan                Index Scan (Locate matching rows quickly)
+Sequential Scan               Index Scan (Locate matching rows quickly)
     |                                    |
     v                                    v
 Scan entire table        Use index to find row offsets, 
