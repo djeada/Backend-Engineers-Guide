@@ -88,7 +88,7 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 | TCP vs UDP | Comparison of transport layer protocols | [📖 Read](notes/02_network_communications/02_tcp_and_udp.md) |
 | HTTP Protocol | Hypertext Transfer Protocol deep dive | [📖 Read](notes/02_network_communications/03_http_protocol.md) |
 | WebSockets | Real-time bidirectional communication | [📖 Read](notes/02_network_communications/04_web_sockets.md) |
-| Metrics and Analysis | Network performance monitoring and analysis | [📖 Read](notes/02_network_communications/05_metrics_and_analysis.md) |
+| Metrics and Analysis | Network performance monitoring, analysis, and modern observability tools (Prometheus, Grafana, Jaeger, Perf, ClickHouse, and more) | [📖 Read](notes/02_network_communications/05_metrics_and_analysis.md) |
 
 ---
 
