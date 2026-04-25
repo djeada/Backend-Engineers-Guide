@@ -546,7 +546,7 @@ SELECT
     quantile(0.99)(duration_ms) AS p99_latency_ms,
     count()                     AS span_count
 FROM spans
-WHERE timestamp >= today()
+WHERE timestamp >= now() - INTERVAL 24 HOUR
 GROUP BY service
 ORDER BY p99_latency_ms DESC;
 
