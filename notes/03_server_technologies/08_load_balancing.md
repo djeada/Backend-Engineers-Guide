@@ -5,7 +5,7 @@ Load balancing is central to designing robust distributed systems. It distribute
 This improves reliability, scalability, and performance. If one server becomes slow or unavailable, the load balancer can route traffic to healthier servers. If traffic increases, more servers can be added behind the load balancer to handle the extra demand.
 
 ```text
-ASCII DIAGRAM: High-Level Load Balancing
+High-Level Load Balancing
 
          +---------+
          |  Client |
