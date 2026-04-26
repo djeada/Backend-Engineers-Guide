@@ -6,8 +6,6 @@ HTTP was originally designed for fetching hypertext documents such as HTML pages
 
 HTTP usually follows a **client-server request-response model**. The client sends a request, the server processes it, and the server returns a response. HTTP itself is stateless, meaning each request is independent unless the application adds state through cookies, sessions, tokens, or other mechanisms.
 
----
-
 ### Historical Context and Versions
 
 HTTP began as a simple protocol for retrieving documents from web servers. Early versions were minimal and focused mainly on transferring basic HTML pages. Over time, HTTP evolved to support persistent connections, better caching, compression, multiplexing, security, and improved performance.
@@ -55,8 +53,6 @@ Example version comparison output:
 
 This comparison shows how HTTP has evolved from simple request-response behavior into a more efficient protocol family that supports modern web and API workloads.
 
----
-
 ### Core HTTP Concepts
 
 HTTP is based on a simple request-response cycle. A client sends a request message to a server. The server reads the request, determines what resource or action is being requested, runs the necessary application logic, and returns a response message.
@@ -64,8 +60,6 @@ HTTP is based on a simple request-response cycle. A client sends a request messa
 A request usually includes a method, path, headers, and sometimes a body. A response usually includes a status code, headers, and sometimes a body. The response body might contain HTML, JSON, XML, binary data, or another content type.
 
 HTTP is stateless by design. This means the protocol does not automatically remember earlier requests. However, applications can build stateful behavior using cookies, sessions, JWTs, or database-backed user records.
-
----
 
 #### Request-Response Lifecycle
 
@@ -114,8 +108,6 @@ In this example, the client requests one post from the server. The server return
 
 When HTTPS is used, the HTTP data is encrypted inside a TLS-protected connection. This prevents attackers from easily reading or modifying the request and response while they travel across the network.
 
----
-
 ### HTTP Request Structure
 
 An HTTP request includes a **start-line**, zero or more headers, and an optional message body. The start-line tells the server what action the client wants to perform and which resource is being targeted.
@@ -137,8 +129,6 @@ CRLF
 * **HTTP-Version**: Indicates the protocol version, such as `HTTP/1.1`.
 * **Headers**: Provide metadata such as host, content type, accepted formats, authentication, and caching preferences.
 * **Body**: Optional data sent with the request, often used with methods like `POST`, `PUT`, and `PATCH`.
-
----
 
 #### Example HTTP/1.1 GET Request
 
@@ -169,8 +159,6 @@ In this request, the client asks for `/index.html` from `www.example.com`. The `
 
 A `GET` request usually does not include a body. It is mainly used to retrieve information from the server.
 
----
-
 ### HTTP Response Structure
 
 An HTTP response includes a **status line**, headers, and an optional body. The status line tells the client whether the request succeeded, failed, redirected, or requires some other action.
@@ -188,8 +176,6 @@ CRLF
 ```
 
 The status code is especially important because it gives the client a quick summary of the outcome. For example, `200` means success, `404` means the resource was not found, and `500` means the server encountered an internal error.
-
----
 
 #### Example HTTP/1.1 Response
 
@@ -234,8 +220,6 @@ Content-Type: application/json
 ```
 
 This tells the client that the server understood the request, but no matching resource was found.
-
----
 
 ### Common HTTP Methods
 
@@ -297,8 +281,6 @@ HTTP/1.1 204 No Content
 
 These examples show how the method communicates the client’s intent. The same resource path can behave differently depending on the HTTP method used.
 
----
-
 ### HTTP Status Codes
 
 HTTP status codes tell the client what happened to the request. The first digit indicates the general category of the response.
@@ -357,8 +339,6 @@ Content-Type: application/json
 
 Clients should use status codes to decide what to do next. A `400` response usually means the client should fix the request. A `500` response usually means something went wrong on the server side.
 
----
-
 ### Headers and Caching
 
 HTTP headers carry metadata about the request or response. Request headers can describe what the client accepts, who the client is, what credentials are being sent, or what cached version the client already has. Response headers can describe the returned content, caching rules, security policies, cookies, and server behavior.
@@ -366,8 +346,6 @@ HTTP headers carry metadata about the request or response. Request headers can d
 Examples of request headers include `Accept`, `Authorization`, `User-Agent`, and `If-None-Match`. Examples of response headers include `Content-Type`, `Cache-Control`, `ETag`, `Set-Cookie`, and `Content-Encoding`.
 
 Caching is one of the most important uses of HTTP headers. Proper caching can reduce latency, save bandwidth, and lower server load.
-
----
 
 #### Example of Caching Control
 
@@ -450,8 +428,6 @@ Only 3,000 requests reach the origin server when the cache hit rate is 70%.
 
 This shows why caching can be so valuable for high-traffic APIs and websites.
 
----
-
 ### Keep-Alive and Persistent Connections
 
 Before persistent connections became common, each HTTP request often required a new TCP connection. Opening a TCP connection takes time because it requires a handshake. If HTTPS is used, a TLS handshake may also be needed.
@@ -512,8 +488,6 @@ Connection: close
 
 Persistent connections improve performance because the cost of connection setup is spread across multiple requests.
 
----
-
 ### Chunked Transfer Encoding
 
 Sometimes a server cannot know the final response size before it starts sending data. This can happen when the response is generated dynamically, streamed from another source, or produced gradually.
@@ -540,8 +514,6 @@ Wikipedia
 In this example, the server sends two chunks: `"Wiki"` and `"pedia"`. The client combines them into the final response body, `"Wikipedia"`.
 
 Chunked transfer is useful for streaming data or dynamically generated responses. The client can begin receiving data before the server has finished generating the entire response.
-
----
 
 ### HTTP/2: Multiplexing and Performance
 
@@ -580,8 +552,6 @@ Example conceptual output:
 
 HTTP/2 reduces much of the application-layer blocking found in older HTTP/1.1 patterns. However, because HTTP/2 still runs over TCP, packet loss at the TCP layer can affect all streams sharing that connection.
 
----
-
 ### HTTP/3: QUIC Protocol
 
 HTTP/3 uses QUIC instead of TCP. QUIC runs over UDP and includes transport-level features such as encryption, congestion control, stream multiplexing, and improved recovery from packet loss.
@@ -614,8 +584,6 @@ Example output:
 ```
 
 HTTP/3 is designed to improve performance in modern network conditions. From an API design perspective, the request and response model remains familiar, but the underlying transport behaves differently.
-
----
 
 ### Security with HTTPS and TLS
 
@@ -652,8 +620,6 @@ Example output:
 ```
 
 Although the request and response look readable in application code, they are encrypted while traveling across the network. This protects the user’s account data and authorization token from being exposed in transit.
-
----
 
 ### HTTP Performance and Capacity
 
@@ -699,8 +665,6 @@ Example monitoring output:
 ```
 
 This kind of data helps teams detect slow endpoints, overloaded servers, or failing dependencies.
-
----
 
 ### Timeouts, Retries, and Idempotency
 
@@ -763,13 +727,9 @@ Example retry output:
 
 This prevents duplicate orders when a client retries after a timeout or temporary network failure.
 
----
-
 ### Example Usage with curl
 
 `curl` is a common command-line tool for testing HTTP requests. It can send different methods, headers, and request bodies, making it useful for debugging APIs.
-
----
 
 ### GET Request
 
@@ -787,8 +747,6 @@ Example output:
 ```
 
 Explanation: The server returns an HTML page. The status code is typically `200 OK` if the request succeeds. A `GET` request is used to retrieve data without modifying server state.
-
----
 
 #### POST with JSON Data
 
@@ -809,8 +767,6 @@ Example output:
 
 Explanation: The client sends JSON data to the server. The `Content-Type: application/json` header tells the server how to interpret the request body. If the login succeeds, the response may include session information, a token, or a cookie.
 
----
-
 #### HEAD Request
 
 ```bash
@@ -827,8 +783,6 @@ Last-Modified: Sat, 25 Apr 2026 10:00:00 GMT
 ```
 
 Explanation: A `HEAD` request returns headers without the response body. This is useful for checking whether a resource exists, how large it is, what type it is, or when it was last modified.
-
----
 
 ### Best Practices and Modern Patterns
 
