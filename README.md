@@ -163,6 +163,9 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 | Security Vulnerabilities | Common vulnerabilities and mitigations | [📖 Read](notes/08_security/03_security_vulnerabilities.md) |
 | Security Best Practices | Industry security standards and measures | [📖 Read](notes/08_security/04_security_best_practices_and_measures.md) |
 | Third-Party Cookies | Cookie security and privacy concerns | [📖 Read](notes/08_security/05_third_party_cookies_vulnerabilities.md) |
+| Secure Containers | Container image hardening, runtime security, and network isolation | [📖 Read](notes/08_security/06_secure_containers.md) |
+| Credentials Management | Managing and supplying secrets safely in production | [📖 Read](notes/08_security/07_credentials_management.md) |
+| Supply Chain Attacks | Dependency confusion, typosquatting, SBOM, and artefact signing | [📖 Read](notes/08_security/08_supply_chain_attacks.md) |
 
 ---
 
