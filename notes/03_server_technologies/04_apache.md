@@ -1,5 +1,5 @@
 ## Apache HTTP Server  
-Apache HTTP Server (commonly referred to as “Apache”) is one of the most widely used web servers in the world. It is maintained by the Apache Software Foundation and offers robust, flexible, and highly configurable capabilities for serving static and dynamic content. Over the decades, Apache has become a cornerstone of the modern web, powering websites of all sizes, from personal blogs to large enterprise systems. This guide explores Apache’s architecture, configuration files, modules, and common tasks. ASCII diagrams provide insight into request flows and how Apache interacts with operating system resources and other services.
+Apache HTTP Server (commonly referred to as “Apache”) is one of the most widely used web servers in the world. It is maintained by the Apache Software Foundation and offers robust, flexible, and highly configurable capabilities for serving static and dynamic content. Over the decades, Apache has become a cornerstone of the modern web, powering websites of all sizes, from personal blogs to large enterprise systems.
 
 ### Core Architecture and Concepts  
 
