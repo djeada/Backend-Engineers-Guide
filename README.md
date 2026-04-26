@@ -140,6 +140,9 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 | Messaging System Integration | Integrating message brokers | [📖 Read](notes/06_data_processing/02_messaging_system_integration.md) |
 | Batch Processing | Large-scale batch data processing | [📖 Read](notes/06_data_processing/03_batch_processing.md) |
 | Stream Processing | Real-time data stream processing | [📖 Read](notes/06_data_processing/04_stream_processing.md) |
+| ETL and ELT Pipelines | Extract-Transform-Load patterns, data quality, and incremental loading | [📖 Read](notes/06_data_processing/05_etl_and_pipelines.md) |
+| Lambda and Kappa Architecture | Batch + streaming hybrid vs stream-only data architectures | [📖 Read](notes/06_data_processing/06_lambda_and_kappa_architecture.md) |
+| Workflow Orchestration | DAG-based pipeline scheduling, retries, and observability | [📖 Read](notes/06_data_processing/07_workflow_orchestration.md) |
 
 ---
 
@@ -213,6 +216,10 @@ The [`scripts/`](scripts/) directory contains small, self-contained Python scrip
 | `data_formats/` | [`protocol_buffer_example.py`](scripts/data_formats/protocol_buffer_example.py) | Protocol-buffer-like binary serialization |
 | `data_processing/` | [`pub_sub_example.py`](scripts/data_processing/pub_sub_example.py) | In-process publish/subscribe broker |
 | `data_processing/` | [`batch_processing_example.py`](scripts/data_processing/batch_processing_example.py) | Batch processing pipeline with configurable batches |
+| `data_processing/` | [`stream_processing_example.py`](scripts/data_processing/stream_processing_example.py) | Tumbling/sliding windows and alert-style stream processing |
+| `data_processing/` | [`dead_letter_queue_example.py`](scripts/data_processing/dead_letter_queue_example.py) | Dead-letter queue with retry limits and poison-message routing |
+| `data_processing/` | [`etl_pipeline_example.py`](scripts/data_processing/etl_pipeline_example.py) | ETL pipeline with incremental extraction, transform, and upsert load |
+| `data_processing/` | [`workflow_orchestration_example.py`](scripts/data_processing/workflow_orchestration_example.py) | DAG orchestrator with topological sort, parallel waves, retries, and backfill |
 | `security/` | [`hashing_example.py`](scripts/security/hashing_example.py) | Password hashing, token generation |
 | `security/` | [`jwt_example.py`](scripts/security/jwt_example.py) | JWT-like token creation and verification |
 | `distributed_systems/` | [`gossip_protocol_example.py`](scripts/distributed_systems/gossip_protocol_example.py) | Gossip protocol cluster simulation |

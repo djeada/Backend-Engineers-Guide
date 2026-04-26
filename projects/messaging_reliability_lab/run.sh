@@ -23,4 +23,12 @@ echo "--- 4. Dead-Letter Queue ---"
 python3 "$REPO_ROOT/scripts/data_processing/dead_letter_queue_example.py"
 echo ""
 
+echo "--- 5. ETL Pipeline ---"
+python3 "$REPO_ROOT/scripts/data_processing/etl_pipeline_example.py"
+echo ""
+
+echo "--- 6. Workflow Orchestration ---"
+python3 "$REPO_ROOT/scripts/data_processing/workflow_orchestration_example.py"
+echo ""
+
 echo "=== All demos complete ==="
