@@ -48,9 +48,7 @@ Example backend routing result:
 
 The client does not need to know that `web-server-2` handled the request. It only communicates with `app.example.com`.
 
----
-
-## Comparing Forward and Reverse Proxies
+### Comparing Forward and Reverse Proxies
 
 Forward proxies and reverse proxies both sit between two network participants, but they serve different sides of the connection.
 
@@ -87,9 +85,7 @@ Example output:
 
 The key difference is who the proxy represents. A forward proxy represents the client. A reverse proxy represents the server infrastructure.
 
----
-
-## How a Reverse Proxy Works
+### How a Reverse Proxy Works
 
 A reverse proxy receives client requests, applies routing or policy rules, forwards the request to a backend server, receives the backend response, and returns that response to the client.
 
@@ -97,20 +93,11 @@ The backend server usually sees the reverse proxy as the immediate network peer.
 
 Basic flow:
 
-1. **Request to Proxy**
-   The client sends a request, such as `GET /index.html`, to the reverse proxy’s public domain or IP address.
-
-2. **Server Selection**
-   The proxy checks its rules, such as path routing, host routing, load balancing, caching, or health status.
-
-3. **Forwarding**
-   The proxy forwards the request to a suitable backend server.
-
-4. **Response Return**
-   The backend server processes the request and sends the response back to the proxy.
-
-5. **Final Delivery**
-   The proxy returns the response to the client.
+1. **Request to Proxy** The client sends a request, such as `GET /index.html`, to the reverse proxy’s public domain or IP address.
+2. **Server Selection** The proxy checks its rules, such as path routing, host routing, load balancing, caching, or health status.
+3. **Forwarding** The proxy forwards the request to a suitable backend server.
+4. **Response Return** The backend server processes the request and sends the response back to the proxy.
+5. **Final Delivery** The proxy returns the response to the client.
 
 ```text id="n6el9s"
 Client -> Reverse Proxy -> Web Server -> Reverse Proxy -> Client
@@ -136,15 +123,11 @@ Example output:
 
 This allows one public domain to route different paths to different internal services.
 
----
-
-## Common Use Cases
+### Common Use Cases
 
 Reverse proxies are useful because they sit at a strategic point in the request path. Since all inbound traffic passes through them, they can apply performance, security, and routing policies before requests reach backend servers.
 
----
-
-### I. Load Balancing
+#### I. Load Balancing
 
 Load balancing distributes incoming requests across multiple backend servers. This prevents one server from receiving all traffic while others sit idle.
 
@@ -172,9 +155,7 @@ Example output:
 
 This improves availability. If one backend fails, the reverse proxy can continue sending traffic to healthy instances.
 
----
-
-### II. Web Acceleration
+#### II. Web Acceleration
 
 Reverse proxies can improve performance by caching, compressing, and optimizing responses before they reach the client.
 
@@ -213,9 +194,7 @@ Example output:
 }
 ```
 
----
-
-### III. Security and Observability
+#### III. Security and Observability
 
 A reverse proxy can hide the internal network structure from external users. Attackers see only the proxy address, not the private IPs of backend servers.
 
@@ -250,9 +229,7 @@ Example access log:
 
 This observability helps teams debug errors, trace traffic, and monitor service health.
 
----
-
-### IV. SSL Encryption
+#### IV. SSL Encryption
 
 Reverse proxies often handle SSL/TLS termination. This means the client connects to the proxy over HTTPS, and the proxy forwards the request to the backend using HTTP or HTTPS.
 
@@ -290,9 +267,7 @@ Example stricter setup:
 
 SSL offloading can improve operational simplicity, but teams must ensure internal network traffic is protected according to the sensitivity of the system.
 
----
-
-## Preserving Client and Request Metadata
+### Preserving Client and Request Metadata
 
 Without extra headers, the backend usually sees the reverse proxy as the immediate client. This is useful for network isolation, but application code may still need the original client IP, public host, or original protocol.
 
@@ -340,9 +315,7 @@ Example safe policy:
 }
 ```
 
----
-
-## Example Nginx Configuration
+### Example Nginx Configuration
 
 Nginx is commonly used as a reverse proxy. The following configuration listens on HTTPS, terminates TLS, forwards requests to an internal service, and preserves useful request metadata.
 
@@ -388,13 +361,11 @@ Example proxy access log:
 
 This setup terminates TLS at the proxy, forwards requests to an internal service, and preserves metadata that the backend may need for redirects, logging, and audit trails.
 
----
-
-## Operational Considerations
+### Operational Considerations
 
 Running a reverse proxy in production requires careful attention to health checks, retries, timeouts, caching, long-lived connections, and high availability.
 
-### Health Checks and Failover
+#### Health Checks and Failover
 
 Reverse proxies often check whether backend servers are healthy. If a backend fails, the proxy stops sending traffic to it.
 
@@ -408,7 +379,7 @@ Example health check output:
 }
 ```
 
-### Retries and Timeouts
+#### Retries and Timeouts
 
 Timeouts prevent requests from waiting forever. Retries can reduce user-facing failures, but they must be used carefully. Retrying unsafe operations such as non-idempotent `POST` requests can accidentally create duplicate orders, payments, or records.
 
@@ -422,7 +393,7 @@ Example retry policy:
 }
 ```
 
-### Caching
+#### Caching
 
 A reverse proxy can cache static or slowly changing responses. This reduces latency and protects backends during traffic spikes.
 
@@ -436,7 +407,7 @@ Example cache result:
 }
 ```
 
-### WebSockets and Streaming
+#### WebSockets and Streaming
 
 WebSockets and streaming responses require explicit proxy configuration. Otherwise, the proxy may close long-lived connections too early.
 
@@ -451,7 +422,7 @@ Example WebSocket routing output:
 }
 ```
 
-### High Availability
+#### High Availability
 
 Because the reverse proxy is a critical entry point, production systems should not rely on only one proxy instance. Teams often run multiple proxy instances behind DNS failover, anycast, cloud load balancers, or another high-availability layer.
 
@@ -465,15 +436,11 @@ Example HA output:
 }
 ```
 
----
-
-## Types of Reverse Proxies
+### Types of Reverse Proxies
 
 Reverse proxies can be software-based, hardware-based, or cloud-based. The right option depends on scale, budget, operational model, performance needs, and team expertise.
 
----
-
-### I. Software-Based
+#### I. Software-Based
 
 Software reverse proxies are installed and configured on general-purpose servers or containers.
 
@@ -502,9 +469,7 @@ Example output:
 }
 ```
 
----
-
-### II. Hardware-Based
+#### II. Hardware-Based
 
 Hardware reverse proxies are dedicated appliances from vendors such as F5, Citrix, or Cisco. They are often used in enterprise data centers.
 
@@ -524,9 +489,7 @@ Example output:
 }
 ```
 
----
-
-### III. Cloud-Based Reverse Proxies
+#### III. Cloud-Based Reverse Proxies
 
 Cloud-based reverse proxies are managed services that sit in front of applications. They often combine load balancing, TLS termination, CDN caching, DDoS protection, WAF features, and global routing.
 
@@ -555,15 +518,11 @@ Example output:
 }
 ```
 
----
-
-## Security Implications
+### Security Implications
 
 Reverse proxies can improve security, but they also become highly sensitive infrastructure. If the proxy is misconfigured, unavailable, or compromised, the entire application may be affected.
 
----
-
-### I. Security Benefits
+#### I. Security Benefits
 
 Reverse proxies reduce direct exposure of backend servers. External clients connect to the proxy, while internal servers can remain on private networks.
 
@@ -586,9 +545,7 @@ Example WAF block:
 }
 ```
 
----
-
-### II. Potential Risks
+#### II. Potential Risks
 
 Reverse proxies also introduce risks.
 
@@ -610,9 +567,7 @@ Example cache misconfiguration risk:
 
 Careful configuration, testing, and monitoring are required to prevent these issues.
 
----
-
-### III. Integrating with Other Security Tools
+#### III. Integrating with Other Security Tools
 
 Reverse proxies work best as part of a layered security system. They should be combined with firewalls, WAFs, intrusion prevention, identity-aware access controls, logging, and regular patching.
 
