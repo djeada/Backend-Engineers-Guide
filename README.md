@@ -129,6 +129,9 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 | Redis | In-memory data store for caching | [📖 Read](notes/05_caching/02_redis.md) |
 | Content Delivery Networks | CDN architecture and implementation | [📖 Read](notes/05_caching/03_content_delivery_networks.md) |
 | Database Caching | Query and result caching techniques | [📖 Read](notes/05_caching/04_database_caching.md) |
+| Memcached | Distributed in-memory key-value cache | [📖 Read](notes/05_caching/05_memcached.md) |
+| HTTP Caching | Cache-Control, ETags, and browser caching | [📖 Read](notes/05_caching/06_http_caching.md) |
+| Application-Level Caching | In-process caches and two-tier patterns | [📖 Read](notes/05_caching/07_application_level_caching.md) |
 
 ---
 
