@@ -1,5 +1,5 @@
 ## Nginx  
-Nginx is a high-performance web server, reverse proxy, and load balancer that has grown popular for its speed, scalability, and flexibility. It can serve static files extremely quickly, proxy requests to application servers, balance traffic across multiple backends, terminate SSL/TLS connections, and more. This makes it a powerful tool in modern web architectures. These notes delve into the conceptual underpinnings of Nginx, explore common use cases, show how to configure it, and provide ASCII diagrams to illustrate how data flows through it.
+Nginx is a high-performance web server, reverse proxy, and load balancer that has grown popular for its speed, scalability, and flexibility. It can serve static files extremely quickly, proxy requests to application servers, balance traffic across multiple backends, terminate SSL/TLS connections, and more. This makes it a powerful tool in modern web architectures.
 
 ### Core Concepts of Nginx  
 Nginx uses an event-driven, asynchronous model to handle connections, in contrast to the thread-based or process-based designs of some other servers. This architecture enables high concurrency with relatively low resource usage.  
