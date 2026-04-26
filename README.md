@@ -172,6 +172,11 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 |-------|-------------|------|
 | CentOS on DigitalOcean | Server deployment on DigitalOcean | [📖 Read](notes/09_deployment/01_centos_digital_ocean.md) |
 | Static Python Website | Deploying Python websites to Netlify | [📖 Read](notes/09_deployment/02_static_python_website_netlify.md) |
+| Docker | Containerisation fundamentals, Dockerfile best practices, Compose, and security | [📖 Read](notes/09_deployment/03_docker.md) |
+| Kubernetes | Container orchestration, core objects, autoscaling, and storage | [📖 Read](notes/09_deployment/04_kubernetes.md) |
+| CI/CD Pipelines | Continuous integration and delivery with GitHub Actions and GitLab CI | [📖 Read](notes/09_deployment/05_ci_cd.md) |
+| Deployment Strategies | Rolling, Blue-Green, Canary, Feature Flags, and strategy selection guide | [📖 Read](notes/09_deployment/06_deployment_strategies.md) |
+| Infrastructure as Code | Terraform and Ansible for reproducible, version-controlled infrastructure | [📖 Read](notes/09_deployment/07_infrastructure_as_code.md) |
 
 ---
 
