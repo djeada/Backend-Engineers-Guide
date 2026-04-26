@@ -6,7 +6,7 @@ Batch processing is useful when tasks can run independently from user interactio
 
 A batch job may process thousands, millions, or billions of records at once. Because the workload can be planned and scheduled, batch systems are often optimized for throughput, fault tolerance, and efficient use of compute resources.
 
-```text id="ep9q1g"
+```text
 Batch Processing Flow
 
 +---------------+    +--------------+    +----------------------------+    +--------------+
@@ -24,7 +24,7 @@ Batch Processing Flow
 
 Example batch input:
 
-```json id="k9iuuk"
+```json
 [
   {
     "customer": "Customer A",
@@ -41,7 +41,7 @@ Example batch input:
 
 Example batch output:
 
-```json id="y5ulff"
+```json
 {
   "Electronics": 250,
   "Clothing": 50
@@ -62,7 +62,7 @@ The final output may be a report, dashboard table, transformed dataset, machine 
 
 Example daily batch run:
 
-```text id="v0qhux"
+```text
 00:00 - Collect previous day's events
 01:00 - Start batch aggregation job
 01:30 - Write results to analytics warehouse
@@ -71,7 +71,7 @@ Example daily batch run:
 
 Example output:
 
-```json id="id8gt2"
+```json
 {
   "job": "daily_sales_summary",
   "recordsProcessed": 1200000,
@@ -90,7 +90,7 @@ MapReduce has two main phases: **Map** and **Reduce**. Between them is a **shuff
 
 The MapReduce framework handles much of the complexity of distributed execution. It splits input data, assigns work to nodes, moves intermediate data, groups keys, retries failed tasks, and writes final output.
 
-```text id="q90ywx"
+```text
 MapReduce Flow
 
                    +-----------------+
@@ -140,7 +140,7 @@ The **map stage** processes input records and emits intermediate key-value pairs
 
 Example high-level output:
 
-```json id="e6gylw"
+```json
 {
   "mapTasks": 12,
   "reduceTasks": 3,
@@ -167,7 +167,7 @@ The goal is to produce category totals.
 
 Expected final output:
 
-```text id="ba8o6i"
+```text
 Electronics -> 550
 Clothing -> 130
 Books -> 20
@@ -179,7 +179,7 @@ In the map phase, each input record is processed independently. The mapper emits
 
 Pseudo-code:
 
-```text id="d08kn8"
+```text
 map(record):
     key = record.Category
     value = record.Amount
@@ -188,7 +188,7 @@ map(record):
 
 Example mapper input:
 
-```json id="k3rt3q"
+```json
 {
   "Customer": "Customer A",
   "Category": "Electronics",
@@ -198,7 +198,7 @@ Example mapper input:
 
 Example mapper output:
 
-```json id="2s0jt7"
+```json
 {
   "key": "Electronics",
   "value": 250
@@ -207,7 +207,7 @@ Example mapper output:
 
 For the full dataset, the mapper produces:
 
-```text id="fnp8gm"
+```text
 (Electronics, 250)
 (Clothing, 50)
 (Electronics, 300)
@@ -223,7 +223,7 @@ After mapping, the MapReduce framework automatically groups values by key. All v
 
 Grouped output:
 
-```text id="dh3z5f"
+```text
 Electronics: [250, 300]
 Clothing: [50, 80]
 Books: [20]
@@ -231,7 +231,7 @@ Books: [20]
 
 Example shuffle output:
 
-```json id="o9w2x6"
+```json
 {
   "Electronics": [250, 300],
   "Clothing": [50, 80],
@@ -248,7 +248,7 @@ The reduce phase receives one key and a list of values. It then performs an aggr
 
 Pseudo-code:
 
-```text id="8lmnuj"
+```text
 reduce(key, values):
     total = 0
     for value in values:
@@ -258,7 +258,7 @@ reduce(key, values):
 
 Example reducer input:
 
-```json id="1vxotp"
+```json
 {
   "key": "Electronics",
   "values": [250, 300]
@@ -267,7 +267,7 @@ Example reducer input:
 
 Example reducer output:
 
-```json id="41e0ih"
+```json
 {
   "key": "Electronics",
   "total": 550
@@ -276,7 +276,7 @@ Example reducer output:
 
 Applying the reducer to each group:
 
-```text id="5l3jpo"
+```text
 Electronics: 250 + 300 = 550
 Clothing: 50 + 80 = 130
 Books: 20 = 20
@@ -286,7 +286,7 @@ Books: 20 = 20
 
 The final output is a set of key-result pairs:
 
-```text id="240cv5"
+```text
 Electronics -> 550
 Clothing -> 130
 Books -> 20
@@ -294,7 +294,7 @@ Books -> 20
 
 Example JSON output:
 
-```json id="z5ppvl"
+```json
 {
   "Electronics": 550,
   "Clothing": 130,
@@ -314,7 +314,7 @@ There are several ways to perform joins in a MapReduce context.
 
 A sort-merge join, also called a reduce-side join, sends both datasets through mappers keyed by the join field. The shuffle phase groups matching records together, and the reducer merges records with the same key.
 
-```text id="phfyxq"
+```text
 Sort-Merge Join Conceptual View
 
   Dataset A          Dataset B
@@ -331,7 +331,7 @@ Sort-Merge Join Conceptual View
 
 Example customer dataset:
 
-```json id="oivvyy"
+```json
 [
   {
     "customerId": 1,
@@ -346,7 +346,7 @@ Example customer dataset:
 
 Example order dataset:
 
-```json id="22ry5m"
+```json
 [
   {
     "orderId": "order-1",
@@ -363,7 +363,7 @@ Example order dataset:
 
 Mapper output:
 
-```text id="bgihkd"
+```text
 (1, customer: Alice)
 (2, customer: Bob)
 (1, order: order-1, amount: 100)
@@ -372,7 +372,7 @@ Mapper output:
 
 Reducer output:
 
-```json id="io1j6d"
+```json
 [
   {
     "customerId": 1,
@@ -397,7 +397,7 @@ A broadcast hash join is useful when one dataset is small enough to fit in memor
 
 Example:
 
-```text id="kvape2"
+```text
 Small dataset: product categories
 Large dataset: sales events
 Each mapper loads product categories into memory
@@ -406,7 +406,7 @@ Each mapper joins sales events with category data
 
 Example small lookup table:
 
-```json id="grcjk5"
+```json
 {
   "p1": "Electronics",
   "p2": "Books"
@@ -415,7 +415,7 @@ Example small lookup table:
 
 Example sales event:
 
-```json id="iszqh0"
+```json
 {
   "orderId": "order-9",
   "productId": "p1",
@@ -425,7 +425,7 @@ Example sales event:
 
 Example joined output:
 
-```json id="5l1e0v"
+```json
 {
   "orderId": "order-9",
   "productId": "p1",
@@ -442,7 +442,7 @@ A partitioned hash join is used when both datasets are too large for one side to
 
 Example flow:
 
-```text id="5vr5o4"
+```text
 Partition customers by customerId
 Partition orders by customerId
 Process matching partitions together
@@ -451,7 +451,7 @@ Join records with the same customerId
 
 Example output:
 
-```json id="mye2jm"
+```json
 {
   "joinType": "partitioned_hash_join",
   "partitionKey": "customerId",
@@ -475,7 +475,7 @@ Common use cases include:
 
 Example nightly analytics job:
 
-```json id="i2a51j"
+```json
 {
   "job": "daily_active_users",
   "schedule": "nightly",
@@ -486,7 +486,7 @@ Example nightly analytics job:
 
 Example output:
 
-```json id="fzid8w"
+```json
 {
   "date": "2024-01-12",
   "dailyActiveUsers": 48213,
@@ -509,7 +509,7 @@ Spark is especially useful for workflows with multiple stages, repeated joins, i
 
 Example Spark-style job:
 
-```python id="qvbd6c"
+```python
 sales_by_category = (
     sales_df
     .groupBy("category")
@@ -519,7 +519,7 @@ sales_by_category = (
 
 Example output:
 
-```json id="kr1dg3"
+```json
 {
   "Electronics": 550,
   "Clothing": 130,
@@ -537,7 +537,7 @@ This model is useful for graph problems such as PageRank, shortest paths, social
 
 Example graph concept:
 
-```json id="sfcy7x"
+```json
 {
   "vertex": "user-1",
   "neighbors": ["user-2", "user-3"],
@@ -547,7 +547,7 @@ Example graph concept:
 
 Example output:
 
-```json id="jueg7p"
+```json
 {
   "vertex": "user-1",
   "updatedScore": 0.84,
@@ -565,7 +565,7 @@ Hive and Pig were created to make Hadoop and MapReduce easier to use.
 
 Example Hive query:
 
-```sql id="ggrf03"
+```sql
 SELECT category, SUM(amount) AS total
 FROM purchases
 GROUP BY category;
@@ -573,7 +573,7 @@ GROUP BY category;
 
 Example output:
 
-```text id="3v32r2"
+```text
 Electronics  550
 Clothing     130
 Books        20
@@ -583,7 +583,7 @@ Books        20
 
 Example Pig-style flow:
 
-```text id="18srjz"
+```text
 Load purchases
 Group by category
 Sum amount

@@ -6,7 +6,7 @@ Reverse proxies are common in modern backend architectures because they provide 
 
 Instead of exposing every backend server directly to the internet, teams place a reverse proxy in front of them. This hides internal server details and allows traffic to be managed centrally.
 
-```text id="axlmmq"
+```text
 Reverse Proxy in Action
 
           +----------------------+
@@ -31,14 +31,14 @@ Reverse Proxy in Action
 
 Example request to the reverse proxy:
 
-```http id="7mc6yp"
+```http
 GET /dashboard HTTP/1.1
 Host: app.example.com
 ```
 
 Example backend routing result:
 
-```json id="8vh99f"
+```json
 {
   "clientRequested": "app.example.com/dashboard",
   "reverseProxyRoutedTo": "web-server-2:3000",
@@ -64,19 +64,19 @@ A **reverse proxy** acts on behalf of servers. It receives inbound traffic from 
 
 Example forward proxy flow:
 
-```text id="wwptqp"
+```text
 Employee Laptop → Corporate Proxy → Internet Website
 ```
 
 Example reverse proxy flow:
 
-```text id="91u1iz"
+```text
 Internet User → Reverse Proxy → Internal App Server
 ```
 
 Example output:
 
-```json id="spc5hu"
+```json
 {
   "forwardProxyProtects": "client side",
   "reverseProxyProtects": "server side"
@@ -99,13 +99,13 @@ Basic flow:
 4. **Response Return** The backend server processes the request and sends the response back to the proxy.
 5. **Final Delivery** The proxy returns the response to the client.
 
-```text id="n6el9s"
+```text
 Client -> Reverse Proxy -> Web Server -> Reverse Proxy -> Client
 ```
 
 Example routing rule:
 
-```text id="gqozpz"
+```text
 /api/*      -> api-service:3000
 /static/*   -> static-server:8080
 /admin/*    -> admin-service:4000
@@ -113,7 +113,7 @@ Example routing rule:
 
 Example output:
 
-```json id="ak9a77"
+```json
 {
   "requestPath": "/api/users",
   "selectedBackend": "api-service:3000",
@@ -135,7 +135,7 @@ A reverse proxy can choose a backend using strategies such as round-robin, least
 
 Example backend pool:
 
-```text id="1hvimo"
+```text
 Backend servers:
 - web-1: healthy
 - web-2: healthy
@@ -144,7 +144,7 @@ Backend servers:
 
 Example output:
 
-```json id="vv8i92"
+```json
 {
   "request": "/api/products",
   "selectedBackend": "web-2",
@@ -163,7 +163,7 @@ Reverse proxies can improve performance by caching, compressing, and optimizing 
 
 Example cached response:
 
-```http id="3m0kqd"
+```http
 HTTP/1.1 200 OK
 Content-Type: text/css
 X-Cache: HIT
@@ -177,7 +177,7 @@ body {
 
 Example compression header:
 
-```http id="03w0jf"
+```http
 Content-Encoding: br
 ```
 
@@ -185,7 +185,7 @@ Content-Encoding: br
 
 Example output:
 
-```json id="h6u77i"
+```json
 {
   "tlsTerminatedAt": "reverse-proxy",
   "backendConnection": "http://api-service:3000",
@@ -202,7 +202,7 @@ It can also enforce security policies before traffic reaches application code. T
 
 Example blocked request:
 
-```json id="f2eadt"
+```json
 {
   "clientIp": "203.0.113.50",
   "path": "/login",
@@ -215,7 +215,7 @@ Reverse proxies also centralize logs. Since all requests pass through the proxy,
 
 Example access log:
 
-```json id="n03tl9"
+```json
 {
   "requestId": "req-123",
   "clientIp": "198.51.100.20",
@@ -237,7 +237,7 @@ Centralized TLS termination simplifies certificate renewal and configuration. In
 
 Example HTTPS request:
 
-```http id="2bsuri"
+```http
 GET /profile HTTP/1.1
 Host: app.example.com
 Protocol: HTTPS
@@ -245,7 +245,7 @@ Protocol: HTTPS
 
 Example proxy behavior:
 
-```json id="u5nhax"
+```json
 {
   "clientToProxy": "HTTPS",
   "proxyToBackend": "HTTP",
@@ -257,7 +257,7 @@ In higher-security environments, the proxy-to-backend connection may also use HT
 
 Example stricter setup:
 
-```json id="0guf6d"
+```json
 {
   "clientToProxy": "HTTPS",
   "proxyToBackend": "mTLS",
@@ -280,7 +280,7 @@ Reverse proxies commonly add forwarding headers to preserve this metadata.
 
 Example proxied request:
 
-```http id="sgdw45"
+```http
 GET /profile HTTP/1.1
 Host: internal-app:3000
 X-Forwarded-For: 198.51.100.20, 10.0.0.5
@@ -290,7 +290,7 @@ X-Forwarded-Host: app.example.com
 
 Example backend interpretation:
 
-```json id="tyfid8"
+```json
 {
   "originalClientIp": "198.51.100.20",
   "originalProtocol": "https",
@@ -302,13 +302,13 @@ Backends should trust these headers only when the request comes from known proxi
 
 Example spoofing risk:
 
-```http id="ddtuhm"
+```http
 X-Forwarded-For: 127.0.0.1
 ```
 
 Example safe policy:
 
-```json id="o5w1gj"
+```json
 {
   "trustForwardedHeadersOnlyFrom": ["10.0.0.5", "10.0.0.6"],
   "publicClientsCannotSetTrustedForwardedHeaders": true
@@ -319,7 +319,7 @@ Example safe policy:
 
 Nginx is commonly used as a reverse proxy. The following configuration listens on HTTPS, terminates TLS, forwards requests to an internal service, and preserves useful request metadata.
 
-```nginx id="g0a2o0"
+```nginx
 server {
     listen 443 ssl;
     server_name app.example.com;
@@ -339,14 +339,14 @@ server {
 
 Example request:
 
-```http id="ohgngb"
+```http
 GET /api/status HTTP/1.1
 Host: app.example.com
 ```
 
 Example backend response:
 
-```json id="sd4ba7"
+```json
 {
   "status": "ok",
   "service": "node-api"
@@ -355,7 +355,7 @@ Example backend response:
 
 Example proxy access log:
 
-```text id="4s6uy3"
+```text
 198.51.100.20 - GET /api/status 200 upstream=127.0.0.1:3000 time=12ms
 ```
 
@@ -371,7 +371,7 @@ Reverse proxies often check whether backend servers are healthy. If a backend fa
 
 Example health check output:
 
-```json id="nqsyd0"
+```json
 {
   "backend": "api-3",
   "health": "unhealthy",
@@ -385,7 +385,7 @@ Timeouts prevent requests from waiting forever. Retries can reduce user-facing f
 
 Example retry policy:
 
-```json id="2ys9tv"
+```json
 {
   "retryOn": ["connection_error", "timeout"],
   "retryMethods": ["GET", "HEAD"],
@@ -399,7 +399,7 @@ A reverse proxy can cache static or slowly changing responses. This reduces late
 
 Example cache result:
 
-```json id="66msw3"
+```json
 {
   "path": "/assets/app.js",
   "cacheStatus": "HIT",
@@ -413,7 +413,7 @@ WebSockets and streaming responses require explicit proxy configuration. Otherwi
 
 Example WebSocket routing output:
 
-```json id="3a3wq2"
+```json
 {
   "path": "/socket",
   "upgrade": "websocket",
@@ -428,7 +428,7 @@ Because the reverse proxy is a critical entry point, production systems should n
 
 Example HA output:
 
-```json id="84hd4r"
+```json
 {
   "reverseProxyInstances": 3,
   "failover": "enabled",
@@ -461,7 +461,7 @@ Characteristics:
 
 Example output:
 
-```json id="ysot94"
+```json
 {
   "type": "software_reverse_proxy",
   "example": "Nginx",
@@ -482,7 +482,7 @@ Characteristics:
 
 Example output:
 
-```json id="kgijz1"
+```json
 {
   "type": "hardware_reverse_proxy",
   "bestFor": "enterprise data centers with specialized performance or support requirements"
@@ -510,7 +510,7 @@ Characteristics:
 
 Example output:
 
-```json id="ju24t7"
+```json
 {
   "type": "cloud_reverse_proxy",
   "features": ["global edge routing", "TLS termination", "DDoS protection", "caching"],
@@ -536,7 +536,7 @@ Security benefits include:
 
 Example WAF block:
 
-```json id="q0nseo"
+```json
 {
   "action": "blocked",
   "reason": "SQL injection pattern detected",
@@ -557,7 +557,7 @@ Reverse proxies also introduce risks.
 
 Example cache misconfiguration risk:
 
-```json id="tjzxmz"
+```json
 {
   "path": "/account",
   "problem": "private user page cached publicly",
@@ -581,7 +581,7 @@ Examples:
 
 Example layered security output:
 
-```json id="emd6af"
+```json
 {
   "firewall": "enabled",
   "waf": "enabled",

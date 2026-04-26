@@ -6,7 +6,7 @@ Unlike Redis, Memcached is intentionally simple. It stores keys and values, supp
 
 Memcached is best understood as a **temporary, disposable cache**. If a Memcached node restarts or evicts data, the application should be able to rebuild missing values from the source of truth, usually a database.
 
-```text id="45ksv5"
+```text
   +-----------+        +-----------+        +-----------+
   | Client A  |        | Client B  |        | Client C  |
   | Web App   |        | Worker    |        | API       |
@@ -46,7 +46,7 @@ Memcached stores data in RAM. This makes it much faster than reading from disk o
 
 Example database query:
 
-```sql id="5dbl1h"
+```sql
 SELECT id, name, price
 FROM products
 WHERE id = 8842;
@@ -54,7 +54,7 @@ WHERE id = 8842;
 
 Example cached value in Memcached:
 
-```json id="u765d5"
+```json
 {
   "id": 8842,
   "name": "Laptop Stand",
@@ -64,7 +64,7 @@ Example cached value in Memcached:
 
 Example cache behavior:
 
-```json id="oo1zmn"
+```json
 {
   "cache": "HIT",
   "databaseQueried": false,
@@ -74,7 +74,7 @@ Example cache behavior:
 
 If the key is missing, the application queries the database and stores the result in Memcached for future requests.
 
-```json id="v9epjp"
+```json
 {
   "cache": "MISS",
   "databaseQueried": true,
@@ -90,7 +90,7 @@ Memcached stores data by key. Each key maps to a value, which is usually a strin
 
 Example keys:
 
-```text id="irbbex"
+```text
 product:8842:details
 user:1001:profile
 dashboard:orders:last_30_days
@@ -99,20 +99,20 @@ category:7:popular_products
 
 Example command style:
 
-```text id="ahih4v"
+```text
 set product:8842:details 0 300 52
 {"id":8842,"name":"Laptop Stand","price":29.99}
 ```
 
 Example retrieval:
 
-```text id="tjsw3x"
+```text
 get product:8842:details
 ```
 
 Example output:
 
-```text id="a29vb9"
+```text
 VALUE product:8842:details 0 52
 {"id":8842,"name":"Laptop Stand","price":29.99}
 END
@@ -122,7 +122,7 @@ The application is responsible for serialization and deserialization. Memcached 
 
 Example application interpretation:
 
-```json id="seyea1"
+```json
 {
   "key": "product:8842:details",
   "serializedFormat": "JSON",
@@ -136,7 +136,7 @@ Memcached supports expiration times. When setting a key, the application can pro
 
 Example:
 
-```text id="sjxi2r"
+```text
 set product:8842:details 0 300 52
 {"id":8842,"name":"Laptop Stand","price":29.99}
 ```
@@ -145,7 +145,7 @@ This stores the product details for 300 seconds.
 
 Example TTL design:
 
-```json id="mln9qa"
+```json
 {
   "productDetails": "5 minutes",
   "categoryLists": "2 minutes",
@@ -162,7 +162,7 @@ Memcached does not have built-in clustering in the same way Redis Cluster does. 
 
 Example:
 
-```text id="w4yr23"
+```text
 hash(product:8842:details) -> memcached-node-2
 hash(user:1001:profile)    -> memcached-node-1
 hash(category:7:popular)   -> memcached-node-3
@@ -170,7 +170,7 @@ hash(category:7:popular)   -> memcached-node-3
 
 Diagram:
 
-```text id="j1k1sp"
+```text
         +-------------+
         | Application |
         +------+------+
@@ -187,7 +187,7 @@ Diagram:
 
 Example routing output:
 
-```json id="6c882m"
+```json
 {
   "key": "product:8842:details",
   "selectedNode": "memcached-node-2",
@@ -207,7 +207,7 @@ Most Memcached values are strings or serialized objects.
 
 Example JSON value:
 
-```json id="25wvov"
+```json
 {
   "id": 1001,
   "name": "Alice",
@@ -217,13 +217,13 @@ Example JSON value:
 
 Stored under:
 
-```text id="rmupp1"
+```text
 user:1001:profile
 ```
 
 Example application pseudo-code:
 
-```python id="xc28mj"
+```python
 profile = memcached.get("user:1001:profile")
 
 if profile is None:
@@ -238,7 +238,7 @@ return json.loads(profile)
 
 Example first request:
 
-```json id="f9adxh"
+```json
 {
   "cacheStatus": "MISS",
   "databaseQueried": true,
@@ -248,7 +248,7 @@ Example first request:
 
 Example second request:
 
-```json id="v751nk"
+```json
 {
   "cacheStatus": "HIT",
   "databaseQueried": false
@@ -261,7 +261,7 @@ Memcached supports atomic increment and decrement operations for numeric values.
 
 Example:
 
-```text id="q4s5q0"
+```text
 set page:123:views 0 3600 1
 0
 
@@ -270,13 +270,13 @@ incr page:123:views 1
 
 Example output:
 
-```text id="j72ws6"
+```text
 1
 ```
 
 Example use:
 
-```json id="453dbw"
+```json
 {
   "key": "rate_limit:ip:203.0.113.10",
   "count": 42,
@@ -292,7 +292,7 @@ Memcached supports CAS, or compare-and-swap, for optimistic concurrency. CAS let
 
 Example flow:
 
-```text id="azd70q"
+```text
 1. Client reads key with gets.
 2. Memcached returns value plus CAS token.
 3. Client modifies value.
@@ -302,7 +302,7 @@ Example flow:
 
 Example:
 
-```text id="mf6ryb"
+```text
 gets user:1001:profile
 VALUE user:1001:profile 0 38 927364
 {"id":1001,"name":"Alice","visits":3}
@@ -313,20 +313,20 @@ The last number is the CAS token.
 
 Example CAS update:
 
-```text id="lpb46m"
+```text
 cas user:1001:profile 0 300 38 927364
 {"id":1001,"name":"Alice","visits":4}
 ```
 
 Example successful output:
 
-```text id="5a1hwf"
+```text
 STORED
 ```
 
 Example failed output:
 
-```text id="0q2769"
+```text
 EXISTS
 ```
 
@@ -342,7 +342,7 @@ Memcached uses a slab allocator. It divides memory into slab classes for differe
 
 Conceptual layout:
 
-```text id="425fje"
+```text
 Memcached Memory
 
 +--------------------+
@@ -356,7 +356,7 @@ Memcached Memory
 
 Example:
 
-```json id="0tdlv5"
+```json
 {
   "smallItems": "user session IDs",
   "mediumItems": "profile JSON",
@@ -372,7 +372,7 @@ When memory is full, Memcached evicts items. Its traditional eviction policy is 
 
 Example eviction:
 
-```json id="3n0tu4"
+```json
 {
   "evictedKey": "product:old:details",
   "reason": "memory pressure",
@@ -384,7 +384,7 @@ Eviction does not mean an error occurred. It is normal behavior for a cache. The
 
 Example:
 
-```json id="55qey8"
+```json
 {
   "cacheMissReason": "evicted",
   "fallback": "query database and repopulate cache"
@@ -399,7 +399,7 @@ Memcached is optimized for relatively small values. The default maximum item siz
 
 Example poor fit:
 
-```json id="plk7re"
+```json
 {
   "key": "report:huge_export",
   "valueSize": "20MB",
@@ -409,7 +409,7 @@ Example poor fit:
 
 Better approach:
 
-```json id="48mf4y"
+```json
 {
   "largeReportStoredIn": "object storage or database",
   "memcachedStores": "small metadata or precomputed summary"
@@ -428,7 +428,7 @@ The cache-aside pattern is the standard Memcached pattern. The application contr
 
 Flow:
 
-```text id="eykuk1"
+```text
 1. Application needs product details.
 2. Check Memcached.
 3. If hit, return cached value.
@@ -439,7 +439,7 @@ Flow:
 
 Example pseudo-code:
 
-```python id="pdnw1p"
+```python
 def get_product(product_id):
     key = f"product:{product_id}:details"
 
@@ -462,7 +462,7 @@ def get_product(product_id):
 
 Example cache miss:
 
-```json id="b8p73s"
+```json
 {
   "key": "product:8842:details",
   "cacheStatus": "MISS",
@@ -473,7 +473,7 @@ Example cache miss:
 
 Example cache hit:
 
-```json id="fgagov"
+```json
 {
   "key": "product:8842:details",
   "cacheStatus": "HIT",
@@ -489,7 +489,7 @@ Single-row primary-key lookups are excellent candidates for Memcached.
 
 Example SQL:
 
-```sql id="iegm5h"
+```sql
 SELECT id, username, display_name
 FROM users
 WHERE id = 1001;
@@ -497,13 +497,13 @@ WHERE id = 1001;
 
 Cache key:
 
-```text id="1x5vmm"
+```text
 user:1001:profile
 ```
 
 Cached value:
 
-```json id="53qku7"
+```json
 {
   "id": 1001,
   "username": "alice",
@@ -519,7 +519,7 @@ Memcached can store results of expensive list queries, as long as the cache key 
 
 Example SQL:
 
-```sql id="pry762"
+```sql
 SELECT id, name, price
 FROM products
 WHERE category_id = 7 AND active = true
@@ -529,13 +529,13 @@ LIMIT 20;
 
 Cache key:
 
-```text id="ki58rb"
+```text
 products:category:7:active:true:sort:popularity:limit:20
 ```
 
 Cached value:
 
-```json id="6mkzk5"
+```json
 [
   { "id": 8842, "name": "Laptop Stand", "price": 29.99 },
   { "id": 9910, "name": "USB-C Dock", "price": 79.99 }
@@ -544,7 +544,7 @@ Cached value:
 
 If the query changes, the key must change. For example, sorting by price needs a different key.
 
-```text id="w14ifh"
+```text
 products:category:7:active:true:sort:price_asc:limit:20
 ```
 
@@ -554,7 +554,7 @@ Memcached works well for expensive aggregate query results.
 
 Example SQL:
 
-```sql id="np1taa"
+```sql
 SELECT
   DATE(created_at) AS day,
   COUNT(*) AS order_count,
@@ -567,13 +567,13 @@ ORDER BY day;
 
 Cache key:
 
-```text id="mmk5mh"
+```text
 dashboard:orders:last_30_days
 ```
 
 Cached value:
 
-```json id="s5xcu0"
+```json
 [
   {
     "day": "2026-04-01",
@@ -590,7 +590,7 @@ Cached value:
 
 Example benefit:
 
-```json id="kq7bd9"
+```json
 {
   "dashboardRequestsPerMinute": 300,
   "ttlSeconds": 300,
@@ -606,20 +606,20 @@ Reference tables are strong Memcached candidates because they change rarely and 
 
 Example SQL:
 
-```sql id="0p2abr"
+```sql
 SELECT code, name, currency
 FROM countries;
 ```
 
 Cache key:
 
-```text id="0a35yx"
+```text
 ref:countries
 ```
 
 Cached value:
 
-```json id="5z3no7"
+```json
 {
   "DE": {
     "name": "Germany",
@@ -634,7 +634,7 @@ Cached value:
 
 Example use:
 
-```json id="kmb0a7"
+```json
 {
   "countryCode": "DE",
   "countryName": "Germany",
@@ -654,7 +654,7 @@ A common strategy is to delete cache entries after updating the database. The ne
 
 Example database update:
 
-```sql id="9stbrr"
+```sql
 UPDATE products
 SET price = 34.99
 WHERE id = 8842;
@@ -662,14 +662,14 @@ WHERE id = 8842;
 
 Example invalidation:
 
-```text id="28147t"
+```text
 delete product:8842:details
 delete products:category:7:active:true:sort:popularity:limit:20
 ```
 
 Example result:
 
-```json id="cjlnzv"
+```json
 {
   "databaseUpdated": true,
   "cacheKeysDeleted": [
@@ -687,7 +687,7 @@ TTL-based invalidation lets cached values expire automatically.
 
 Example:
 
-```text id="5ja6t7"
+```text
 set dashboard:orders:last_30_days 0 300 4096
 ...
 ```
@@ -696,7 +696,7 @@ This keeps the dashboard result for 5 minutes.
 
 Example trade-off:
 
-```json id="yft37c"
+```json
 {
   "ttl": "5 minutes",
   "benefit": "fewer database queries",
@@ -712,19 +712,19 @@ Versioned keys avoid stale data when the cached format changes.
 
 Old key:
 
-```text id="mp8ick"
+```text
 v1:user:1001:profile
 ```
 
 New key:
 
-```text id="frxgxs"
+```text
 v2:user:1001:profile
 ```
 
 Example result:
 
-```json id="cyzrum"
+```json
 {
   "oldCacheIgnored": true,
   "newKeyUsed": "v2:user:1001:profile"
@@ -743,7 +743,7 @@ This is the primary Memcached use case.
 
 Example:
 
-```json id="5swczy"
+```json
 {
   "query": "SELECT id, name, price FROM products WHERE id = 8842",
   "cacheKey": "product:8842:details",
@@ -759,13 +759,13 @@ Memcached can store session data, although Redis is often chosen when persistenc
 
 Example key:
 
-```text id="z68wyz"
+```text
 session:abc123
 ```
 
 Example value:
 
-```json id="0b11l8"
+```json
 {
   "user_id": 1001,
   "csrf_token": "token-value",
@@ -781,13 +781,13 @@ Memcached can store rendered HTML fragments or full pages.
 
 Example key:
 
-```text id="a8z1jx"
+```text
 page:/products/8842
 ```
 
 Example value:
 
-```html id="01t1v9"
+```html
 <div class="product">
   <h1>Laptop Stand</h1>
   <span>$29.99</span>
@@ -796,7 +796,7 @@ Example value:
 
 Example benefit:
 
-```json id="7yr7ua"
+```json
 {
   "templateRenderingSkipped": true,
   "databaseQuerySkipped": true,
@@ -812,7 +812,7 @@ Memcached counters can support simple rate limiting.
 
 Example flow:
 
-```text id="wkvmof"
+```text
 Key: rate:ip:203.0.113.10
 TTL: 60 seconds
 Increment on each request
@@ -821,7 +821,7 @@ Reject when count > 100
 
 Example output:
 
-```json id="4jydar"
+```json
 {
   "ip": "203.0.113.10",
   "count": 84,
@@ -852,7 +852,7 @@ Memcached and Redis are often compared because both are used as in-memory caches
 
 Example decision:
 
-```json id="xu8lsa"
+```json
 {
   "chooseMemcachedWhen": [
     "you need a simple cache",
@@ -877,13 +877,13 @@ Memcached should be monitored because cache health directly affects database loa
 
 Useful command:
 
-```text id="rs7fel"
+```text
 stats
 ```
 
 Example metrics:
 
-```json id="x0zye7"
+```json
 {
   "curr_items": "number of currently stored items",
   "bytes": "memory currently used",
@@ -909,7 +909,7 @@ Important metrics include:
 
 Example monitoring output:
 
-```json id="n5gvak"
+```json
 {
   "hitRatio": "88%",
   "memoryUsage": "76%",
@@ -929,7 +929,7 @@ Memcached should be treated as an optional acceleration layer. The application s
 
 Example failure:
 
-```json id="zo1q62"
+```json
 {
   "memcached": "unavailable",
   "fallback": "query database",
@@ -941,7 +941,7 @@ The danger is that if Memcached fails under heavy traffic, the database may sudd
 
 Example failure cascade:
 
-```json id="rbr13t"
+```json
 {
   "event": "cache_cluster_down",
   "databaseTrafficBefore": "5k qps",
@@ -975,7 +975,7 @@ Basic security practices:
 
 Example safe network posture:
 
-```json id="mdiw1i"
+```json
 {
   "publicInternetAccessible": false,
   "allowedClients": ["app-server-subnet"],
@@ -986,7 +986,7 @@ Example safe network posture:
 
 Example risky posture:
 
-```json id="j5l6ni"
+```json
 {
   "port": 11211,
   "publicInternetAccessible": true,

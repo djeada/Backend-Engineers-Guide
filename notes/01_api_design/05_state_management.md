@@ -173,7 +173,7 @@ A stateful counter is a simple example of how a server can remember information 
 
 This design means the server is responsible for remembering the current state. The client only needs to say that an increment happened. It does not need to calculate the new value itself or send the previous count back to the server.
 
-```javascript id="t6r64k"
+```javascript
 // Client-side
 button.addEventListener("click", function() {
     // Just notify the server that the button was clicked
@@ -195,13 +195,13 @@ app.post("/increment", (req, res) => {
 
 Example request:
 
-```http id="xr4rxx"
+```http
 POST /increment
 ```
 
 Example output after the first click:
 
-```json id="kc4crc"
+```json
 {
   "counter": 1
 }
@@ -209,7 +209,7 @@ Example output after the first click:
 
 Example output after the fifth click:
 
-```json id="bje5ur"
+```json
 {
   "counter": 5
 }
@@ -223,7 +223,7 @@ This approach is easy to understand and works well for a single server running a
 
 Example multi-server problem:
 
-```text id="yewnxa"
+```text
 Request 1 → Server A → counter = 1
 Request 2 → Server B → counter = 1
 Request 3 → Server A → counter = 2
@@ -231,7 +231,7 @@ Request 3 → Server A → counter = 2
 
 Example inconsistent output:
 
-```json id="bt2ppn"
+```json
 {
   "serverA_counter": 2,
   "serverB_counter": 1

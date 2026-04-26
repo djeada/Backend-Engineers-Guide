@@ -8,7 +8,7 @@ Common coordination systems include **Apache ZooKeeper**, **etcd**, and **HashiC
 
 Example coordination need:
 
-```json id="1c6f3l"
+```json
 {
   "cluster": "job-scheduler",
   "nodes": ["node-a", "node-b", "node-c"],
@@ -34,7 +34,7 @@ Typical problems they address include:
 
 Example output from a coordination service:
 
-```json id="ygd9rb"
+```json
 {
   "leader": "node-a",
   "followers": ["node-b", "node-c"],
@@ -55,7 +55,7 @@ Leader election selects one node to act as the primary coordinator for a task. T
 
 Follower nodes remain ready to take over if the leader fails.
 
-```text id="djsyt1"
+```text
 +-------------------+
 |  Node A Leader    |
 +-------------------+
@@ -72,7 +72,7 @@ When Node A fails, Node B or Node C is elected as the new leader.
 
 Example leader state:
 
-```json id="vm1wa7"
+```json
 {
   "electionPath": "/services/scheduler/leader",
   "currentLeader": "node-a",
@@ -82,7 +82,7 @@ Example leader state:
 
 Example failover result:
 
-```json id="48m83r"
+```json
 {
   "oldLeader": "node-a",
   "failureDetected": true,
@@ -98,7 +98,7 @@ A distributed lock ensures that only one node can perform a critical operation a
 
 Example:
 
-```text id="dh4xjl"
+```text
 Node A attempts lock: success
 Node B attempts lock: waits
 Node C attempts lock: waits
@@ -109,7 +109,7 @@ Node B may acquire it next.
 
 Example lock record:
 
-```json id="q55r7c"
+```json
 {
   "lockName": "nightly-billing-job",
   "owner": "node-a",
@@ -125,7 +125,7 @@ Service discovery lets services find each other dynamically. Instead of hard-cod
 
 Example service registration:
 
-```json id="5ks6vs"
+```json
 {
   "service": "payments-api",
   "instanceId": "payments-api-3",
@@ -137,7 +137,7 @@ Example service registration:
 
 Example discovery result:
 
-```json id="5t4440"
+```json
 {
   "service": "payments-api",
   "healthyInstances": [
@@ -155,13 +155,13 @@ Coordination services can store shared configuration values such as feature flag
 
 Example configuration key:
 
-```text id="fdnm4o"
+```text
 /app/config/max_retries
 ```
 
 Example value:
 
-```json id="7pmrqh"
+```json
 {
   "max_retries": 5
 }
@@ -171,7 +171,7 @@ Applications can watch configuration keys and reload settings when values change
 
 Example config update:
 
-```json id="z3v7l9"
+```json
 {
   "key": "/app/config/max_retries",
   "oldValue": 3,
@@ -192,7 +192,7 @@ Apache ZooKeeper is one of the earliest widely adopted coordination services. It
 
 ZooKeeper stores data in a tree-like structure:
 
-```text id="vyx3fa"
+```text
 /services
 /services/web
 /services/web/node-1
@@ -212,7 +212,7 @@ Key ZooKeeper concepts:
 
 Example ZooKeeper commands:
 
-```bash id="opv2jo"
+```bash
 # Connect to a ZooKeeper server
 zkCli.sh -server 127.0.0.1:2181
 
@@ -228,7 +228,7 @@ set /mylock "updated"
 
 Example ZooKeeper output:
 
-```text id="0c73s6"
+```text
 Created /mylock
 [mylock, zookeeper]
 ```
@@ -243,7 +243,7 @@ etcd stores data in a flat key-value namespace, often using slash-separated pref
 
 Example keys:
 
-```text id="5gvayu"
+```text
 /myapp/config/db_url
 /myapp/leader
 /services/api/node-1
@@ -259,7 +259,7 @@ Some etcd concepts:
 
 Example etcd commands:
 
-```bash id="er7w0n"
+```bash
 # Set a key
 etcdctl put /myapp/config "config_data"
 
@@ -272,7 +272,7 @@ etcdctl watch /myapp/
 
 Example output:
 
-```text id="g7n5ch"
+```text
 /myapp/config
 config_data
 ```
@@ -295,7 +295,7 @@ Consul concepts:
 
 Example Consul commands:
 
-```bash id="jmbmxf"
+```bash
 # Set a KV pair
 consul kv put myapp/config "{\"max_retries\": 5}"
 
@@ -308,7 +308,7 @@ consul services register -name="web" -port=8080
 
 Example service discovery result:
 
-```json id="y8649g"
+```json
 {
   "service": "web",
   "port": 8080,
@@ -326,7 +326,7 @@ Coordination systems provide low-level primitives, but applications usually use 
 
 In leader election, each node attempts to claim a leadership key, lock, or ephemeral node. The node that succeeds becomes leader. Other nodes watch the leader key and attempt to take over if it disappears or expires.
 
-```text id="a5tp6t"
+```text
 +--------------+   +---------+  +---------+
 | ZK/etcd/etc  |---| Node A  |--| Node B  |
 | KV store     |   +---------+  +---------+
@@ -338,7 +338,7 @@ In leader election, each node attempts to claim a leadership key, lock, or ephem
 
 Example leader key:
 
-```json id="4ir8sq"
+```json
 {
   "key": "/scheduler/leader",
   "value": "node-a",
@@ -348,7 +348,7 @@ Example leader key:
 
 Example election behavior:
 
-```json id="1gxyuy"
+```json
 {
   "node-a": "acquired leadership",
   "node-b": "watching leader key",
@@ -364,13 +364,13 @@ A distributed mutex allows only one process to enter a critical section.
 
 Example critical section:
 
-```text id="ygdgc2"
+```text
 Only one node may run database migration version 42.
 ```
 
 Example lock flow:
 
-```json id="yf8pe8"
+```json
 {
   "lock": "/locks/db-migration-42",
   "owner": "node-b",
@@ -380,7 +380,7 @@ Example lock flow:
 
 Example failed acquisition:
 
-```json id="sdlhy1"
+```json
 {
   "lock": "/locks/db-migration-42",
   "requester": "node-c",
@@ -397,19 +397,19 @@ A coordination service can store configuration under known paths. Applications r
 
 Example config key:
 
-```text id="0j5ffd"
+```text
 /app/config/db_url
 ```
 
 Example value:
 
-```text id="znp21u"
+```text
 jdbc:mysql://dbhost:3306/mydb
 ```
 
 Example update event:
 
-```json id="ym0e53"
+```json
 {
   "key": "/app/config/db_url",
   "event": "updated",
@@ -425,7 +425,7 @@ Nodes can register themselves by creating ephemeral keys or session-based entrie
 
 Example membership keys:
 
-```text id="guk7n6"
+```text
 /services/worker/node-a
 /services/worker/node-b
 /services/worker/node-c
@@ -433,7 +433,7 @@ Example membership keys:
 
 Example membership state:
 
-```json id="1byj1m"
+```json
 {
   "service": "worker",
   "activeNodes": ["node-a", "node-b", "node-c"]
@@ -442,7 +442,7 @@ Example membership state:
 
 Example failure detection:
 
-```json id="j1bo3w"
+```json
 {
   "event": "node_removed",
   "node": "node-b",
@@ -460,7 +460,7 @@ Coordination services are usually deployed as small clusters. They rely on conse
 
 Coordination clusters typically run with 3 or 5 nodes. Each node stores a copy of the coordination state. A leader handles writes, and followers replicate the log.
 
-```text id="fz3xr6"
+```text
 +----------+  +----------+  +----------+
 | Node1    |  | Node2    |  | Node3    |
 | Leader   |  | Follower |  | Follower |
@@ -472,7 +472,7 @@ An odd number of nodes helps avoid ties during elections. More nodes are not alw
 
 Example quorum math:
 
-```json id="g92xva"
+```json
 {
   "clusterSize": 3,
   "quorumRequired": 2,
@@ -482,7 +482,7 @@ Example quorum math:
 
 For a 5-node cluster:
 
-```json id="m88hfw"
+```json
 {
   "clusterSize": 5,
   "quorumRequired": 3,
@@ -496,7 +496,7 @@ A coordination service needs a majority of nodes to make progress on writes. If 
 
 Example healthy failover:
 
-```json id="mxuit5"
+```json
 {
   "oldLeader": "node1",
   "newLeader": "node2",
@@ -507,7 +507,7 @@ Example healthy failover:
 
 Example partition without quorum:
 
-```json id="vbpgpk"
+```json
 {
   "partition": ["node1"],
   "clusterSize": 3,
@@ -535,7 +535,7 @@ Best deployment practices include:
 
 Example monitoring snapshot:
 
-```json id="w60b7d"
+```json
 {
   "cluster": "etcd",
   "leaderChangesLastHour": 0,
@@ -557,7 +557,7 @@ ZooKeeper users often use Apache Curator, which provides recipes for locks and l
 
 Example Java pseudo-code:
 
-```java id="2y7w4n"
+```java
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 
@@ -575,7 +575,7 @@ try {
 
 Example behavior:
 
-```json id="7ox7kl"
+```json
 {
   "lock": "/mylock",
   "owner": "current-process",
@@ -591,7 +591,7 @@ etcd supports leases and locking through `etcdctl`.
 
 Example command:
 
-```bash id="1i7wsr"
+```bash
 # Create a lease for 10 seconds
 LEASE_ID=$(etcdctl lease grant 10 | grep ID | awk '{print $3}')
 
@@ -601,7 +601,7 @@ etcdctl lock --lease=$LEASE_ID mylock "Performing critical section"
 
 Example output:
 
-```text id="st6g83"
+```text
 mylock/694d...
 Performing critical section
 ```
@@ -614,7 +614,7 @@ Consul can use sessions to implement leader election or locks.
 
 Example commands:
 
-```bash id="0dqeqi"
+```bash
 # Create a session with a TTL
 SESSION_ID=$(consul session create -name "my-leader-session" -ttl=10s | grep ID | awk '{print $2}')
 
@@ -624,13 +624,13 @@ consul kv put myapp/leader "node1" -acquire=$SESSION_ID
 
 Example output:
 
-```text id="mx93ml"
+```text
 Success! Data written to: myapp/leader
 ```
 
 Example state:
 
-```json id="l1rzd0"
+```json
 {
   "leaderKey": "myapp/leader",
   "leader": "node1",
@@ -650,7 +650,7 @@ Use 3 or 5 nodes for most coordination clusters. Larger clusters can increase co
 
 Example:
 
-```json id="h0y1sz"
+```json
 {
   "recommendedClusterSizes": [3, 5],
   "reason": "balance fault tolerance and consensus latency"
@@ -663,7 +663,7 @@ Coordination nodes should run on stable machines with reliable disks and network
 
 Example risk:
 
-```json id="g8ig0n"
+```json
 {
   "problem": "application workload caused disk latency spike",
   "effect": "coordination cluster leader changed repeatedly"
@@ -676,7 +676,7 @@ Enable TLS, authentication, and authorization. Coordination services often conta
 
 Example secure settings:
 
-```json id="2w3870"
+```json
 {
   "clientTls": true,
   "peerTls": true,
@@ -693,7 +693,7 @@ Watches are useful, but too many watches or very frequently changing keys can ov
 
 Example watch risk:
 
-```json id="vz8n6o"
+```json
 {
   "watchedKey": "/metrics/high_frequency_counter",
   "updatesPerSecond": 5000,
@@ -709,7 +709,7 @@ Understand how many failures your cluster can tolerate. A 3-node cluster can tol
 
 Example:
 
-```json id="lplscz"
+```json
 {
   "clusterSize": 3,
   "canTolerateFailures": 1,
@@ -725,7 +725,7 @@ Distributed coordination is subtle. Official libraries and mature recipes handle
 
 Example:
 
-```json id="ihouo9"
+```json
 {
   "manualLockImplementation": "risky",
   "officialClientRecipe": "preferred"
@@ -736,7 +736,7 @@ For locks that control external resources, consider using fencing tokens. A fenc
 
 Example fencing token:
 
-```json id="hfbsbu"
+```json
 {
   "lock": "payment-batch",
   "owner": "node-b",

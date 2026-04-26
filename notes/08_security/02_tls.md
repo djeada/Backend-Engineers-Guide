@@ -16,14 +16,14 @@ The phrase “SSL certificate” is still common because it became popular befor
 
 Example terminology:
 
-```text id="9t7x41"
+```text
 Common phrase: SSL certificate
 Modern technical meaning: TLS certificate
 ```
 
 Example output:
 
-```json id="ujncct"
+```json
 {
   "oldProtocol": "SSL",
   "modernProtocol": "TLS",
@@ -49,7 +49,7 @@ After the TLS handshake finishes, the client and server share session keys. Thes
 
 Example protected exchange:
 
-```text id="85ja4t"
+```text
 Browser requests https://example.com/login
 TLS verifies the server certificate
 TLS establishes encrypted session keys
@@ -58,7 +58,7 @@ Login request is sent through encrypted channel
 
 Example output:
 
-```json id="9oejgx"
+```json
 {
   "connection": "secure",
   "encryption": "enabled",
@@ -73,7 +73,7 @@ Example output:
 
 When a client accesses a server over HTTPS, a TLS handshake happens before normal application data is exchanged. The handshake negotiates protocol versions, selects cryptographic algorithms, verifies the certificate, and establishes shared session keys.
 
-```text id="ltl30v"
+```text
 Client (Browser)                        Server (Website)
     |                                       |
     | 1. ClientHello ---------------------> |
@@ -102,7 +102,7 @@ The exact handshake differs between TLS 1.2 and TLS 1.3, but the high-level purp
 
 Example handshake summary:
 
-```json id="cerltu"
+```json
 {
   "clientHello": "client lists supported TLS versions and cipher suites",
   "serverHello": "server selects secure options and sends certificate",
@@ -116,7 +116,7 @@ Once the handshake completes, normal HTTP traffic can flow through the encrypted
 
 Example encrypted application request:
 
-```http id="fkvrsz"
+```http
 GET /account HTTP/1.1
 Host: example.com
 Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
@@ -124,7 +124,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 
 Example protected response:
 
-```json id="oxc5f3"
+```json
 {
   "accountId": "acct-123",
   "status": "active"
@@ -145,7 +145,7 @@ When a browser connects to a website, it checks the server’s certificate. The 
 
 Example certificate fields:
 
-```json id="3b0cj0"
+```json
 {
   "subject": "mysite.example.com",
   "issuer": "Example Certificate Authority",
@@ -158,7 +158,7 @@ Example certificate fields:
 
 Example validation output:
 
-```json id="99d9ae"
+```json
 {
   "domainMatches": true,
   "certificateExpired": false,
@@ -173,7 +173,7 @@ If the certificate is invalid, the browser may show a warning.
 
 Example invalid certificate output:
 
-```json id="ipnht2"
+```json
 {
   "connectionTrusted": false,
   "reason": "certificate expired"
@@ -192,7 +192,7 @@ TLS also helps prevent man-in-the-middle attacks. In such an attack, an attacker
 
 Example without TLS:
 
-```text id="cvw5mt"
+```text
 User sends password over HTTP
 Attacker on network captures traffic
 Password is visible in plaintext
@@ -200,7 +200,7 @@ Password is visible in plaintext
 
 Example with TLS:
 
-```text id="ydspsq"
+```text
 User sends password over HTTPS
 Attacker captures encrypted traffic
 Password is not readable
@@ -208,7 +208,7 @@ Password is not readable
 
 Example output:
 
-```json id="i6zj7x"
+```json
 {
   "httpRisk": "credentials may be exposed",
   "httpsProtection": "traffic is encrypted and server identity is verified"
@@ -233,7 +233,7 @@ TLS 1.2 can still be secure when configured properly. The key is to disable weak
 
 Example secure TLS 1.2 configuration idea:
 
-```text id="mgmo8r"
+```text
 Allowed:
 - TLS 1.2
 - ECDHE key exchange
@@ -251,7 +251,7 @@ Disabled:
 
 Example output:
 
-```json id="hpjgxw"
+```json
 {
   "protocol": "TLS 1.2",
   "status": "secure_if_configured_with_modern_ciphers"
@@ -275,7 +275,7 @@ Key improvements include:
 
 Example TLS 1.3 output:
 
-```json id="e5p6uq"
+```json
 {
   "protocol": "TLS 1.3",
   "handshake": "simplified",
@@ -303,7 +303,7 @@ A practical migration plan may include:
 
 Example compatibility output:
 
-```json id="o8aqzm"
+```json
 {
   "serverSupportsTls13": true,
   "tls12FallbackEnabled": true,
@@ -336,13 +336,13 @@ A TLS setup begins with a private key and a certificate. In many cases, the proc
 
 Example OpenSSL command:
 
-```bash id="5806kd"
+```bash
 openssl req -newkey rsa:2048 -nodes -keyout mysite.key -out mysite.csr
 ```
 
 Example output files:
 
-```text id="1ao7tm"
+```text
 mysite.key  # private key
 mysite.csr  # certificate signing request
 ```
@@ -351,7 +351,7 @@ The private key must be protected carefully. It should not be committed to sourc
 
 Example private key protection:
 
-```text id="ybhv29"
+```text
 Owner: root
 Permissions: 600
 Location: /etc/ssl/private/mysite.key
@@ -359,7 +359,7 @@ Location: /etc/ssl/private/mysite.key
 
 Example output:
 
-```json id="m0la0m"
+```json
 {
   "privateKeyStoredSecurely": true,
   "csrReadyForCA": true
@@ -376,7 +376,7 @@ Once the CA returns the certificate, place it on the server along with the priva
 
 Example Nginx snippet:
 
-```nginx id="8yxt9m"
+```nginx
 server {
     listen 443 ssl;
     server_name mysite.example.com;
@@ -396,13 +396,13 @@ server {
 
 Example configuration test:
 
-```bash id="va05ww"
+```bash
 nginx -t
 ```
 
 Example output:
 
-```text id="lkgvnp"
+```text
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
@@ -417,7 +417,7 @@ TLS only helps if users actually connect over HTTPS. Sites should redirect HTTP 
 
 Example Nginx HTTP-to-HTTPS redirect:
 
-```nginx id="qscu3v"
+```nginx
 server {
     listen 80;
     server_name mysite.example.com;
@@ -427,14 +427,14 @@ server {
 
 Example HTTP request:
 
-```http id="figeby"
+```http
 GET /login HTTP/1.1
 Host: mysite.example.com
 ```
 
 Example redirect response:
 
-```http id="00zywf"
+```http
 HTTP/1.1 301 Moved Permanently
 Location: https://mysite.example.com/login
 ```
@@ -443,13 +443,13 @@ This ensures that users who type the HTTP address are redirected to the secure H
 
 HSTS can further strengthen this behavior:
 
-```http id="62mf4i"
+```http
 Strict-Transport-Security: max-age=31536000; includeSubDomains
 ```
 
 Example output:
 
-```json id="8cr7h9"
+```json
 {
   "httpsRedirect": "enabled",
   "hsts": "enabled",
@@ -467,13 +467,13 @@ After configuring TLS, test the server. Testing should confirm that the certific
 
 Example test command:
 
-```bash id="y0uh3x"
+```bash
 openssl s_client -connect mysite.example.com:443 -servername mysite.example.com
 ```
 
 Example output summary:
 
-```text id="1t2ejv"
+```text
 Protocol  : TLSv1.3
 Cipher    : TLS_AES_256_GCM_SHA384
 Verify return code: 0 (ok)
@@ -481,7 +481,7 @@ Verify return code: 0 (ok)
 
 Example monitoring output:
 
-```json id="4i3q75"
+```json
 {
   "certificateValid": true,
   "protocol": "TLS 1.3",
@@ -524,7 +524,7 @@ Deploying TLS effectively requires careful configuration and ongoing maintenance
 
 Example best-practice status:
 
-```json id="5qf6kb"
+```json
 {
   "tls13Enabled": true,
   "tls12Fallback": true,

@@ -6,7 +6,7 @@ This approach is useful when applications need quick responses to constantly cha
 
 Stream processing can generate alerts, update dashboards, enrich records, detect fraud, synchronize databases, or trigger automated workflows with minimal delay.
 
-```text id="73bkhx"
+```text
 ASCII DIAGRAM: Stream Processing Overview
 
 +---------------+      +---------------------------------+      +--------------+
@@ -19,7 +19,7 @@ ASCII DIAGRAM: Stream Processing Overview
 
 Example incoming event:
 
-```json id="giiudw"
+```json
 {
   "deviceId": "sensor-17",
   "temperature": 82.4,
@@ -29,7 +29,7 @@ Example incoming event:
 
 Example processed output:
 
-```json id="p3dbz1"
+```json
 {
   "deviceId": "sensor-17",
   "temperature": 82.4,
@@ -54,7 +54,7 @@ Common broker capabilities include:
 * **Fan-out**: Sends a copy of each message to multiple subscribers.
 * **Queue vs. Pub-Sub**: A queue usually delivers each message to one consumer, while pub-sub delivers messages to multiple subscribers.
 
-```text id="qwpz7a"
+```text
 ASCII DIAGRAM: Message Broker in the Pipeline
 
   Publisher(s)             Message Broker           Consumer(s)
@@ -69,7 +69,7 @@ ASCII DIAGRAM: Message Broker in the Pipeline
 
 Example published message:
 
-```json id="ey4ny9"
+```json
 {
   "eventType": "OrderCreated",
   "orderId": "order-123",
@@ -80,7 +80,7 @@ Example published message:
 
 Example consumer output:
 
-```json id="zjakqs"
+```json
 {
   "consumer": "billing-service",
   "eventReceived": "OrderCreated",
@@ -101,7 +101,7 @@ Log-based brokers, such as Apache Kafka, store messages in an immutable, append-
 
 Consumers track their own position in the log using an **offset**. This allows consumers to replay messages, recover after failures, or process the same stream at different speeds.
 
-```text id="qrjt7t"
+```text
 ASCII DIAGRAM: Log-Based Broker Conceptual View
 
                +-------------+
@@ -115,7 +115,7 @@ Producer --->  | Partition 2 | ---> Consumer Group 2
 
 Example topic events:
 
-```json id="eo3rkd"
+```json
 [
   {
     "offset": 100,
@@ -137,7 +137,7 @@ Example topic events:
 
 Example consumer offset output:
 
-```json id="aq36hl"
+```json
 {
   "consumerGroup": "analytics-service",
   "topic": "user-events",
@@ -159,7 +159,7 @@ Change Data Capture, or **CDC**, captures row-level database changes and turns t
 
 CDC is useful for synchronizing data across systems. For example, a change in the main database can update a search index, cache, analytics platform, audit log, or downstream microservice.
 
-```text id="yznf92"
+```text
 ASCII DIAGRAM: CDC Flow
 
    Database            CDC Engine                Message Broker               Consumers
@@ -175,7 +175,7 @@ ASCII DIAGRAM: CDC Flow
 
 Example database change:
 
-```sql id="wiafjk"
+```sql
 UPDATE users
 SET email = 'alice.new@example.com'
 WHERE id = 123;
@@ -183,7 +183,7 @@ WHERE id = 123;
 
 Example CDC event:
 
-```json id="62jjrs"
+```json
 {
   "operation": "update",
   "table": "users",
@@ -201,7 +201,7 @@ Example CDC event:
 
 Example downstream output:
 
-```json id="1jeq0m"
+```json
 {
   "consumer": "search-indexer",
   "action": "updated_user_document",
@@ -222,7 +222,7 @@ This approach is useful when auditability and history are important. Instead of 
 
 Example event log:
 
-```json id="zlikfw"
+```json
 [
   {
     "eventType": "AccountOpened",
@@ -244,7 +244,7 @@ Example event log:
 
 Example reconstructed state:
 
-```json id="4a123d"
+```json
 {
   "accountId": "acct-1",
   "currentBalance": 70
@@ -273,7 +273,7 @@ A hopping window has a fixed size and a fixed hop interval. If the hop interval 
 
 In the notes here, the example uses a 6-minute window with a 10-minute hop, creating gaps.
 
-```text id="386tcj"
+```text
 Hopping Window Size = 6 minutes
 Hop = 10 minutes
 
@@ -282,7 +282,7 @@ Hop = 10 minutes
 
 Example input events:
 
-```json id="86nkey"
+```json
 [
   { "timestampMinute": 1, "value": 10 },
   { "timestampMinute": 3, "value": 20 },
@@ -292,7 +292,7 @@ Example input events:
 
 Example window output:
 
-```json id="57x5ti"
+```json
 [
   {
     "window": "0-6",
@@ -313,7 +313,7 @@ Events that fall outside the active windows may not be included, depending on th
 
 Sliding windows overlap. Each window covers a fixed duration, but new windows start at smaller intervals. This allows more continuous analysis.
 
-```text id="9nc5m4"
+```text
 Sliding Window Size = 6 minutes
 Slide = 2 minutes
 
@@ -325,7 +325,7 @@ Slide = 2 minutes
 
 Example input events:
 
-```json id="s8zf79"
+```json
 [
   { "timestampMinute": 2, "value": 10 },
   { "timestampMinute": 4, "value": 20 },
@@ -335,7 +335,7 @@ Example input events:
 
 Example window output:
 
-```json id="fgu5h8"
+```json
 [
   {
     "window": "0-6",
@@ -360,7 +360,7 @@ Sliding windows are useful when applications need smooth, continuous metrics, su
 
 Tumbling windows are fixed-size, consecutive, non-overlapping windows. Every event belongs to exactly one window.
 
-```text id="whrny1"
+```text
 Tumbling Window Size = 6 minutes
 
 [0---6][6---12][12--18][18--24]
@@ -368,7 +368,7 @@ Tumbling Window Size = 6 minutes
 
 Example input events:
 
-```json id="z809mk"
+```json
 [
   { "timestampMinute": 1, "value": 10 },
   { "timestampMinute": 4, "value": 20 },
@@ -378,7 +378,7 @@ Example input events:
 
 Example window output:
 
-```json id="w5nl8m"
+```json
 [
   {
     "window": "0-6",
@@ -407,7 +407,7 @@ Common join types include:
 * **Stream-Table Join**: Joins a live stream with a static or slowly changing table.
 * **Table-Table Join**: Joins two changing datasets, often maintained through CDC or event sourcing.
 
-```text id="9pnq8p"
+```text
 ASCII DIAGRAM: Stream-Stream Join Conceptual View
 
 Stream A Orders          Join on OrderID          Stream B Payments
@@ -418,7 +418,7 @@ Stream A Orders          Join on OrderID          Stream B Payments
 
 Example order event:
 
-```json id="w8uo2b"
+```json
 {
   "eventType": "OrderCreated",
   "orderId": "order-123",
@@ -430,7 +430,7 @@ Example order event:
 
 Example payment event:
 
-```json id="49da3a"
+```json
 {
   "eventType": "PaymentReceived",
   "orderId": "order-123",
@@ -442,7 +442,7 @@ Example payment event:
 
 Example joined output:
 
-```json id="odzwvy"
+```json
 {
   "orderId": "order-123",
   "userId": "user-456",
@@ -466,7 +466,7 @@ Common fault-tolerance techniques include:
 * **Checkpointing**: Periodically saves offsets and processing state to durable storage.
 * **Idempotent operations**: Allows events to be processed again without duplicating side effects.
 
-```text id="6gmovg"
+```text
 ASCII DIAGRAM: Checkpointing Example
 
         Stream
@@ -485,7 +485,7 @@ ASCII DIAGRAM: Checkpointing Example
 
 Example checkpoint:
 
-```json id="0hrgyb"
+```json
 {
   "job": "fraud-detector",
   "topic": "transactions",
@@ -497,7 +497,7 @@ Example checkpoint:
 
 Example recovery output:
 
-```json id="qaq3ju"
+```json
 {
   "job": "fraud-detector",
   "recoveredFromOffset": 982341,
@@ -512,7 +512,7 @@ Idempotency is also important. If a processor replays an event, it should not ac
 
 Example idempotent output:
 
-```json id="t1xcta"
+```json
 {
   "eventId": "evt-123",
   "status": "already_processed",
@@ -530,7 +530,7 @@ Apache Kafka is a widely used log-based message broker. It stores events in topi
 
 Example Kafka-style event:
 
-```json id="kzpbwa"
+```json
 {
   "topic": "orders",
   "partition": 2,
@@ -547,7 +547,7 @@ Apache Flink is a stream processing engine focused on low-latency, high-throughp
 
 Example Flink-style job output:
 
-```json id="2jq090"
+```json
 {
   "job": "real-time-fraud-detection",
   "eventsPerSecond": 25000,
@@ -564,7 +564,7 @@ Apache Spark Streaming processes streams using a micro-batch model. Data is coll
 
 Example micro-batch output:
 
-```json id="462r8t"
+```json
 {
   "batchIntervalSeconds": 5,
   "recordsProcessed": 120000,
@@ -582,7 +582,7 @@ Apache Pulsar combines messaging and streaming capabilities. It supports topics,
 
 Example Pulsar-style output:
 
-```json id="smcxb8"
+```json
 {
   "topic": "persistent://production/orders/events",
   "subscription": "analytics",
@@ -607,7 +607,7 @@ Common use cases include:
 
 Example fraud detection input:
 
-```json id="cxld40"
+```json
 {
   "transactionId": "txn-123",
   "userId": "user-456",
@@ -619,7 +619,7 @@ Example fraud detection input:
 
 Example fraud detection output:
 
-```json id="8f8vdd"
+```json
 {
   "transactionId": "txn-123",
   "riskScore": 0.91,

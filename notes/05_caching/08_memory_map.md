@@ -6,7 +6,7 @@
 
 The key idea is that the application works with memory addresses, while the operating system handles paging data in and out.
 
-```text id="u4eap0"
+```text
 +---------------------+
 | Application Process |
 +----------+----------+
@@ -33,7 +33,7 @@ The key idea is that the application works with memory addresses, while the oper
 
 Example use case:
 
-```json id="qsftup"
+```json
 {
   "file": "users.dat",
   "size": "4GB",
@@ -54,13 +54,13 @@ A memory-mapped file is a file whose contents are exposed as a range of virtual 
 
 Instead of doing this:
 
-```c id="g8uz1i"
+```c
 read(fd, buffer, size);
 ```
 
 The application can do something like this:
 
-```c id="nk5o36"
+```c
 char *data = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
 char first_byte = data[0];
 ```
@@ -69,7 +69,7 @@ The application accesses `data[0]` like normal memory. If that part of the file 
 
 Example:
 
-```json id="7tdhjf"
+```json
 {
   "fileOffset": 0,
   "virtualAddress": "0x7f00...",
@@ -88,7 +88,7 @@ When a file is memory-mapped, the mapping is page-based. Accessing a byte causes
 
 Example:
 
-```text id="rl6gsm"
+```text
 File:
 Offset 0       4096       8192       12288
    | Page 0 | Page 1 | Page 2 | Page 3 |
@@ -99,7 +99,7 @@ OS loads Page 1.
 
 Example output:
 
-```json id="gy3d9y"
+```json
 {
   "accessedOffset": 5000,
   "pageSize": 4096,
@@ -117,7 +117,7 @@ For `mmap`, a page fault does not necessarily mean an error. It often means the 
 
 Example flow:
 
-```text id="i6tj7g"
+```text
 1. Application accesses mapped address.
 2. Page is not in RAM.
 3. CPU triggers page fault.
@@ -127,7 +127,7 @@ Example flow:
 
 Example page fault result:
 
-```json id="39y8ow"
+```json
 {
   "event": "page_fault",
   "pageLoadedFrom": "disk",
@@ -145,7 +145,7 @@ With `read()`, the kernel copies data from the page cache into an application bu
 
 Simplified comparison:
 
-```text id="c588z9"
+```text
 read():
 Disk -> OS page cache -> copy into user buffer -> application
 
@@ -155,7 +155,7 @@ Disk -> OS page cache -> mapped into process address space -> application
 
 Example:
 
-```json id="1npa0b"
+```json
 {
   "read": "requires explicit syscall and copy into buffer",
   "mmap": "uses page faults and mapped pages"
@@ -170,7 +170,7 @@ A simple example is mapping a file and reading bytes from it.
 
 Example C code:
 
-```c id="t24lsg"
+```c
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -208,13 +208,13 @@ int main() {
 
 Example file:
 
-```text id="1cuvj6"
+```text
 Hello mmap!
 ```
 
 Example output:
 
-```text id="5hgv09"
+```text
 First byte: H
 ```
 
@@ -239,19 +239,19 @@ Common flags:
 
 Example read-only mapping:
 
-```c id="um5kki"
+```c
 mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
 ```
 
 Example read-write mapping:
 
-```c id="9z3fbo"
+```c
 mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 ```
 
 Example result:
 
-```json id="85wsfp"
+```json
 {
   "protection": ["read", "write"],
   "writesAllowed": true
@@ -266,7 +266,7 @@ Do not map data as executable unless you truly need executable memory. Executabl
 
 Example:
 
-```c id="8w1q63"
+```c
 char *data = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
 data[0] = 'X';
 ```
@@ -275,7 +275,7 @@ The process sees the modified byte, but the file is unchanged.
 
 Example:
 
-```json id="ml34l2"
+```json
 {
   "mapping": "MAP_PRIVATE",
   "processSeesChange": true,
@@ -291,7 +291,7 @@ Example:
 
 Example:
 
-```c id="mljv0d"
+```c
 char *data = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 data[0] = 'X';
 msync(data, size, MS_SYNC);
@@ -299,7 +299,7 @@ msync(data, size, MS_SYNC);
 
 Example result:
 
-```json id="1ikfd4"
+```json
 {
   "mapping": "MAP_SHARED",
   "fileChanged": true,
@@ -315,7 +315,7 @@ Example result:
 
 Example:
 
-```c id="tpko4g"
+```c
 void *mem = mmap(
     NULL,
     4096,
@@ -328,7 +328,7 @@ void *mem = mmap(
 
 Example result:
 
-```json id="b77beo"
+```json
 {
   "mapping": "anonymous",
   "backingFile": false,
@@ -354,7 +354,7 @@ Both `mmap` and `read()` can be used to access file data, but they have differen
 
 Example sequential read:
 
-```c id="1xqcrb"
+```c
 while ((n = read(fd, buffer, sizeof(buffer))) > 0) {
     process(buffer, n);
 }
@@ -364,7 +364,7 @@ This is simple and often excellent for streaming through a file once.
 
 Example random access with `mmap`:
 
-```c id="l9iays"
+```c
 record = data + record_offset;
 process(record);
 ```
@@ -373,7 +373,7 @@ This is convenient when the application frequently jumps to different offsets.
 
 Example decision:
 
-```json id="ly6h0t"
+```json
 {
   "useReadFor": "simple sequential streaming",
   "useMmapFor": "large files with random or repeated access"
@@ -392,7 +392,7 @@ If a file is large and the application needs random access to parts of it, `mmap
 
 Example:
 
-```json id="hzrtt2"
+```json
 {
   "file": "index.bin",
   "size": "20GB",
@@ -403,7 +403,7 @@ Example:
 
 Example access:
 
-```c id="frxcn0"
+```c
 char *record = mapped_file + offset;
 ```
 
@@ -415,7 +415,7 @@ Some storage engines use memory-mapped files to access database pages. Instead o
 
 Example conceptual database page access:
 
-```text id="mg6z8p"
+```text
 Database needs page 42.
 Page 42 corresponds to file offset 42 * page_size.
 Storage engine reads mapped memory at that offset.
@@ -424,7 +424,7 @@ OS loads page if needed.
 
 Example:
 
-```json id="3mbhix"
+```json
 {
   "databasePage": 42,
   "pageSize": 4096,
@@ -440,7 +440,7 @@ Search engines often store index segments as immutable files. `mmap` is a good f
 
 Example:
 
-```json id="voy002"
+```json
 {
   "segment": "index_segment_17",
   "mapping": "read-only",
@@ -456,7 +456,7 @@ Multiple processes can map the same file with `MAP_SHARED` and communicate throu
 
 Example:
 
-```text id="0bn4fo"
+```text
 Process A maps shared.dat.
 Process B maps shared.dat.
 Process A writes value.
@@ -465,7 +465,7 @@ Process B reads value.
 
 Example shared state:
 
-```json id="s5d28x"
+```json
 {
   "sharedCounter": 42,
   "visibleToProcesses": ["process-a", "process-b"]
@@ -480,7 +480,7 @@ Some systems use memory-mapped files for append-heavy logs or queue-like structu
 
 Example:
 
-```json id="gqiaov"
+```json
 {
   "file": "commit.log",
   "mapping": "MAP_SHARED",
@@ -499,14 +499,14 @@ To force flushing, applications can use `msync`.
 
 Example:
 
-```c id="yy9ya6"
+```c
 data[0] = 'X';
 msync(data, size, MS_SYNC);
 ```
 
 Example result:
 
-```json id="19hrxr"
+```json
 {
   "writeVisibleInMemory": true,
   "msyncCalled": true,
@@ -516,7 +516,7 @@ Example result:
 
 Important distinction:
 
-```text id="0ch1kx"
+```text
 Writing to mmap memory changes the mapped page.
 It does not automatically mean the data is safely persisted to disk immediately.
 ```
@@ -525,7 +525,7 @@ If the system crashes before dirty pages are flushed, recent changes may be lost
 
 For stronger durability, applications may need:
 
-```text id="0sna90"
+```text
 msync()
 fsync()
 careful write ordering
@@ -546,7 +546,7 @@ This is why database systems must be careful when using `mmap` for writable file
 
 Example benefit:
 
-```json id="jyd802"
+```json
 {
   "workload": "random reads from large immutable index",
   "benefit": "OS loads only touched pages"
@@ -555,7 +555,7 @@ Example benefit:
 
 It can also simplify code for random access:
 
-```c id="dn4i9h"
+```c
 uint32_t value = *(uint32_t *)(data + offset);
 ```
 
@@ -567,7 +567,7 @@ The file behaves like a memory array.
 
 Example problem:
 
-```json id="ilxla3"
+```json
 {
   "accessPattern": "random access across 500GB file",
   "ram": "32GB",
@@ -587,7 +587,7 @@ For random access, `mmap` can be more convenient and sometimes faster because th
 
 Example decision:
 
-```json id="xsn8fd"
+```json
 {
   "sequentialLogProcessing": "read() is often simpler",
   "randomIndexLookup": "mmap may be convenient and efficient"
@@ -606,7 +606,7 @@ If a file is mapped and another process truncates it, the original process may c
 
 Example:
 
-```text id="45sqqo"
+```text
 Process A maps file of size 1GB.
 Process B truncates file to 1MB.
 Process A accesses offset 500MB.
@@ -615,7 +615,7 @@ Process A receives SIGBUS.
 
 Example risk:
 
-```json id="3bactb"
+```json
 {
   "error": "SIGBUS",
   "cause": "mapped region no longer backed by file"
@@ -630,13 +630,13 @@ Accessing beyond the mapped size is unsafe and may crash the process.
 
 Example:
 
-```c id="dgzlj3"
+```c
 char value = data[size + 10]; // invalid access
 ```
 
 Example result:
 
-```json id="nxzc6y"
+```json
 {
   "access": "out of bounds",
   "result": "undefined behavior or crash"
@@ -651,7 +651,7 @@ If multiple processes write to the same mapped region, the result can be corrupt
 
 Example unsafe behavior:
 
-```text id="4m7ut4"
+```text
 Process A writes counter = counter + 1.
 Process B writes counter = counter + 1.
 Both read old value 10.
@@ -661,7 +661,7 @@ Expected 12, actual 11.
 
 Example output:
 
-```json id="54o6ke"
+```json
 {
   "expectedCounter": 12,
   "actualCounter": 11,
@@ -677,7 +677,7 @@ Writable mappings can corrupt files if the process crashes halfway through an up
 
 Example:
 
-```json id="h3ua00"
+```json
 {
   "operation": "update record header and body",
   "crashAfter": "header updated",
@@ -696,7 +696,7 @@ In system design, `mmap` often appears when discussing storage engines, search s
 
 `mmap` is a good fit when:
 
-```text id="fyqvew"
+```text
 The file is large.
 Access is random or repeated.
 The file format is offset-addressable.
@@ -707,7 +707,7 @@ The application benefits from simpler pointer-like access.
 
 Example:
 
-```json id="lxx1yl"
+```json
 {
   "system": "search index server",
   "data": "immutable index segments",
@@ -721,7 +721,7 @@ Immutable or append-only files are especially good candidates because they avoid
 
 `mmap` may be a poor fit when:
 
-```text id="5hf1i7"
+```text
 The file changes size frequently.
 The file may be truncated by other processes.
 The workload is simple sequential streaming.
@@ -732,7 +732,7 @@ The data requires complex transactional durability.
 
 Example:
 
-```json id="o4e3mq"
+```json
 {
   "system": "high-throughput transactional database",
   "concern": "needs explicit buffer pool and write ordering",
@@ -748,13 +748,13 @@ Suppose an application has a large read-only binary lookup table. Each record is
 
 Record location:
 
-```text id="7n7o5r"
+```text
 offset = record_id * 128
 ```
 
 Example:
 
-```json id="uryepb"
+```json
 {
   "recordId": 1000,
   "recordSize": 128,
@@ -764,13 +764,13 @@ Example:
 
 With `mmap`, the application can jump directly to that offset:
 
-```c id="i0y8a2"
+```c
 char *record = data + (record_id * 128);
 ```
 
 Example result:
 
-```json id="3cl8ov"
+```json
 {
   "lookup": "record 1000",
   "method": "direct offset into mapped file",
@@ -786,19 +786,19 @@ Two processes can share a memory-mapped file for fast local metrics exchange.
 
 Process A writes:
 
-```c id="7vyjk5"
+```c
 metrics->request_count += 1;
 ```
 
 Process B reads:
 
-```c id="mti70b"
+```c
 printf("%lu\n", metrics->request_count);
 ```
 
 Conceptual layout:
 
-```text id="b8s497"
+```text
 +--------------------+
 | shared_metrics.dat |
 +--------------------+
@@ -810,7 +810,7 @@ Conceptual layout:
 
 Example output:
 
-```json id="3ngqgi"
+```json
 {
   "request_count": 154220,
   "error_count": 32
@@ -825,7 +825,7 @@ Some databases rely on the OS page cache through `mmap`, while others implement 
 
 #### mmap / OS Page Cache Approach
 
-```text id="jewhtd"
+```text
 Database reads mapped file.
 OS decides which pages stay in RAM.
 Page faults load data when touched.
@@ -833,7 +833,7 @@ Page faults load data when touched.
 
 Benefits:
 
-```json id="hfcwo0"
+```json
 {
   "benefit": [
     "simpler storage engine code",
@@ -845,7 +845,7 @@ Benefits:
 
 #### Explicit Buffer Pool Approach
 
-```text id="4sxbav"
+```text
 Database issues read/write calls.
 Database manages its own page cache.
 Database controls eviction, prefetch, and dirty page flushing.
@@ -853,7 +853,7 @@ Database controls eviction, prefetch, and dirty page flushing.
 
 Benefits:
 
-```json id="l0q2ee"
+```json
 {
   "benefit": [
     "more predictable database behavior",
@@ -871,7 +871,7 @@ Because `mmap` performance depends on paging, monitor memory and page fault beha
 
 Useful things to watch:
 
-```text id="p6zp71"
+```text
 major page faults
 minor page faults
 resident set size
@@ -884,7 +884,7 @@ swap activity
 
 Example monitoring output:
 
-```json id="v0cowg"
+```json
 {
   "minorPageFaultsPerSecond": 12000,
   "majorPageFaultsPerSecond": 4,
