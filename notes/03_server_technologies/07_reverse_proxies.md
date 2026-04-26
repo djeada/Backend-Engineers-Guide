@@ -7,7 +7,7 @@ Reverse proxies are common in modern backend architectures because they provide 
 Instead of exposing every backend server directly to the internet, teams place a reverse proxy in front of them. This hides internal server details and allows traffic to be managed centrally.
 
 ```text id="axlmmq"
-ASCII DIAGRAM: Reverse Proxy in Action
+Reverse Proxy in Action
 
           +----------------------+
           |      Internet        |
