@@ -21,11 +21,11 @@ High-Level Load Balancing
       Distributes requests
               v
   +-----------+-----------+
-  |    Server 1 (S1)     |
+  |    Server 1 (S1)      |
   +-----------+-----------+
-  |    Server 2 (S2)     |
+  |    Server 2 (S2)      |
   +-----------+-----------+
-  |    Server 3 (S3)     |
+  |    Server 3 (S3)      |
   +-----------+-----------+
 ```
 
@@ -51,8 +51,6 @@ Example output:
 ```
 
 The client does not need to know which backend server handled the request. The load balancer hides the server pool and presents a single stable entry point.
-
----
 
 ### Significance of Load Balancing
 
@@ -81,15 +79,11 @@ Example scaling output:
 
 This shows how adding servers behind a load balancer can reduce resource pressure and improve response times.
 
----
-
 ### How Load Balancers Work
 
 Load balancers use routing rules and algorithms to decide where each request should go. The decision may be based on server health, connection count, response time, bandwidth usage, client IP, cookies, request path, headers, or backend capacity.
 
 A simple load balancer might send requests to servers in order. A more advanced load balancer might inspect application-level data and route `/api` requests to one cluster while sending `/static` requests to another.
-
----
 
 #### Health Checks
 
@@ -135,15 +129,11 @@ Example load balancer decision:
 
 Health checks prevent the load balancer from sending users to broken or overloaded servers.
 
----
-
-## Traffic Distribution Techniques
+### Traffic Distribution Techniques
 
 Different load balancing algorithms work better for different kinds of applications. Some are simple and predictable. Others are more adaptive and consider real-time server conditions.
 
----
-
-### 1. Least Connection
+#### 1. Least Connection
 
 The least connection algorithm sends each new request to the server with the fewest active connections. This is useful when requests vary in duration.
 
@@ -176,9 +166,7 @@ Example decision:
 
 Least connection is useful for APIs, file uploads, WebSockets, and systems where requests may have very different lifetimes.
 
----
-
-### 2. Least Response Time
+#### 2. Least Response Time
 
 Least response time considers both server latency and active connections. It attempts to route requests to the server that is likely to respond fastest.
 
@@ -214,9 +202,7 @@ Example decision:
 
 This strategy can improve user experience because it responds to actual server performance rather than simply counting requests.
 
----
-
-### 3. Least Bandwidth
+#### 3. Least Bandwidth
 
 Least bandwidth sends new requests to the server currently using the least network bandwidth. This is useful when responses are large or when servers handle different payload sizes.
 
@@ -243,9 +229,7 @@ Example decision:
 
 This helps avoid saturating one server’s network interface while others still have available capacity.
 
----
-
-### 4. Round Robin
+#### 4. Round Robin
 
 Round robin distributes requests sequentially across the server pool. If there are three servers, the first request goes to Server 1, the second to Server 2, the third to Server 3, and then the cycle repeats.
 
@@ -295,9 +279,7 @@ Server 1 → Server 2 → Server 2 → Server 3 → Server 1 → Server 2 → Se
 
 Server 2 receives more requests because it has a higher weight.
 
----
-
-### 5. IP Hash
+#### 5. IP Hash
 
 IP hash uses the client’s IP address to select a backend server. The same client IP usually maps to the same backend server.
 
@@ -321,9 +303,7 @@ Example output:
 
 The downside is that traffic may become uneven if many users come from the same NAT gateway, office network, or mobile carrier IP range. It also depends on the stability of the client IP address.
 
----
-
-### 6. Consistent Hashing
+#### 6. Consistent Hashing
 
 Consistent hashing maps requests, session IDs, cache keys, or user IDs onto a hash ring. Servers are also placed on the ring. A request goes to the server closest to its hash position.
 
@@ -349,9 +329,7 @@ Example output after adding a server:
 
 Consistent hashing helps preserve cache locality. Most users or keys continue going to the same server even after the cluster changes.
 
----
-
-### 7. Layer 7 Load Balancing
+#### 7. Layer 7 Load Balancing
 
 Layer 7 load balancing operates at the application layer. It can inspect HTTP headers, paths, methods, cookies, hostnames, and sometimes request bodies.
 
@@ -380,7 +358,7 @@ Example output:
 Layer 7 load balancing is powerful, but it requires more processing because the load balancer must inspect application-level data. It is common in reverse proxies, API gateways, ingress controllers, and cloud application load balancers.
 
 ```text
-ASCII DIAGRAM: Multiple Load Balancing Methods
+Multiple Load Balancing Methods
 
            +------------------+
            |   Load Balancer  |
@@ -396,17 +374,13 @@ ASCII DIAGRAM: Multiple Load Balancing Methods
 +----------------+            +----------------+
 ```
 
----
-
-## Load Balancer Resilience
+### Load Balancer Resilience
 
 A load balancer improves resilience for backend servers, but the load balancer itself can become a single point of failure if it is not deployed carefully.
 
 If all traffic must pass through one load balancer and that load balancer fails, the entire application may become unreachable. Production systems usually use redundancy to avoid this.
 
----
-
-### 1. Load Balancer Clustering
+#### 1. Load Balancer Clustering
 
 Load balancer clustering runs multiple load balancers together. They may operate in active-active or active-passive mode.
 
@@ -434,9 +408,7 @@ Example active-passive output:
 
 A heartbeat mechanism can monitor whether each load balancer node is still alive.
 
----
-
-### 2. Active-Passive Pair
+#### 2. Active-Passive Pair
 
 In an active-passive setup, one load balancer is active and the other is on standby. If the active load balancer fails, the passive one takes over.
 
@@ -464,9 +436,7 @@ Example output:
 
 This prevents one load balancer failure from taking down the whole service.
 
----
-
-### 3. DNS-Based Load Balancing
+#### 3. DNS-Based Load Balancing
 
 DNS-based load balancing distributes traffic by returning different IP addresses for the same hostname. For example, `app.example.com` may resolve to multiple load balancer IPs.
 
@@ -494,13 +464,11 @@ Example output:
 
 DNS-based load balancing can be useful, but it has limitations. DNS caching means clients may continue using an old IP until the TTL expires. For this reason, DNS load balancing is often combined with health checks and low TTL values.
 
----
-
-## Best Practices for Load Balancing
+### Best Practices for Load Balancing
 
 A load balancer should be configured with both performance and reliability in mind. Poor configuration can cause uneven traffic, failed requests, duplicate writes, or unnecessary latency.
 
-### Use Health Checks
+#### Use Health Checks
 
 Health checks should verify that a server is truly ready to handle requests. A simple process check may not be enough. A good health check may confirm that the application is running, dependencies are reachable, and the server is not in a maintenance state.
 
@@ -514,9 +482,7 @@ Example health response:
 }
 ```
 
----
-
-### Monitor Performance
+#### Monitor Performance
 
 Track metrics such as requests per second, latency, error rates, backend health, active connections, queue depth, and response codes.
 
@@ -535,9 +501,7 @@ Example monitoring output:
 
 These metrics help teams detect uneven traffic distribution, slow servers, overload, or failing backends.
 
----
-
-### Enable TLS Offloading
+#### Enable TLS Offloading
 
 TLS offloading means the load balancer handles HTTPS encryption and decryption. Backend servers can then receive plain HTTP traffic or use internal TLS depending on security requirements.
 
@@ -553,9 +517,7 @@ Example output:
 
 For sensitive internal environments, teams may still use TLS or mutual TLS between the load balancer and backend services.
 
----
-
-### Implement Caching
+#### Implement Caching
 
 If the load balancer or edge layer supports caching, it can serve repeated requests directly without forwarding them to backend servers.
 
@@ -579,9 +541,7 @@ Example output:
 
 Caching is especially useful for static assets, public pages, and read-heavy endpoints that do not change frequently.
 
----
-
-### Use Session Persistence Carefully
+#### Use Session Persistence Carefully
 
 Some applications need sticky sessions, meaning the same client must keep going to the same backend. This can be done with IP hash, cookies, or session-aware routing.
 
@@ -603,9 +563,7 @@ Example output:
 
 Sticky sessions are useful, but they can reduce load-balancing flexibility. If a sticky backend fails, the user’s session may be interrupted unless session state is stored in a shared database or cache.
 
----
-
-### Automate Scaling
+#### Automate Scaling
 
 Load balancer configuration should integrate with auto-scaling systems. When new servers are added, they should automatically join the backend pool after passing health checks. When servers are removed, they should be drained gracefully.
 
