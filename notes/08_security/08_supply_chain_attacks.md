@@ -6,8 +6,6 @@ This is especially dangerous because modern backend systems depend on many exter
 
 High-profile incidents such as SolarWinds, the XZ Utils backdoor, the npm `event-stream` compromise, and typosquatting campaigns show that supply chain attacks are realistic threats. They are difficult to detect because the malicious code may enter through a legitimate-looking package, trusted maintainer account, or signed build artifact.
 
----
-
 ## What Is a Software Supply Chain?
 
 A software supply chain includes every system, tool, package, script, and process involved in building and deploying software. This includes the developer workstation, source repository, package registry, build pipeline, container registry, deployment platform, and production environment.
@@ -56,13 +54,9 @@ Example supply chain risk:
 
 The key problem is trust. Developers often assume that dependencies, build tools, and package registries are safe. Supply chain attacks exploit that trust.
 
----
-
 ## Common Attack Vectors
 
 Supply chain attacks can happen at many points in the software lifecycle. Some attacks target package names, others target maintainers, build systems, pull requests, or distribution channels.
-
----
 
 ### Dependency Confusion
 
@@ -116,8 +110,6 @@ acme-internal-utils==1.2.0 \
 
 Hash pinning ensures that even if a package name resolves unexpectedly, the content must match the expected hash.
 
----
-
 ### Typosquatting
 
 Typosquatting happens when attackers publish packages with names that look similar to legitimate packages. The goal is to trick developers into installing the wrong package by mistake.
@@ -157,9 +149,6 @@ Example allow-list result:
   "reason": "not on approved dependency list"
 }
 ```
-
----
-
 ### Compromised Maintainer Account
 
 A compromised maintainer account occurs when an attacker gains access to the account of a legitimate package maintainer. This may happen through phishing, credential stuffing, stolen tokens, or takeover of an abandoned package.
@@ -212,8 +201,6 @@ Example safer upgrade process:
   "status": "pending_review"
 }
 ```
-
----
 
 ### Build System Compromise
 
@@ -277,8 +264,6 @@ uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
 
 A tag such as `@v4` can change over time, while a commit SHA points to exact code.
 
----
-
 ### Malicious Pull Requests and Code Injection
 
 Open-source projects and internal repositories can be targeted with malicious pull requests. The attacker may submit code that appears useful but contains subtle backdoors, unsafe build changes, or hidden dependency updates.
@@ -314,8 +299,6 @@ Example safer policy:
   "criticalPathChangesRequireTwoApprovals": true
 }
 ```
-
----
 
 ### Protestware and Intentional Sabotage
 
@@ -418,15 +401,11 @@ Example scan output:
 
 The SBOM should be stored as a build artifact so it can be used later during incident response.
 
----
-
 ## Dependency Pinning and Integrity Verification
 
 Dependency pinning ensures that builds use known versions of dependencies instead of automatically pulling the newest available release. Integrity verification ensures that the downloaded content matches what was expected.
 
 Together, these controls reduce the risk of unexpected dependency changes.
-
----
 
 ### Lock Files
 
@@ -453,8 +432,6 @@ Example lock file benefit:
 ```
 
 Always commit lock files for applications. Without them, different developers or CI runs may resolve different dependency versions.
-
----
 
 ### Hash Pinning
 
@@ -499,8 +476,6 @@ npm lock files include integrity metadata automatically:
 
 Hash verification gives confidence that the installed package content is exactly what the lock file expected.
 
----
-
 ## Artifact Signing and Provenance
 
 Artifact signing proves that a build artifact came from a trusted source and has not been modified after signing. Provenance describes how the artifact was built, including source repository, commit, workflow, builder, and build parameters.
@@ -511,8 +486,6 @@ These controls help answer two important questions:
 Who built this artifact?
 Was it built from the expected source using the expected process?
 ```
-
----
 
 ### Sigstore and Cosign
 
@@ -545,8 +518,6 @@ Example verification output:
 ```
 
 This helps deployment systems reject unsigned or incorrectly signed artifacts.
-
----
 
 ### SLSA Framework
 
@@ -583,8 +554,6 @@ Example provenance output:
 
 SLSA helps organizations move from “we built this somehow” to “we can prove how this was built.”
 
----
-
 ### Reproducible Builds
 
 A reproducible build produces identical output from the same source code, dependencies, and build instructions. This allows independent parties to verify that a binary matches the claimed source.
@@ -602,13 +571,9 @@ Example reproducible build result:
 
 If two independent builds produce different outputs, teams should investigate whether the build contains timestamps, machine-specific paths, random values, or possible tampering.
 
----
-
 ## Dependency Auditing and Automated Updates
 
 Dependency auditing helps teams identify known vulnerabilities and suspicious package behavior. Automated update tools help keep dependencies current, but updates still need review and testing.
-
----
 
 ### Automated Vulnerability Alerts
 
@@ -641,8 +606,6 @@ Example scan output:
 
 Automated tools are helpful, but they should not blindly deploy every dependency update to production without tests.
 
----
-
 ### Manual Dependency Review
 
 Before adding a new package, review whether it is trustworthy and necessary. Every dependency increases the attack surface.
@@ -669,8 +632,6 @@ Example review output:
 ```
 
 Small packages can still carry major risk. If a package provides only a few lines of functionality, it may be safer to implement that logic internally.
-
----
 
 ## Network-Level Mitigations
 
@@ -720,13 +681,11 @@ Example approved package:
 
 Private proxies help prevent dependency confusion, enforce allow-lists, cache known-good packages, and provide audit logs.
 
----
-
 ## Incident Response for Supply Chain Compromises
 
 When a supply chain compromise is discovered, teams must move quickly. The goal is to identify affected systems, stop active exploitation, deploy clean artifacts, rotate exposed secrets, and prevent recurrence.
 
-### 1. Identify Blast Radius
+### Identify Blast Radius
 
 Use the SBOM to determine which services include the affected component and which versions are vulnerable.
 
@@ -740,7 +699,7 @@ Example blast radius output:
 }
 ```
 
-### 2. Isolate
+### Isolate
 
 If a service is actively running malicious code, remove it from rotation or restrict its access.
 
@@ -752,7 +711,7 @@ If a service is actively running malicious code, remove it from rotation or rest
 }
 ```
 
-### 3. Patch
+### Patch
 
 Pin to a clean version and redeploy. If no clean version exists, fork and patch internally or remove the dependency.
 
@@ -765,7 +724,7 @@ Pin to a clean version and redeploy. If no clean version exists, fork and patch 
 }
 ```
 
-### 4. Verify
+### Verify
 
 Confirm the new deployment does not include the compromised version.
 
@@ -777,7 +736,7 @@ Confirm the new deployment does not include the compromised version.
 }
 ```
 
-### 5. Rotate Secrets
+### Rotate Secrets
 
 Assume any secret accessible to the compromised process may have leaked. Revoke and rotate database passwords, API keys, cloud credentials, signing tokens, and service tokens.
 
@@ -792,7 +751,7 @@ Assume any secret accessible to the compromised process may have leaked. Revoke 
 }
 ```
 
-### 6. Post-Mortem
+### Post-Mortem
 
 After containment, determine how the dependency or artifact entered production. Update policies and tooling to prevent the same path from being used again.
 
