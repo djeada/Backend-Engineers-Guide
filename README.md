@@ -33,8 +33,6 @@ A comprehensive collection of backend engineering notes, covering essential topi
 
 This guide is designed to provide practical insights and real-world examples for backend engineers. Each topic is organized into its own Markdown file within the `notes` directory, making it easy to navigate and reference specific areas of interest.
 
-**Key Features:**
-
 - **Comprehensive Coverage** – Spans the full backend engineering landscape from API design to distributed systems
 - **Practical Focus** – Emphasizes real-world applications and industry best practices
 - **Regularly Updated** – Content is continuously refined to reflect current technologies and methodologies
