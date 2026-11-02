@@ -75,6 +75,7 @@ Browse the topics by navigating through the `notes` directory, or view the conte
 | gRPC | High-performance RPC framework using Protocol Buffers | [📖 Read](notes/01_api_design/04_grpc.md) |
 | Stateful vs Stateless | State management patterns in API design | [📖 Read](notes/01_api_design/05_state_management.md) |
 | Data Transmission | Methods and protocols for data exchange | [📖 Read](notes/01_api_design/06_data_transmission.md) |
+| Browser DevTools for API Investigation | Practical guide to inspecting API traffic, documentation, browser storage, frontend code, and performance using HackerTube | [📖 Read](notes/01_api_design/07_browser_devtools_api_investigation.md) |
 
 ---
 
